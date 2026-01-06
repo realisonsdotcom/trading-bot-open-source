@@ -1,4 +1,12 @@
-# Observabilité des microservices
+---
+title: Observability Stack
+domain: 3_operations
+description: Logging, metrics, Prometheus, and Grafana setup for services.
+keywords: [observability, logging, metrics, prometheus, grafana]
+last_updated: 2026-01-06
+---
+
+# Observabilite des microservices
 
 Cette section décrit la configuration commune ajoutée à l'ensemble des services FastAPI :
 
@@ -40,7 +48,7 @@ L'endpoint `/metrics` est exclu de la documentation OpenAPI mais renvoie les mé
 Le fichier `docker-compose.yml` expose deux nouveaux services :
 
 - `prometheus` (port `9090`) chargé avec `infra/prometheus/prometheus.yml` et les règles d'alerte `infra/prometheus/alert_rules.yml` ;
-- `grafana` (port `3000`) pré-provisionné avec une source de données Prometheus et le tableau de bord `docs/observability/dashboards/fastapi-overview.json`.
+- `grafana` (port `3000`) pre-provisionne avec une source de donnees Prometheus et le tableau de bord `docs/domains/3_operations/observability/dashboards/fastapi-overview.json`.
 
 ### Démarrage rapide
 
@@ -57,4 +65,4 @@ Les règles Prometheus fournies déclenchent :
 - **FastAPIHighLatency** : latence moyenne > 500 ms sur 5 minutes (`severity: warning`).
 - **FastAPIHighErrorRate** : taux de 5xx > 5 % sur 10 minutes (`severity: critical`).
 
-La procédure d'escalade associée est détaillée dans `docs/operations/alerting.md`.
+La procedure d'escalade associee est detaillee dans `docs/domains/3_operations/operations/alerting.md`.

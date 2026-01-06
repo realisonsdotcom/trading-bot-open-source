@@ -1,3 +1,11 @@
+---
+title: MVP Sandbox Flow
+domain: 3_operations
+description: Sandbox workflow linking market data, algo-engine, and order-router for MVP flow.
+keywords: [mvp, sandbox, operations, order-router, market-data, algo-engine]
+last_updated: 2026-01-06
+---
+
 # Parcours MVP en environnement sandbox
 
 Ce guide décrit le flux cible entre les services `market_data`, `algo-engine` et `order-router`
