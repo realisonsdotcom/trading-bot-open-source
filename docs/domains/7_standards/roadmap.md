@@ -1,3 +1,15 @@
+---
+domain: 7_standards
+title: Product Roadmap 2025-2026
+description: Quarterly milestones and strategic objectives for platform development
+keywords: roadmap, milestones, planning, strategy, releases, quarters
+last_updated: 2026-01-06
+related:
+  - tasks/2025-q4-backlog.md
+  - project-evaluation.md
+  - ../5_community/release-highlights/
+---
+
 # Feuille de route 2025 → 2026
 
 Cette feuille de route est alignée sur la revue de code de novembre 2025. Les points marquants par domaine sont détaillés dans `docs/release-highlights/2025-12.md`. Elle met en avant les

@@ -1,3 +1,14 @@
+---
+domain: 7_standards
+title: Trading Bot Project Evaluation
+description: Comprehensive project assessment covering architecture, code quality, and roadmap
+keywords: evaluation, assessment, architecture, code-review, project-status
+last_updated: 2026-01-06
+related:
+  - roadmap.md
+  - tasks/2025-q4-backlog.md
+---
+
 # Évaluation du projet Trading Bot Open Source
 
 _Date de l'évaluation : novembre 2025_
