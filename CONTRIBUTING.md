@@ -2,6 +2,16 @@
 
 [English](#english-guide) | [Français](#guide-francais)
 
+## 🤖 For AI Agents
+
+If you are a CLI AI agent contributing to this project, you MUST read these documents first:
+
+1. [AGENTS.md](AGENTS.md) - Development contract for AI agents
+2. [INDEX.md](INDEX.md) - Main documentation index
+3. [docs/DOCUMENTATION-GUIDE-FOR-AGENTS.md](docs/DOCUMENTATION-GUIDE-FOR-AGENTS.md) - Documentation workflow
+
+---
+
 <a id="english-guide"></a>
 ## English Guide
 
