@@ -35,7 +35,8 @@ export function UserMenu() {
 
       try {
         const token = await getAccessTokenSilently()
-        const response = await fetch('http://localhost:8012/auth/user', {
+        const authGatewayUrl = import.meta.env.VITE_AUTH_GATEWAY_URL || 'http://localhost:8012'
+        const response = await fetch(`${authGatewayUrl}/auth/user`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -68,9 +69,10 @@ export function UserMenu() {
   }, [isOpen])
 
   const handleLogout = () => {
+    const authPortalUrl = import.meta.env.VITE_AUTH_PORTAL_URL || window.location.origin
     logout({
       logoutParams: {
-        returnTo: window.location.origin,
+        returnTo: authPortalUrl,
       },
     })
   }
@@ -86,7 +88,7 @@ export function UserMenu() {
   if (!isAuthenticated) {
     return (
       <a
-        href="http://localhost:3000"
+        href={import.meta.env.VITE_AUTH_PORTAL_URL || 'http://localhost:3000'}
         className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
       >
         Sign In

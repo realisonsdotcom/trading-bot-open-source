@@ -117,6 +117,9 @@ Callback Auth0 après authentification.
 - `code`: Authorization code from Auth0
 - `state`: State parameter (optional)
 
+**Headers (SPA flow)**:
+- `Authorization: Bearer <access_token>`: Utiliser directement un access token Auth0 (pas de `code` requis)
+
 **Response**: `UserSessionResponse`
 ```json
 {

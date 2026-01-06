@@ -1,7 +1,7 @@
 """Auth Gateway Service - Main application."""
 import secrets
 from datetime import datetime, timezone, timedelta
-from fastapi import FastAPI, Depends, HTTPException, status, Request, Response, Header
+from fastapi import FastAPI, Depends, HTTPException, status, Request, Response, Header, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, RedirectResponse
 from sqlalchemy.orm import Session
@@ -11,7 +11,6 @@ from app.database import get_db
 from app.models import Auth0User, UserSession
 from app.schemas import (
     LoginCallbackRequest,
-    LogoutRequest,
     UserSessionResponse,
     HealthResponse,
     ErrorResponse,
@@ -68,9 +67,11 @@ async def login_redirect():
 @app.post("/auth/callback", response_model=UserSessionResponse, tags=["Authentication"])
 @app.get("/auth/callback", response_model=UserSessionResponse, tags=["Authentication"])
 async def auth_callback(
-    code: str,
+    code: str | None = None,
     state: str | None = None,
-    response: Response = None,
+    authorization: str | None = Header(default=None),
+    payload: LoginCallbackRequest | None = Body(default=None),
+    response: Response,
     db: Session = Depends(get_db),
 ):
     """
@@ -85,23 +86,49 @@ async def auth_callback(
     6. Return session info
     """
     try:
-        # Exchange code for tokens
-        tokens = await auth0_client.exchange_code_for_tokens(
-            code=code,
-            redirect_uri=settings.auth0_callback_url,
-        )
+        if payload and not code:
+            code = payload.code
+            state = payload.state
 
-        access_token = tokens["access_token"]
-        id_token = tokens.get("id_token")
+        access_token: str | None = None
+        if authorization:
+            if not authorization.startswith("Bearer "):
+                raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid authorization header",
+                )
+            access_token = authorization[7:]
+
+        if not access_token:
+            if not code:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Missing authorization code or access token",
+                )
+            tokens = await auth0_client.exchange_code_for_tokens(
+                code=code,
+                redirect_uri=settings.auth0_callback_url,
+            )
+            access_token = tokens.get("access_token")
+
+        if not access_token:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Auth0 did not return access token",
+            )
 
         # Validate and decode access token
-        payload = await auth0_client.validate_token(access_token)
+        token_payload = await auth0_client.validate_token(access_token)
+
+        # Fetch user info to capture email/name
+        auth0_user_info = await auth0_client.get_userinfo(access_token)
 
         # Sync user with local database
         auth0_user = await user_sync_service.sync_auth0_user(
             db=db,
-            auth0_sub=payload.sub,
-            email=payload.sub.split("|")[1] if "|" in payload.sub else payload.sub,  # Fallback
+            auth0_sub=token_payload.sub,
+            email=auth0_user_info.email,
+            auth0_user_info=auth0_user_info,
         )
 
         # Fetch entitlements
@@ -114,8 +141,8 @@ async def auth_callback(
         user_session = UserSession(
             session_id=session_id,
             local_user_id=auth0_user.local_user_id,
-            auth0_sub=payload.sub,
-            access_token_jti=payload.sub,  # Use sub as identifier
+            auth0_sub=token_payload.sub,
+            access_token_jti=token_payload.sub,  # Use sub as identifier
             expires_at=expires_at,
         )
         db.add(user_session)
@@ -138,8 +165,8 @@ async def auth_callback(
             email=auth0_user.email,
             name=auth0_user.name,
             picture=auth0_user.picture,
-            plan_code=payload.plan_code,
-            roles=payload.roles or [],
+            plan_code=token_payload.plan_code,
+            roles=token_payload.roles or [],
             expires_at=expires_at,
             capabilities=entitlements.get("capabilities", {}),
             quotas=entitlements.get("quotas", {}),

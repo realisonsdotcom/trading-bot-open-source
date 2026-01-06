@@ -43,7 +43,7 @@ Services expose the following ports by default:
 | --------- | ---------- | ------- |
 | Web dashboard | http://localhost:8022 | End-user UI for onboarding, status and backtesting |
 | Auth service | http://localhost:8011 | Account registration, login and token refresh |
-| User service | http://localhost:8012 | Stores profile information and demo personas |
+| User service | http://localhost:8001 | Stores profile information and demo personas |
 | Order router | http://localhost:8013 | Relays orders to the execution venues |
 | Algo engine | http://localhost:8014 | Runs strategies and backtests |
 | Reports service | http://localhost:8016 | Generates and serves performance reports |
@@ -129,7 +129,7 @@ automated tests, CI or air-gapped environments), you can still call the services
 curl -X POST http://localhost:8011/auth/register -H 'Content-Type: application/json' -d '{"email":"demo@example.com","password":"ValidPass123!"}'
 
 export DEMO_TOKEN=$(python -c 'from datetime import datetime, timezone; from jose import jwt; print(jwt.encode({"sub": "auth_service", "iat": int(datetime.now(timezone.utc).timestamp())}, "test-onboarding-secret", algorithm="HS256"))')
-curl -X POST http://localhost:8012/users/register -H "Authorization: Bearer $DEMO_TOKEN" -H 'Content-Type: application/json' -d '{"email":"demo@example.com","first_name":"Demo","last_name":"Trader"}'
+curl -X POST http://localhost:8001/users/register -H "Authorization: Bearer $DEMO_TOKEN" -H 'Content-Type: application/json' -d '{"email":"demo@example.com","first_name":"Demo","last_name":"Trader"}'
 ```
 
 Both endpoints return `{ "status": "ok" }` on success and let you confirm the underlying services

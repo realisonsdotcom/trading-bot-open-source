@@ -4,6 +4,8 @@ __pycache__/
 *.egg-info/
 .venv/
 .env
+.env.dev
+.env.local
 
 # Coverage
 .coverage
@@ -22,3 +24,7 @@ docker-compose.override.yml
 .DS_Store
 Thumbs.db
 alert_events.db
+alert_engine.db
+.hypothesis/
+data/backtests/
+services/web_dashboard/node_modules/

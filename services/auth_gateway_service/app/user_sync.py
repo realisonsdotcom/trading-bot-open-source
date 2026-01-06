@@ -1,5 +1,4 @@
 """User synchronization service between Auth0 and local database."""
-import secrets
 from datetime import datetime, timezone
 from typing import Any
 import httpx

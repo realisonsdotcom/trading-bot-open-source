@@ -15,7 +15,7 @@
   - Swagger UI: http://localhost:8011/docs
   - Endpoints: /auth/register, /auth/login, /auth/refresh, /auth/me, /auth/totp/*
 
-- **user_service**: Port 8012 (Healthy)
+- **user_service**: Port 8001 (Healthy)
   - Health check working
   - Requires authentication headers for non-health endpoints
 
@@ -170,7 +170,7 @@ docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 
 # Test individual health endpoints
 curl http://localhost:8011/health  # auth_service
-curl http://localhost:8012/health  # user_service
+curl http://localhost:8001/health  # user_service
 curl http://localhost:8013/health  # billing_service
 curl http://localhost:8014/health  # algo_engine
 curl http://localhost:8015/health  # order_router

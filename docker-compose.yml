@@ -93,6 +93,38 @@ services:
     ports:
       - "8011:8000"
 
+  auth_gateway_service:
+    build:
+      context: services/auth_gateway_service
+      dockerfile: Dockerfile
+    env_file:
+      - .env.dev
+    environment:
+      PYTHONPATH: /app
+      DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
+      # Auth0 settings loaded from .env.dev
+      USER_SERVICE_URL: http://user_service:8000
+      ENTITLEMENTS_SERVICE_URL: http://entitlements_service:8000
+      BILLING_SERVICE_URL: http://billing_service:8000
+      ALLOWED_ORIGINS: http://localhost:3000,http://localhost:8000,http://localhost:5173
+      DEBUG: "true"
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >
+          python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health').getcode()==200 else 1)"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    depends_on:
+      postgres:
+        condition: service_healthy
+      user_service:
+        condition: service_healthy
+    ports:
+      - "8012:8000"
+
   user_service:
     build:
       context: .
@@ -116,7 +148,7 @@ services:
       postgres:
         condition: service_healthy
     ports:
-      - "8012:8000"
+      - "8001:8000"
 
   billing_service:
     build:
@@ -627,36 +659,3 @@ services:
 
 volumes:
   pgdata: {}
-
-  # Auth Gateway Service - Auth0 Integration
-  auth_gateway_service:
-    build:
-      context: services/auth_gateway_service
-      dockerfile: Dockerfile
-    env_file:
-      - .env.dev
-    environment:
-      PYTHONPATH: /app
-      DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
-      # Auth0 settings loaded from .env.dev
-      USER_SERVICE_URL: http://user_service:8000
-      ENTITLEMENTS_SERVICE_URL: http://entitlements_service:8000
-      BILLING_SERVICE_URL: http://billing_service:8000
-      ALLOWED_ORIGINS: http://localhost:3000,http://localhost:8000,http://localhost:5173
-      DEBUG: "true"
-    healthcheck:
-      test:
-        - CMD-SHELL
-        - >
-          python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health').getcode()==200 else 1)"
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 15s
-    depends_on:
-      postgres:
-        condition: service_healthy
-      user_service:
-        condition: service_healthy
-    ports:
-      - "8012:8000"

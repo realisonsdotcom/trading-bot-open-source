@@ -430,7 +430,7 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--user-url",
         default=_service_default(
-            "BOOTSTRAP_USER_URL", docker_host="user_service", docker_port=8000, local_port=8012
+            "BOOTSTRAP_USER_URL", docker_host="user_service", docker_port=8000, local_port=8001
         ),
         help="User service base URL",
     )

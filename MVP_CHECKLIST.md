@@ -11,7 +11,7 @@ Quick reference checklist for tracking MVP setup progress.
 
 ## ✅ Phase 2: Core Services (PARTIALLY COMPLETED)
 - [x] auth_service - Port 8011 ✅ HEALTHY
-- [x] user_service - Port 8012 ✅ HEALTHY
+- [x] user_service - Port 8001 ✅ HEALTHY
 - [ ] billing_service - Port 8013
 - [ ] algo_engine - Port 8014
 - [ ] order_router - Port 8015
@@ -88,7 +88,7 @@ docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 
 # Test all health endpoints
 curl http://localhost:8011/health  # auth_service
-curl http://localhost:8012/health  # user_service
+curl http://localhost:8001/health  # user_service
 curl http://localhost:8013/health  # billing_service
 curl http://localhost:8014/health  # algo_engine
 curl http://localhost:8015/health  # order_router

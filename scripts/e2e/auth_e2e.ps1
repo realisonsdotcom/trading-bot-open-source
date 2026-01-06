@@ -7,7 +7,7 @@ function Assert($ok, $msg) {
 
 # Health
 $h1 = curl.exe --noproxy "*" http://127.0.0.1:8011/health 2>$null
-$h2 = curl.exe --noproxy "*" http://127.0.0.1:8012/health 2>$null
+$h2 = curl.exe --noproxy "*" http://127.0.0.1:8001/health 2>$null
 Assert ($h1 -match '"ok"' -or $h1 -match 'status' -or $h1 -match 'OK') "auth-service /health"
 Assert ($h2 -match '"ok"' -or $h2 -match 'status' -or $h2 -match 'OK') "user-service /health"
 
@@ -86,7 +86,7 @@ Assert ($token) "final login after regeneration"
 
 # User service registration
 $userPayload = @{ email = $email; display_name = "Dev User" } | ConvertTo-Json
-$userResponse = curl.exe -s -X POST "http://127.0.0.1:8012/users/register" `
+$userResponse = curl.exe -s -X POST "http://127.0.0.1:8001/users/register" `
   -H "Content-Type: application/json" `
   -d $userPayload
 Assert ($LASTEXITCODE -eq 0) "user-service register"
@@ -99,14 +99,14 @@ Assert ($LASTEXITCODE -eq 0 -and $userToken) "user token generation"
 $headers = @{ "Authorization" = "Bearer $userToken"; "x-customer-id" = "$userId" }
 
 # Activate
-$activate = curl.exe -s -X POST "http://127.0.0.1:8012/users/$userId/activate" `
+$activate = curl.exe -s -X POST "http://127.0.0.1:8001/users/$userId/activate" `
   -H "Authorization: Bearer $userToken" `
   -H "x-customer-id: $userId"
 Assert ($LASTEXITCODE -eq 0) "user activation"
 
 # Profile update
 $profilePayload = @{ display_name = "Dev Trader"; full_name = "Developer Example"; locale = "fr_FR"; marketing_opt_in = $true } | ConvertTo-Json
-$profile = curl.exe -s -X PATCH "http://127.0.0.1:8012/users/$userId" `
+$profile = curl.exe -s -X PATCH "http://127.0.0.1:8001/users/$userId" `
   -H "Authorization: Bearer $userToken" `
   -H "x-customer-id: $userId" `
   -H "Content-Type: application/json" `
@@ -115,7 +115,7 @@ Assert ($LASTEXITCODE -eq 0) "profile update"
 
 # Preferences
 $prefsPayload = @{ preferences = @{ theme = "dark"; currency = "EUR" } } | ConvertTo-Json
-$prefs = curl.exe -s -X PUT "http://127.0.0.1:8012/users/me/preferences" `
+$prefs = curl.exe -s -X PUT "http://127.0.0.1:8001/users/me/preferences" `
   -H "Authorization: Bearer $userToken" `
   -H "x-customer-id: $userId" `
   -H "Content-Type: application/json" `
@@ -123,7 +123,7 @@ $prefs = curl.exe -s -X PUT "http://127.0.0.1:8012/users/me/preferences" `
 Assert ($LASTEXITCODE -eq 0) "preferences update"
 
 # Me (user service)
-$meUser = curl.exe -s "http://127.0.0.1:8012/users/me" `
+$meUser = curl.exe -s "http://127.0.0.1:8001/users/me" `
   -H "Authorization: Bearer $userToken" `
   -H "x-customer-id: $userId"
 Assert ($LASTEXITCODE -eq 0) "user-service /users/me"

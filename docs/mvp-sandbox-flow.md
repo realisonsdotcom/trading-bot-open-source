@@ -39,7 +39,7 @@ est spécifiée.
 
 ```bash
 $ scripts/dev/bootstrap_demo.py BTCUSDT 0.5 --order-type market \
-    --auth-url http://127.0.0.1:8011 --user-url http://127.0.0.1:8012
+    --auth-url http://127.0.0.1:8011 --user-url http://127.0.0.1:8001
 ```
 
 La sortie JSON récapitule les identifiants utiles (utilisateur, stratégie,

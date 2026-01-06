@@ -57,6 +57,7 @@ VITE_AUTH0_CLIENT_ID=your_spa_client_id
 VITE_AUTH0_AUDIENCE=https://api.trading-bot.dev
 VITE_AUTH0_CALLBACK_URL=http://localhost:3000/callback
 VITE_DASHBOARD_URL=http://localhost:8022
+VITE_AUTH_GATEWAY_URL=http://localhost:8012
 ```
 
 ### 3. Démarrer en développement
@@ -135,9 +136,11 @@ Auth0 redirige vers `/callback` avec code
 const token = await getAccessTokenSilently();
 
 // Sync with backend
-await fetch('http://localhost:8012/auth/callback', {
+const authGatewayUrl = import.meta.env.VITE_AUTH_GATEWAY_URL || 'http://localhost:8012';
+await fetch(`${authGatewayUrl}/auth/callback`, {
   method: 'POST',
   headers: { 'Authorization': `Bearer ${token}` },
+  credentials: 'include',
 });
 ```
 
@@ -250,6 +253,7 @@ VITE_AUTH0_CLIENT_ID=your_prod_client_id
 VITE_AUTH0_AUDIENCE=https://api.yourdomain.com
 VITE_AUTH0_CALLBACK_URL=https://login.yourdomain.com/callback
 VITE_DASHBOARD_URL=https://app.yourdomain.com
+VITE_AUTH_GATEWAY_URL=https://auth.yourdomain.com
 ```
 
 ## 🐛 Troubleshooting

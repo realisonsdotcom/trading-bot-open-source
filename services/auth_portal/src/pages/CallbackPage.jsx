@@ -34,12 +34,14 @@ export default function CallbackPage() {
           // Call auth_gateway_service callback to sync user
           setStatus('Syncing user data...')
 
-          const response = await fetch('http://localhost:8012/auth/callback', {
+          const authGatewayUrl = import.meta.env.VITE_AUTH_GATEWAY_URL || 'http://localhost:8012'
+          const response = await fetch(`${authGatewayUrl}/auth/callback`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${token}`,
             },
+            credentials: 'include',
           })
 
           if (!response.ok) {

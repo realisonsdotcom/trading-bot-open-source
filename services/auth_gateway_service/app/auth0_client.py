@@ -4,8 +4,6 @@ from typing import Any
 import httpx
 from jose import jwt, JWTError
 from jose.backends.cryptography_backend import CryptographyRSAKey
-from cryptography.hazmat.primitives import serialization
-from cryptography.hazmat.backends import default_backend
 from fastapi import HTTPException, status
 
 from app.config import settings
@@ -38,13 +36,15 @@ class Auth0Client:
         self._mgmt_token: str | None = None
         self._mgmt_token_expires: float = 0
 
+        self._timeout = 10.0
+
     async def get_jwks(self) -> dict[str, Any]:
         """Fetch JWKS from Auth0 with caching."""
         now = time.time()
         if self._jwks_cache and (now - self._jwks_cache_time) < self._jwks_cache_ttl:
             return self._jwks_cache
 
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=self._timeout) as client:
             response = await client.get(self.jwks_url)
             response.raise_for_status()
             jwks = response.json()
@@ -89,9 +89,8 @@ class Auth0Client:
 
         # Convert JWK to PEM
         try:
-            from jose.backends.cryptography_backend import CryptographyRSAKey
             return CryptographyRSAKey(rsa_key, algorithm="RS256")
-        except Exception as e:
+        except Exception as e:  # pragma: no cover - defensive conversion guard
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail=f"Failed to create signing key: {str(e)}"
@@ -132,7 +131,7 @@ class Auth0Client:
             return self._mgmt_token
 
         # Request new token
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=self._timeout) as client:
             response = await client.post(
                 f"https://{self.domain}/oauth/token",
                 json={
@@ -155,7 +154,7 @@ class Auth0Client:
         """Fetch user info from Auth0 Management API."""
         token = await self.get_management_token()
 
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=self._timeout) as client:
             response = await client.get(
                 f"{self.mgmt_api_url}/users/{auth0_sub}",
                 headers={"Authorization": f"Bearer {token}"},
@@ -180,7 +179,7 @@ class Auth0Client:
         if user_metadata is not None:
             payload["user_metadata"] = user_metadata
 
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=self._timeout) as client:
             response = await client.patch(
                 f"{self.mgmt_api_url}/users/{auth0_sub}",
                 headers={"Authorization": f"Bearer {token}"},
@@ -215,7 +214,7 @@ class Auth0Client:
         if user_metadata:
             payload["user_metadata"] = user_metadata
 
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=self._timeout) as client:
             response = await client.post(
                 f"{self.mgmt_api_url}/users",
                 headers={"Authorization": f"Bearer {token}"},
@@ -235,7 +234,7 @@ class Auth0Client:
         """Assign roles to a user in Auth0."""
         token = await self.get_management_token()
 
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=self._timeout) as client:
             response = await client.post(
                 f"{self.mgmt_api_url}/users/{auth0_sub}/roles",
                 headers={"Authorization": f"Bearer {token}"},
@@ -243,9 +242,21 @@ class Auth0Client:
             )
             response.raise_for_status()
 
+    async def get_userinfo(self, access_token: str) -> Auth0UserInfo:
+        """Fetch user info from Auth0 userinfo endpoint."""
+        async with httpx.AsyncClient(timeout=self._timeout) as client:
+            response = await client.get(
+                f"https://{self.domain}/userinfo",
+                headers={"Authorization": f"Bearer {access_token}"},
+            )
+            response.raise_for_status()
+            user_data = response.json()
+
+        return Auth0UserInfo(**user_data)
+
     async def exchange_code_for_tokens(self, code: str, redirect_uri: str) -> dict[str, Any]:
         """Exchange authorization code for tokens."""
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=self._timeout) as client:
             response = await client.post(
                 f"https://{self.domain}/oauth/token",
                 json={
