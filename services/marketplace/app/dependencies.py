@@ -33,9 +33,10 @@ def require_copy_capability(entitlements: Entitlements = Depends(get_entitlement
 
 
 def get_actor_id(request: Request) -> str:
-    actor_id = request.headers.get("x-user-id") or request.headers.get("x-customer-id")
+    # Auth0 middleware populates request.state.customer_id
+    actor_id = getattr(request.state, "customer_id", None)
     if not actor_id:
-        raise HTTPException(status_code=400, detail="Missing x-user-id header")
+        raise HTTPException(status_code=401, detail="Not authenticated")
     return actor_id
 
 

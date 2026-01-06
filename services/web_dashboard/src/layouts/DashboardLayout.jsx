@@ -1,9 +1,7 @@
 import React from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
-import { useAuth } from "../context/AuthContext";
-import { Button } from "../components/ui/button.jsx";
+import { UserMenu } from "../components/auth/UserMenu.jsx";
 import LanguageSwitcher from "../components/LanguageSwitcher.jsx";
 
 const NAV_LINKS = [
@@ -31,7 +29,6 @@ const NAV_LINKS = [
 export default function DashboardLayout() {
   const { t } = useTranslation();
   const location = useLocation();
-  const auth = useAuth();
 
   return (
     <div className="app-shell">
@@ -53,15 +50,7 @@ export default function DashboardLayout() {
       <div className="app-content">
         <header className="layout__header">
           <div className="layout__header-meta">
-            {auth.status === "authenticated" && auth.user && (
-              <span className="layout__user">{auth.user.email || auth.user.id}</span>
-            )}
-            {auth.status === "authenticated" && (
-              <Button type="button" variant="ghost" size="sm" onClick={auth.logout}>
-                <ArrowRightOnRectangleIcon aria-hidden="true" className="h-4 w-4" />
-                {t("Déconnexion")}
-              </Button>
-            )}
+            <UserMenu />
           </div>
         </header>
         <main key={location.pathname} className="layout__main">

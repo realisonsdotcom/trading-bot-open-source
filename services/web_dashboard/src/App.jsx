@@ -24,10 +24,14 @@ import AccountRegisterPage from "./pages/Account/AccountRegisterPage.jsx";
 import NotFoundPage from "./pages/NotFound/NotFoundPage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import OnboardingPage from "./pages/Onboarding/OnboardingPage.jsx";
+import CallbackPage from "./pages/CallbackPage.jsx";
 
 export default function App() {
   return (
     <Routes>
+      {/* Auth0 Callback Route */}
+      <Route path="/callback" element={<CallbackPage />} />
+
       <Route element={<DashboardLayout />}>
         <Route index element={<Navigate to="/dashboard" replace />} />
         <Route

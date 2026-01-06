@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass, field
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Sequence
 
@@ -109,7 +109,7 @@ class Backtester:
         profit_loss = final_equity - initial_balance
         drawdown = _max_drawdown(equity_curve)
 
-        timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
+        timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
         safe_name = _safe_filename(strategy.config.name)
         metrics_path = self.output_dir / f"{safe_name}_{timestamp}.json"
         log_path = self.output_dir / f"{safe_name}_{timestamp}.log"

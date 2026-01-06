@@ -35,7 +35,7 @@ def test_bootstrap_demo_smoke() -> None:
         "--auth-url",
         auth_url,
         "--user-url",
-        os.getenv("BOOTSTRAP_TEST_USER_URL", "http://127.0.0.1:8012"),
+        os.getenv("BOOTSTRAP_TEST_USER_URL", "http://127.0.0.1:8001"),
         "--algo-url",
         os.getenv("BOOTSTRAP_TEST_ALGO_URL", "http://127.0.0.1:8014"),
         "--order-router-url",

@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session, selectinload
 from infra import AuditBase, MarketplaceBase, MarketplaceSubscription
 from libs.audit import record_audit
 from libs.db.db import engine, get_db
-from libs.entitlements.fastapi import install_entitlements_middleware
+from libs.entitlements.auth0_integration import install_auth0_with_entitlements
 from libs.observability.logging import RequestContextMiddleware, configure_logging
 from libs.observability.metrics import setup_metrics
 
@@ -50,7 +50,11 @@ app = FastAPI(title="Marketplace Service", version="0.1.0")
 MarketplaceBase.metadata.create_all(bind=engine)
 AuditBase.metadata.create_all(bind=engine)
 
-install_entitlements_middleware(app)
+install_auth0_with_entitlements(
+    app,
+    required_capabilities=["can.use_marketplace"],
+    skip_paths=["/health"],
+)
 app.add_middleware(RequestContextMiddleware, service_name="marketplace")
 setup_metrics(app, service_name="marketplace")
 

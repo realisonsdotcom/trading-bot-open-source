@@ -3,7 +3,8 @@
 from functools import lru_cache
 from typing import List
 
-from pydantic import BaseSettings, Field
+from pydantic import Field, field_validator
+from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
@@ -47,7 +48,7 @@ class Settings(BaseSettings):
     redis_url: str = Field("redis://localhost:6379/0", description="Redis URL for stream fan-out")
     nats_url: str = Field("nats://localhost:4222", description="NATS JetStream URL")
     pipeline_backend: str = Field(
-        "redis", description="Streaming backend to use (redis|nats)", regex="^(redis|nats)$"
+        "redis", description="Streaming backend to use (redis|nats)", pattern="^(redis|nats)$"
     )
     tradingview_hmac_secret: str = Field(
         "",
@@ -58,6 +59,13 @@ class Settings(BaseSettings):
     class Config:
         env_prefix = "STREAMING_GATEWAY_"
         case_sensitive = False
+
+    @field_validator("allowed_origins", mode="before")
+    @classmethod
+    def _split_origins(cls, value: List[str] | str) -> List[str]:
+        if isinstance(value, str):
+            return [origin.strip() for origin in value.split(",") if origin.strip()]
+        return value
 
 
 @lru_cache()

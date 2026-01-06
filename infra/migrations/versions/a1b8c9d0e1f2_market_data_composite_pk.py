@@ -67,15 +67,16 @@ def upgrade() -> None:
 
         op.execute("DROP SEQUENCE IF EXISTS market_data_ticks_id_seq")
 
-    if "market_data_ohlcv" in table_names:
-        op.execute(
-            "SELECT create_hypertable('market_data_ohlcv', 'timestamp', if_not_exists => TRUE, migrate_data => TRUE);"
-        )
+    # Skip hypertable creation for MVP/development (requires timescaledb extension)
+    # if "market_data_ohlcv" in table_names:
+    #     op.execute(
+    #         "SELECT create_hypertable('market_data_ohlcv', 'timestamp', if_not_exists => TRUE, migrate_data => TRUE);"
+    #     )
 
-    if "market_data_ticks" in table_names:
-        op.execute(
-            "SELECT create_hypertable('market_data_ticks', 'timestamp', if_not_exists => TRUE, migrate_data => TRUE);"
-        )
+    # if "market_data_ticks" in table_names:
+    #     op.execute(
+    #         "SELECT create_hypertable('market_data_ticks', 'timestamp', if_not_exists => TRUE, migrate_data => TRUE);"
+    #     )
 
 
 def downgrade() -> None:

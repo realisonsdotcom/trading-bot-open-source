@@ -180,6 +180,15 @@ make migrate-up
 make migrate-down
 ```
 
+> ℹ️ The Alembic environment dynamically imports multiple service packages (auth, user, market data, reports) so their SQLAlchemy metadata can be included in a single migration context. When running migrations outside Docker, install the service requirements first to ensure their dependencies (for example `email-validator`, `ib-async`, `weasyprint`) are available:
+> ```bash
+> pip install \
+>   -r services/auth_service/requirements.txt \
+>   -r services/user_service/requirements.txt \
+>   -r services/market_data/requirements.txt \
+>   -r services/reports/requirements.txt
+> ```
+
 Docker services now apply migrations automatically during startup through [`scripts/run_migrations.sh`](scripts/run_migrations.sh), ensuring the database schema is up to date before each application boots.
 
 ## 📈 Project Status

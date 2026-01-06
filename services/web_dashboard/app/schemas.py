@@ -8,7 +8,7 @@ from typing import Any, Dict, List, Literal
 
 from enum import Enum
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 class RiskLevel(str, Enum):
@@ -139,6 +139,21 @@ class Alert(BaseModel):
     rule: AlertRuleDefinition
     channels: list[NotificationChannel] = Field(default_factory=list)
     throttle_seconds: int = Field(default=0, ge=0)
+
+    @model_validator(mode="before")
+    @classmethod
+    def _coerce_identifier(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            data = dict(data)
+            if "id" in data and not isinstance(data["id"], str):
+                data["id"] = str(data["id"])
+            if "rule" not in data or not data["rule"]:
+                data["rule"] = {
+                    "symbol": data.get("symbol") or "UNKNOWN",
+                    "timeframe": None,
+                    "conditions": {},
+                }
+        return data
 
 
 class AlertCreateRequest(BaseModel):
@@ -490,4 +505,3 @@ class DashboardContext(BaseModel):
         default_factory=dict,
         description="Map describing whether each dataset comes from live services or fallback data",
     )
-

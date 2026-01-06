@@ -5,7 +5,7 @@ from __future__ import annotations
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from libs.entitlements import install_entitlements_middleware
+from libs.entitlements.auth0_integration import install_auth0_with_entitlements
 from libs.observability.logging import RequestContextMiddleware, configure_logging
 from libs.observability.metrics import setup_metrics
 
@@ -18,7 +18,11 @@ configure_logging("streaming-gateway")
 settings = get_settings()
 
 app = FastAPI(title="Streaming Gateway", version="0.1.0")
-install_entitlements_middleware(app, required_capabilities=["can.stream"])
+install_auth0_with_entitlements(
+    app,
+    required_capabilities=["can.stream"],
+    skip_paths=["/health"],
+)
 app.add_middleware(RequestContextMiddleware, service_name="streaming-gateway")
 setup_metrics(app, service_name="streaming-gateway")
 

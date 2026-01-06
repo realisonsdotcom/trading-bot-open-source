@@ -4,11 +4,12 @@ from __future__ import annotations
 
 import math
 import os
+import secrets
 from datetime import datetime, timedelta, timezone
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, Iterator, List, Literal, Optional
-from urllib.parse import urljoin
+from urllib.parse import urlencode, urljoin
 
 from fastapi import (
     Depends,
@@ -22,6 +23,7 @@ from fastapi import (
     UploadFile,
     status,
 )
+from fastapi.encoders import jsonable_encoder
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -30,6 +32,8 @@ import httpx
 from jose import jwt
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.middleware.sessions import SessionMiddleware
 
 from libs.alert_events import AlertEventBase, AlertEventRepository
 
@@ -73,6 +77,9 @@ from pydantic import BaseModel, Field, ConfigDict, EmailStr, model_validator
 from schemas.order_router import PositionCloseRequest
 
 
+SESSION_SECRET = os.getenv("WEB_DASHBOARD_SESSION_SECRET", "dashboard-session-secret")
+
+
 BASE_DIR = Path(__file__).resolve().parent
 TEMPLATES_DIR = BASE_DIR / "templates"
 STATIC_DIR = BASE_DIR / "static"
@@ -81,7 +88,6 @@ app = FastAPI(title="Web Dashboard", version="0.1.0")
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 templates = Jinja2Templates(directory=TEMPLATES_DIR)
-app.add_middleware(LocalizationMiddleware)
 app.include_router(status_routes.router)
 
 
@@ -213,11 +219,12 @@ def _render_spa(
     }
     if data:
         payload["data"][page] = data
+    serializable_payload = jsonable_encoder(payload)
     context = _template_context(
         request,
         {
             "page_title": page_title,
-            "bootstrap_payload": payload,
+            "bootstrap_payload": serializable_payload,
         },
     )
     return templates.TemplateResponse("index.html", context)
@@ -229,6 +236,173 @@ def _template_context(request: Request, extra: dict[str, object] | None = None) 
     if extra:
         context.update(extra)
     return context
+
+
+_AUTH_EXEMPT_PATHS = {
+    "/health",
+    "/auth/callback",
+    "/auth/login",
+    "/auth/logout",
+}
+_AUTH_EXEMPT_PREFIXES = ("/static", "/status", "/docs", "/openapi.json")
+
+
+def _is_path_auth_exempt(path: str) -> bool:
+    if path in _AUTH_EXEMPT_PATHS:
+        return True
+    return any(path.startswith(prefix) for prefix in _AUTH_EXEMPT_PREFIXES)
+
+
+def _build_auth0_authorize_url(state: str) -> str:
+    if not AUTH0_AUTHORIZE_URL:
+        raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, detail="Auth0 not configured.")
+    params = {
+        "response_type": "code",
+        "client_id": AUTH0_CLIENT_ID,
+        "redirect_uri": AUTH0_CALLBACK_URL,
+        "scope": AUTH0_SCOPE,
+        "state": state,
+    }
+    if AUTH0_AUDIENCE:
+        params["audience"] = AUTH0_AUDIENCE
+    return f"{AUTH0_AUTHORIZE_URL}?{urlencode(params)}"
+
+
+def _begin_auth_flow(request: Request) -> RedirectResponse:
+    state = secrets.token_urlsafe(32)
+    request.session["auth0_state"] = state
+    request.session["post_login_path"] = str(request.url.path or "/")
+    authorize_url = _build_auth0_authorize_url(state)
+    return RedirectResponse(authorize_url, status_code=status.HTTP_302_FOUND)
+
+
+async def _exchange_code_for_tokens(code: str) -> dict[str, Any]:
+    if not AUTH0_TOKEN_URL:
+        raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, detail="Auth0 token endpoint missing.")
+    data = {
+        "grant_type": "authorization_code",
+        "client_id": AUTH0_CLIENT_ID,
+        "client_secret": AUTH0_CLIENT_SECRET,
+        "code": code,
+        "redirect_uri": AUTH0_CALLBACK_URL,
+    }
+    async with httpx.AsyncClient(timeout=10.0) as client:
+        response = await client.post(AUTH0_TOKEN_URL, data=data)
+    if response.status_code >= 400:
+        raise HTTPException(
+            status.HTTP_400_BAD_REQUEST, detail=f"Auth0 token exchange failed: {response.text}"
+        )
+    return response.json()
+
+
+def _fetch_auth0_jwks() -> dict[str, Any]:
+    global _AUTH0_JWKS_CACHE
+    if _AUTH0_JWKS_CACHE is not None:
+        return _AUTH0_JWKS_CACHE
+    if not AUTH0_JWKS_URL:
+        raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, detail="Auth0 JWKS endpoint missing.")
+    response = httpx.get(AUTH0_JWKS_URL, timeout=5.0)
+    if response.status_code >= 400:
+        raise HTTPException(
+            status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=f"Unable to fetch Auth0 JWKS: {response.text}",
+        )
+    _AUTH0_JWKS_CACHE = response.json()
+    return _AUTH0_JWKS_CACHE
+
+
+def _decode_auth0_id_token(token: str) -> dict[str, Any]:
+    if not AUTH0_DOMAIN:
+        raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, detail="Auth0 not configured.")
+    header = jwt.get_unverified_header(token)
+    kid = header.get("kid")
+    jwks = _fetch_auth0_jwks()
+    keys = jwks.get("keys", [])
+    key = next((candidate for candidate in keys if candidate.get("kid") == kid), None)
+    if not key:
+        global _AUTH0_JWKS_CACHE
+        _AUTH0_JWKS_CACHE = None
+        jwks = _fetch_auth0_jwks()
+        keys = jwks.get("keys", [])
+        key = next((candidate for candidate in keys if candidate.get("kid") == kid), None)
+    if not key:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Unable to validate Auth0 token.")
+    issuer = f"https://{AUTH0_DOMAIN}/"
+    return jwt.decode(
+        token,
+        key,
+        algorithms=[header.get("alg", "RS256")],
+        audience=AUTH0_CLIENT_ID,
+        issuer=issuer,
+    )
+
+
+class Auth0EnforcementMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        if not AUTH0_ENABLED:
+            return await call_next(request)
+        path = request.url.path
+        if _is_path_auth_exempt(path):
+            return await call_next(request)
+        if "session" in request.scope and request.session.get("auth0_user"):
+            return await call_next(request)
+        return _begin_auth_flow(request)
+
+
+app.add_middleware(LocalizationMiddleware)
+app.add_middleware(Auth0EnforcementMiddleware)
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=SESSION_SECRET,
+    session_cookie="wd_session",
+    https_only=False,
+    same_site="lax",
+)
+
+
+@app.get("/auth/login", include_in_schema=False)
+def auth_login(request: Request) -> RedirectResponse:
+    if not AUTH0_ENABLED:
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
+    return _begin_auth_flow(request)
+
+
+@app.get("/auth/callback", include_in_schema=False)
+async def auth_callback(request: Request, code: str = Query(...), state: str = Query(...)):
+    if not AUTH0_ENABLED:
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
+    expected_state = request.session.get("auth0_state")
+    if not expected_state or expected_state != state:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Invalid Auth0 state.")
+    token_payload = await _exchange_code_for_tokens(code)
+    id_token = token_payload.get("id_token")
+    if not id_token:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Missing ID token from Auth0.")
+    claims = _decode_auth0_id_token(id_token)
+    request.session["auth0_user"] = {
+        "sub": claims.get("sub"),
+        "email": claims.get("email"),
+        "name": claims.get("name"),
+    }
+    request.session["dashboard_user_id"] = request.session.get("dashboard_user_id") or str(
+        _default_user_id()
+    )
+    request.session.pop("auth0_state", None)
+    redirect_target = request.session.pop("post_login_path", "/")
+    return RedirectResponse(redirect_target, status_code=status.HTTP_302_FOUND)
+
+
+@app.get("/auth/logout", include_in_schema=False)
+def auth_logout(request: Request) -> RedirectResponse:
+    request.session.clear()
+    if AUTH0_ENABLED and AUTH0_BASE_URL:
+        params = {
+            "client_id": AUTH0_CLIENT_ID,
+            "returnTo": AUTH0_LOGOUT_URL,
+        }
+        logout_url = f"{AUTH0_BASE_URL}/v2/logout?{urlencode(params)}"
+        return RedirectResponse(logout_url, status_code=status.HTTP_302_FOUND)
+    return RedirectResponse("/", status_code=status.HTTP_302_FOUND)
 
 STREAMING_BASE_URL = os.getenv("WEB_DASHBOARD_STREAMING_BASE_URL", "http://localhost:8001/")
 STREAMING_ROOM_ID = os.getenv("WEB_DASHBOARD_STREAMING_ROOM_ID", "public-room")
@@ -261,6 +435,31 @@ USER_SERVICE_JWT_SECRET = os.getenv(
 )
 USER_SERVICE_JWT_ALG = "HS256"
 DEFAULT_DASHBOARD_USER_ID = os.getenv("WEB_DASHBOARD_DEFAULT_USER_ID", "1")
+AUTH0_DOMAIN = os.getenv("WEB_DASHBOARD_AUTH0_DOMAIN")
+AUTH0_CLIENT_ID = os.getenv("WEB_DASHBOARD_AUTH0_CLIENT_ID")
+AUTH0_CLIENT_SECRET = os.getenv("WEB_DASHBOARD_AUTH0_CLIENT_SECRET")
+AUTH0_AUDIENCE = os.getenv("WEB_DASHBOARD_AUTH0_AUDIENCE")
+AUTH0_CALLBACK_URL = os.getenv(
+    "WEB_DASHBOARD_AUTH0_CALLBACK_URL",
+    "http://localhost:8022/auth/callback",
+)
+AUTH0_LOGOUT_URL = os.getenv("WEB_DASHBOARD_AUTH0_LOGOUT_URL", "http://localhost:8022/")
+AUTH0_SCOPE = os.getenv("WEB_DASHBOARD_AUTH0_SCOPE", "openid profile email")
+AUTH0_BASE_URL = f"https://{AUTH0_DOMAIN}" if AUTH0_DOMAIN else None
+AUTH0_AUTHORIZE_URL = f"{AUTH0_BASE_URL}/authorize" if AUTH0_BASE_URL else None
+AUTH0_TOKEN_URL = f"{AUTH0_BASE_URL}/oauth/token" if AUTH0_BASE_URL else None
+AUTH0_JWKS_URL = (
+    f"{AUTH0_BASE_URL}/.well-known/jwks.json" if AUTH0_BASE_URL else None
+)
+AUTH0_ENABLED = all(
+    [
+        AUTH0_DOMAIN,
+        AUTH0_CLIENT_ID,
+        AUTH0_CLIENT_SECRET,
+        AUTH0_CALLBACK_URL,
+    ]
+)
+_AUTH0_JWKS_CACHE: Dict[str, Any] | None = None
 
 
 def _env_bool(value: str | None, default: bool) -> bool:
@@ -316,7 +515,12 @@ def _coerce_dashboard_user_id(value: Optional[str]) -> int:
 
 
 def _extract_dashboard_user_id(request: Request) -> int:
-    header = request.headers.get("x-user-id")
+    session_user = None
+    if hasattr(request, "session"):
+        session_raw = request.session.get("dashboard_user_id")
+        if session_raw is not None:
+            session_user = str(session_raw)
+    header = session_user or request.headers.get("x-user-id")
     query_value = request.query_params.get("user_id")
     return _coerce_dashboard_user_id(header or query_value)
 
@@ -2274,4 +2478,3 @@ def root_redirect(request: Request) -> HTMLResponse:
     """Serve the dashboard at the root path for convenience."""
 
     return render_dashboard(request)
-

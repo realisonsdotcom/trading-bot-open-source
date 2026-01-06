@@ -2,7 +2,7 @@ set -euo pipefail
 export NO_PROXY="localhost,127.0.0.1"; export no_proxy="$NO_PROXY"
 
 curl --noproxy "*" -sf http://127.0.0.1:8011/health >/dev/null
-curl --noproxy "*" -sf http://127.0.0.1:8012/health >/dev/null
+curl --noproxy "*" -sf http://127.0.0.1:8001/health >/dev/null
 
 email="dev$(date +%Y%m%d%H%M%S)@example.com"
 password="Passw0rd!"
@@ -120,7 +120,7 @@ user_payload=$(cat <<JSON
 JSON
 )
 
-user_response=$(curl --noproxy "*" -sS -X POST http://127.0.0.1:8012/users/register \
+user_response=$(curl --noproxy "*" -sS -X POST http://127.0.0.1:8001/users/register \
   -H "Content-Type: application/json" \
   -d "$user_payload")
 user_id=$(python -c "import sys,json; print(json.load(sys.stdin)['id'])" <<<"$user_response")
@@ -147,11 +147,11 @@ profile_payload=$(cat <<JSON
 JSON
 )
 
-curl --noproxy "*" -sS -X POST http://127.0.0.1:8012/users/$user_id/activate \
+curl --noproxy "*" -sS -X POST http://127.0.0.1:8001/users/$user_id/activate \
   -H "Authorization: Bearer $user_token" \
   -H "x-customer-id: $user_id" >/dev/null
 
-curl --noproxy "*" -sS -X PATCH http://127.0.0.1:8012/users/$user_id \
+curl --noproxy "*" -sS -X PATCH http://127.0.0.1:8001/users/$user_id \
   -H "Authorization: Bearer $user_token" \
   -H "x-customer-id: $user_id" \
   -H "Content-Type: application/json" \
@@ -159,13 +159,13 @@ curl --noproxy "*" -sS -X PATCH http://127.0.0.1:8012/users/$user_id \
 
 preferences_payload='{"preferences":{"theme":"dark","currency":"EUR"}}'
 
-curl --noproxy "*" -sS -X PUT http://127.0.0.1:8012/users/me/preferences \
+curl --noproxy "*" -sS -X PUT http://127.0.0.1:8001/users/me/preferences \
   -H "Authorization: Bearer $user_token" \
   -H "x-customer-id: $user_id" \
   -H "Content-Type: application/json" \
   -d "$preferences_payload" >/dev/null
 
-curl --noproxy "*" -sS http://127.0.0.1:8012/users/me \
+curl --noproxy "*" -sS http://127.0.0.1:8001/users/me \
   -H "Authorization: Bearer $user_token" \
   -H "x-customer-id: $user_id" >/dev/null
 

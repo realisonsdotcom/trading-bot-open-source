@@ -32,7 +32,7 @@ class Plan(Base):
     stripe_price_id: str = Column(String(128), unique=True, nullable=False)
     description: Optional[str] = Column(String(255))
     billing_interval: str = Column(
-        String(16), nullable=False, server_default=text("monthly"), default="monthly"
+        String(16), nullable=False, server_default=text("'monthly'"), default="monthly"
     )
     trial_period_days: Optional[int] = Column(Integer)
     active: bool = Column(Boolean, nullable=False, server_default=text("true"))
