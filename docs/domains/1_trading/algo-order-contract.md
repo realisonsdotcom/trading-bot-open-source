@@ -1,3 +1,14 @@
+---
+domain: 1_trading
+title: Algo ↔ Order Router Contract
+description: Strategy-order integration specification and communication protocol
+keywords: algo-order, contract, integration, order-router, strategy-execution
+last_updated: 2026-01-06
+related:
+  - algo-engine.md
+  - ../2_architecture/order-router.md
+---
+
 # Contrat d'acheminement d'ordre sandbox
 
 Ce document décrit le contrat REST utilisé entre un algorithme et le service

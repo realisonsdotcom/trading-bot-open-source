@@ -1,3 +1,14 @@
+---
+domain: 1_trading
+title: Algo Engine Service
+description: Strategy execution engine with plugin-based extensible registry
+keywords: algo-engine, strategies, plugins, backtesting, AI-assistant, visual-designer
+last_updated: 2026-01-06
+related:
+  - algo-order-contract.md
+  - strategies/README.md
+---
+
 # Algo Engine Service
 
 Le service **Algo Engine** fournit un registre de stratégies extensible grâce à un système de plugins.
