@@ -56,8 +56,8 @@ def test_register_creates_user_with_default_role(client, session_factory):
     assert body["roles"] == ["user"]
     assert "created_at" in body
     assert "updated_at" in body
-    created_at = datetime.fromisoformat(body["created_at"])
-    updated_at = datetime.fromisoformat(body["updated_at"])
+    created_at = datetime.fromisoformat(body["created_at"].replace("Z", "+00:00"))
+    updated_at = datetime.fromisoformat(body["updated_at"].replace("Z", "+00:00"))
     assert created_at.tzinfo is not None
     assert updated_at.tzinfo is not None
     assert updated_at >= created_at

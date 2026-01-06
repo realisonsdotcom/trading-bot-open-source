@@ -14,7 +14,8 @@ depends_on = None
 
 
 def upgrade() -> None:
-    op.execute("CREATE EXTENSION IF NOT EXISTS timescaledb;")
+    # Skip TimescaleDB for MVP/development (requires timescaledb extension)
+    # op.execute("CREATE EXTENSION IF NOT EXISTS timescaledb;")
 
     op.create_table(
         "market_data_ohlcv",
@@ -32,9 +33,10 @@ def upgrade() -> None:
         sa.Column("extra", postgresql.JSONB, nullable=True),
         sa.PrimaryKeyConstraint(*OHLCV_PK_COLUMNS, name="pk_market_data_ohlcv"),
     )
-    op.execute(
-        "SELECT create_hypertable('market_data_ohlcv', 'timestamp', if_not_exists => TRUE, migrate_data => TRUE);"
-    )
+    # Skip hypertable creation for MVP/development
+    # op.execute(
+    #     "SELECT create_hypertable('market_data_ohlcv', 'timestamp', if_not_exists => TRUE, migrate_data => TRUE);"
+    # )
 
     op.create_table(
         "market_data_ticks",
@@ -48,9 +50,10 @@ def upgrade() -> None:
         sa.Column("extra", postgresql.JSONB, nullable=True),
         sa.PrimaryKeyConstraint(*TICKS_PK_COLUMNS, name="pk_market_data_ticks"),
     )
-    op.execute(
-        "SELECT create_hypertable('market_data_ticks', 'timestamp', if_not_exists => TRUE, migrate_data => TRUE);"
-    )
+    # Skip hypertable creation for MVP/development
+    # op.execute(
+    #     "SELECT create_hypertable('market_data_ticks', 'timestamp', if_not_exists => TRUE, migrate_data => TRUE);"
+    # )
 
     op.create_index(
         "ix_market_data_ticks_symbol_ts",

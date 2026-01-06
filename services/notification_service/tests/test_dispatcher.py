@@ -1,17 +1,15 @@
 import asyncio
-import sys
-from pathlib import Path
-
 import pytest
 import httpx
 
-SERVICE_DIR = Path(__file__).resolve().parents[1]
-if str(SERVICE_DIR) not in sys.path:
-    sys.path.insert(0, str(SERVICE_DIR))
-
-from app.config import Settings
-from app.dispatcher import NotificationDispatcher
-from app.schemas import Channel, DeliveryTarget, Notification, NotificationRequest
+from services.notification_service.app.config import Settings
+from services.notification_service.app.dispatcher import NotificationDispatcher
+from services.notification_service.app.schemas import (
+    Channel,
+    DeliveryTarget,
+    Notification,
+    NotificationRequest,
+)
 
 
 def mock_async_client(monkeypatch, expected_url: str, *, status_code: int, json_body: dict | None = None):

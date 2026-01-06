@@ -203,6 +203,16 @@ class UserServiceClient:
             "marketing_opt_in": True,
         }
         response = self._client.post("/users/register", json=payload)
+        if response.status_code == 409:
+            try:
+                detail = response.json().get("detail", "")
+            except ValueError:
+                detail = response.text
+            if isinstance(detail, str) and "already registered" in detail.lower():
+                existing = self._client.get("/users/me")
+                if existing.status_code < 400:
+                    return existing.json()
+            raise ServiceError(f"User register failed: {response.text}")
         if response.status_code >= 400:
             raise ServiceError(f"User register failed: {response.text}")
         return response.json()
@@ -258,6 +268,16 @@ class ReportsServiceClient:
     def render(self, symbol: str, *, report_type: str = "symbol") -> dict[str, Any]:
         payload = {"report_type": report_type, "timeframe": "both"}
         response = self._client.post(f"/reports/{symbol}/render", json=payload)
+        if response.status_code == 404:
+            try:
+                detail = response.json()
+            except ValueError:
+                detail = response.text or "Report unavailable"
+            return {
+                "symbol": symbol,
+                "status": "unavailable",
+                "detail": detail,
+            }
         if response.status_code >= 400:
             raise ServiceError(f"Report generation failed: {response.text}")
         report_path = response.headers.get("X-Report-Path")

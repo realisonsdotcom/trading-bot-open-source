@@ -3,7 +3,10 @@ uvicorn[standard]
 SQLAlchemy>=2
 psycopg2-binary
 pydantic>=2
+pydantic[email]>=2
 jinja2
+pydantic-settings>=2.2
 weasyprint
 prometheus-client>=0.20
 alembic
+httpx>=0.24

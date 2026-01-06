@@ -75,6 +75,7 @@ services:
       AUTH_SERVICE_SESSION_COOKIE_NAME: ${AUTH_SERVICE_SESSION_COOKIE_NAME:-auth_session}
       AUTH_SERVICE_SESSION_COOKIE_SAMESITE: ${AUTH_SERVICE_SESSION_COOKIE_SAMESITE:-none}
       AUTH_SERVICE_SESSION_COOKIE_SECURE: ${AUTH_SERVICE_SESSION_COOKIE_SECURE:-false}
+      RUN_MIGRATIONS: "0"
     healthcheck:
       test:
         - CMD-SHELL
@@ -101,6 +102,7 @@ services:
     environment:
       PYTHONPATH: /app
       DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
+      RUN_MIGRATIONS: "0"
     healthcheck:
       test:
         - CMD-SHELL
@@ -127,7 +129,7 @@ services:
     env_file:
       - .env.dev
     environment:
-      RUN_MIGRATIONS: "1"
+      RUN_MIGRATIONS: "0"
       DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
       REDIS_URL: redis://redis:6379/0
     healthcheck:
@@ -161,7 +163,7 @@ services:
     env_file:
       - .env.dev
     environment:
-      RUN_MIGRATIONS: "1"
+      RUN_MIGRATIONS: "0"
       DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
       STREAMING_INGEST_URL: ${STREAMING_INGEST_URL:-http://streaming:8000}
       STREAMING_SERVICE_TOKEN: ${STREAMING_SERVICE_TOKEN:-reports-token}
@@ -200,6 +202,7 @@ services:
       - .env.dev
     environment:
       RUN_MIGRATIONS: "0"
+      DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
       ORDER_ROUTER_URL: http://order_router:8000
       ORDER_ROUTER_TIMEOUT: "5.0"
       ORDER_ROUTER_API_KEY: ${ORDER_ROUTER_API_KEY:-demo-router-key}
@@ -234,7 +237,7 @@ services:
     env_file:
       - .env.dev
     environment:
-      RUN_MIGRATIONS: "1"
+      RUN_MIGRATIONS: "0"
       MARKET_DATA_DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
       TRADINGVIEW_HMAC_SECRET: ${TRADINGVIEW_HMAC_SECRET:-demo-hmac-secret}
       BINANCE_API_KEY: ${BINANCE_API_KEY:-demo-binance-key}
@@ -271,7 +274,7 @@ services:
     env_file:
       - .env.dev
     environment:
-      RUN_MIGRATIONS: "1"
+      RUN_MIGRATIONS: "0"
       REPORTS_DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
       REPORTS_CELERY_BROKER: redis://redis:6379/0
       REPORTS_CELERY_BACKEND: redis://redis:6379/1
@@ -314,7 +317,7 @@ services:
     env_file:
       - .env.dev
     environment:
-      RUN_MIGRATIONS: "1"
+      RUN_MIGRATIONS: "0"
       ALERT_ENGINE_DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
       ALERT_ENGINE_EVENTS_DATABASE_URL: sqlite:////data/alert_events.db
       ALERT_ENGINE_MARKET_DATA_URL: http://market_data:8000
@@ -438,7 +441,7 @@ services:
       STREAMING_GATEWAY_REDIS_URL: redis://redis:6379/2
       STREAMING_GATEWAY_NATS_URL: ${STREAMING_GATEWAY_NATS_URL:-nats://nats:4222}
       STREAMING_GATEWAY_PUBLIC_BASE_URL: http://streaming_gateway:8000
-      STREAMING_GATEWAY_ALLOWED_ORIGINS: ${STREAMING_GATEWAY_ALLOWED_ORIGINS:-https://obsproject.com,https://studio.obsproject.com}
+      STREAMING_GATEWAY_ALLOWED_ORIGINS: ${STREAMING_GATEWAY_ALLOWED_ORIGINS:-["https://obsproject.com","https://studio.obsproject.com"]}
       STREAMING_GATEWAY_TRADINGVIEW_HMAC_SECRET: ${STREAMING_GATEWAY_TRADINGVIEW_HMAC_SECRET:-demo-tradingview-secret}
       STREAMING_GATEWAY_OVERLAY_TOKEN_SECRET: ${STREAMING_GATEWAY_OVERLAY_TOKEN_SECRET:-demo-overlay-secret}
       STREAMING_GATEWAY_ENCRYPTION_KEY: ${STREAMING_GATEWAY_ENCRYPTION_KEY:-ZGVtby1lbmNyeXB0aW9uLWtleQ==}
@@ -624,3 +627,36 @@ services:
 
 volumes:
   pgdata: {}
+
+  # Auth Gateway Service - Auth0 Integration
+  auth_gateway_service:
+    build:
+      context: services/auth_gateway_service
+      dockerfile: Dockerfile
+    env_file:
+      - .env.dev
+    environment:
+      PYTHONPATH: /app
+      DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
+      # Auth0 settings loaded from .env.dev
+      USER_SERVICE_URL: http://user_service:8000
+      ENTITLEMENTS_SERVICE_URL: http://entitlements_service:8000
+      BILLING_SERVICE_URL: http://billing_service:8000
+      ALLOWED_ORIGINS: http://localhost:3000,http://localhost:8000,http://localhost:5173
+      DEBUG: "true"
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >
+          python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health').getcode()==200 else 1)"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    depends_on:
+      postgres:
+        condition: service_healthy
+      user_service:
+        condition: service_healthy
+    ports:
+      - "8012:8000"

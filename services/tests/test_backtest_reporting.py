@@ -35,6 +35,10 @@ def reports_client(tmp_path: Path) -> TestClient:
 
 
 def _load_algo_main() -> Any:
+    existing = sys.modules.get("algo_engine.app.main")
+    if existing is not None:
+        return existing
+
     package_root = Path(__file__).resolve().parents[1] / "algo_engine"
 
     def _load_package(alias: str, path: Path) -> None:

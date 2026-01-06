@@ -1,4 +1,5 @@
 # Consolidated development/test dependencies for Python services.
+typing_extensions>=4.7
 -r ../services/auth_service/requirements-dev.txt
 -r ../services/billing_service/requirements-dev.txt
 -r ../services/codex_gateway/requirements-dev.txt

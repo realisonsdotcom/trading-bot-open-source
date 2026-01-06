@@ -23,7 +23,7 @@ from libs.db import db as db_module
 from libs.entitlements.client import Entitlements
 
 # Dynamically load billing service app
-BILLING_DIR = Path(__file__).resolve().parents[1] / "billing-service"
+BILLING_DIR = Path(__file__).resolve().parents[1] / "billing_service"
 BILLING_PACKAGE = "services.billing_service"
 if BILLING_PACKAGE not in sys.modules:
     package = types.ModuleType(BILLING_PACKAGE)

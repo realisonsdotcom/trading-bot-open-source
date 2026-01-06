@@ -3,9 +3,11 @@ uvicorn[standard]
 SQLAlchemy>=2
 psycopg2-binary
 passlib[bcrypt]
+bcrypt>=3.2,<4.1
 python-jose[cryptography]
 pyotp
 pydantic[email]>=2
 prometheus-client>=0.20
 alembic
 itsdangerous
+httpx

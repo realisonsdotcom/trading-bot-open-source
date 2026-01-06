@@ -167,6 +167,7 @@ class StrategyRepository:
 
     def create(self, record: StrategyRecord) -> StrategyRecord:
         metadata = self._ensure_metadata(record.metadata, record.id)
+        now = datetime.now(timezone.utc)
         with self._session_factory() as session:
             model = Strategy(
                 id=record.id,
@@ -183,6 +184,8 @@ class StrategyRepository:
                 status=record.status.value,
                 last_error=record.last_error,
                 last_backtest=record.last_backtest,
+                created_at=now,
+                updated_at=now,
             )
             session.add(model)
             session.flush()
@@ -198,6 +201,7 @@ class StrategyRepository:
                     source_format=model.source_format,
                     source=model.source,
                     derived_from=model.derived_from,
+                    created_at=now,
                 )
             )
             session.commit()
@@ -257,6 +261,7 @@ class StrategyRepository:
                 model.last_backtest = updates["last_backtest"]
 
             model.metadata_ = self._ensure_metadata(model.metadata_, strategy_id)
+            model.updated_at = datetime.now(timezone.utc)
 
             if status_update is not None:
                 model.status = status_update.value
@@ -272,6 +277,7 @@ class StrategyRepository:
 
             if create_version:
                 model.version = (model.version or 1) + 1
+                snapshot_ts = datetime.now(timezone.utc)
                 session.add(
                     StrategyVersion(
                         strategy_id=model.id,
@@ -284,6 +290,7 @@ class StrategyRepository:
                         source_format=model.source_format,
                         source=model.source,
                         derived_from=model.derived_from,
+                        created_at=snapshot_ts,
                     )
                 )
 

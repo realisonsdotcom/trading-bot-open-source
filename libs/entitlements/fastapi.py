@@ -44,24 +44,28 @@ class EntitlementsMiddleware(BaseHTTPMiddleware):
             )
             return await call_next(request)
 
-        if not customer_id:
-            if self._bypass:
-                request.state.entitlements = Entitlements(
-                    customer_id="anonymous", features={}, quotas={}
-                )
-                return await call_next(request)
+        if not customer_id and not self._bypass:
             raise HTTPException(
                 status_code=HTTP_401_UNAUTHORIZED, detail="Missing x-customer-id header"
             )
 
-        try:
-            entitlements = await self._client.require(
-                customer_id,
-                capabilities=self._required_capabilities,
-                quotas=self._required_quotas,
+        if self._bypass:
+            granted_features = {capability: True for capability in self._required_capabilities}
+            granted_quotas = dict(self._required_quotas)
+            entitlements = Entitlements(
+                customer_id=customer_id or "anonymous",
+                features=granted_features,
+                quotas=granted_quotas,
             )
-        except Exception as exc:  # pragma: no cover - the client already raises meaningful errors
-            raise HTTPException(status_code=HTTP_403_FORBIDDEN, detail=str(exc)) from exc
+        else:
+            try:
+                entitlements = await self._client.require(
+                    customer_id,
+                    capabilities=self._required_capabilities,
+                    quotas=self._required_quotas,
+                )
+            except Exception as exc:  # pragma: no cover - the client already raises meaningful errors
+                raise HTTPException(status_code=HTTP_403_FORBIDDEN, detail=str(exc)) from exc
 
         request.state.entitlements = entitlements
         response = await call_next(request)

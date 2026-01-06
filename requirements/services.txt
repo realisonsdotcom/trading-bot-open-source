@@ -2,6 +2,7 @@
 # Each entry references the service-specific requirements file to ensure
 # GitHub workflows and local automation install a consistent set of
 # third-party packages before running tests.
+typing_extensions>=4.7
 -r ../services/ai_strategy_assistant/requirements.txt
 -r ../services/alert_engine/requirements.txt
 -r ../services/algo_engine/requirements.txt

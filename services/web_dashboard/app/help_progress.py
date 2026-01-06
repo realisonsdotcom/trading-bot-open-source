@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from collections import deque
 from dataclasses import dataclass
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Deque, Dict, Set
 
 
@@ -55,7 +55,7 @@ class LearningTracker:
 
     def _ensure_user(self, user_id: str) -> Deque[LearningResourceVisit]:
         if user_id not in self._recent:
-            now = datetime.now(UTC)
+            now = datetime.now(timezone.utc)
             seed_history = deque(maxlen=self._max_recent)
             seed_history.append(
                 LearningResourceVisit(
@@ -87,7 +87,7 @@ class LearningTracker:
                 slug=slug,
                 title=title,
                 resource_type=resource_type,
-                viewed_at=datetime.now(UTC),
+                viewed_at=datetime.now(timezone.utc),
             )
         )
 

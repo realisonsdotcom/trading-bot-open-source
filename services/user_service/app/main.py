@@ -9,14 +9,12 @@ from typing import Dict, Iterable, List
 from fastapi import (
     Depends,
     FastAPI,
-    Header,
     HTTPException,
     Query,
     Request,
     Response,
     status,
 )
-from jose import jwt
 from cryptography.fernet import Fernet, InvalidToken
 from sqlalchemy import (
     Boolean,
@@ -33,7 +31,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column
 
 from libs.db.db import get_db
-from libs.entitlements import install_entitlements_middleware
+from libs.entitlements.auth0_integration import install_auth0_with_entitlements
 from libs.entitlements.client import Entitlements
 from libs.observability.logging import RequestContextMiddleware, configure_logging
 from libs.observability.metrics import setup_metrics
@@ -54,10 +52,6 @@ from .schemas import (
     UserResponse,
     UserUpdate,
 )
-
-_default_jwt_secret = os.getenv("JWT_SECRET", "dev-secret-change-me")
-JWT_SECRET = get_secret("JWT_SECRET", default=_default_jwt_secret) or _default_jwt_secret
-JWT_ALG = "HS256"
 
 
 class Base(DeclarativeBase):
@@ -148,11 +142,11 @@ UserBrokerCredential = ApiCredential
 configure_logging("user-service")
 
 app = FastAPI(title="User Service", version="0.1.0")
-install_entitlements_middleware(
+install_auth0_with_entitlements(
     app,
     required_capabilities=["can.use_users"],
     required_quotas={},
-    skip_paths=["/users/register"],
+    skip_paths=["/health", "/users/register"],
 )
 app.add_middleware(RequestContextMiddleware, service_name="user-service")
 setup_metrics(app, service_name="user-service")
@@ -454,17 +448,14 @@ class OnboardingProgress(Base):
     )
 
 
-def require_auth(authorization: str = Header(default=None)) -> dict:
-    """Validate the bearer token and return its payload."""
-
-    if not authorization or not authorization.lower().startswith("bearer "):
-        raise HTTPException(status_code=401, detail="Missing token")
-    token = authorization.split()[1]
-    try:
-        payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALG])
-    except Exception as exc:  # pragma: no cover - jose already raises precise errors
-        raise HTTPException(status_code=401, detail="Invalid token") from exc
-    return payload
+def require_auth(request: Request) -> dict:
+    """Extract user info from Auth0 middleware state."""
+    # Auth0 middleware has already validated the token and populated request.state
+    customer_id = getattr(request.state, "customer_id", None)
+    if not customer_id:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    # Return a dict compatible with old JWT payload format for backward compatibility
+    return {"sub": customer_id}
 
 
 def get_entitlements(request: Request) -> Entitlements:
@@ -486,28 +477,17 @@ def require_manage_users(
     return entitlements
 
 
-def get_authenticated_actor(
-    request: Request, payload: dict = Depends(require_auth)
-) -> int:
-    """Validate that the JWT payload matches the optional actor header."""
-
-    sub = payload.get("sub")
+def get_authenticated_actor(request: Request) -> int:
+    """Extract the authenticated user ID from Auth0 middleware state."""
+    # Auth0 middleware has already validated the token and populated request.state
+    customer_id = getattr(request.state, "customer_id", None)
+    if not customer_id:
+        raise HTTPException(status_code=401, detail="Not authenticated")
     try:
-        user_id = int(sub)
+        user_id = int(customer_id)
     except (TypeError, ValueError):
-        raise HTTPException(status_code=401, detail="Invalid token")
-    actor_header = request.headers.get("x-customer-id") or request.headers.get("x-user-id")
-    if not actor_header:
-        if os.getenv("ENTITLEMENTS_BYPASS", "0") == "1":
-            return user_id
-        raise HTTPException(status_code=400, detail="Missing x-customer-id header")
-    try:
-        actor_id = int(actor_header)
-    except ValueError as exc:  # pragma: no cover - validated in integration tests
-        raise HTTPException(status_code=400, detail="Invalid x-customer-id header") from exc
-    if user_id != actor_id:
-        raise HTTPException(status_code=403, detail="Actor mismatch")
-    return actor_id
+        raise HTTPException(status_code=401, detail="Invalid customer ID")
+    return user_id
 
 
 def _fetch_preferences(db: Session, user_id: int) -> Dict[str, object]:

@@ -12,7 +12,7 @@ from importlib import import_module
 from pathlib import Path
 from typing import Any, Dict, List, Literal, Optional
 
-from fastapi import FastAPI, HTTPException, Query, Request, status
+from fastapi import FastAPI, HTTPException, Query, Request, Response, status
 from pydantic import BaseModel, Field
 
 ASSISTANT_SRC = Path(__file__).resolve().parents[2] / "ai_strategy_assistant" / "src"
@@ -60,7 +60,7 @@ else:
     )
 
 from libs.db.db import SessionLocal
-from libs.entitlements import install_entitlements_middleware
+from libs.entitlements.auth0_integration import install_auth0_with_entitlements
 from libs.observability.logging import RequestContextMiddleware, configure_logging
 from libs.observability.metrics import setup_metrics
 from providers.limits import build_plan, get_pair_limit
@@ -180,9 +180,10 @@ reports_publisher = ReportsPublisher()
 configure_logging("algo-engine")
 
 app = FastAPI(title="Algo Engine", version="0.1.0")
-install_entitlements_middleware(
+install_auth0_with_entitlements(
     app,
     required_capabilities=["can.manage_strategies"],
+    skip_paths=["/health"],
 )
 app.add_middleware(RequestContextMiddleware, service_name="algo-engine")
 setup_metrics(app, service_name="algo-engine")
@@ -525,11 +526,12 @@ def transition_strategy_status(
 
 
 @app.delete("/strategies/{strategy_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_strategy(strategy_id: str) -> None:
+def delete_strategy(strategy_id: str) -> Response:
     try:
         strategy_repository.delete(strategy_id)
     except KeyError:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Strategy not found")
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @app.get("/strategies/{strategy_id}/export")

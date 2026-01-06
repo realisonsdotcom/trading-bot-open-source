@@ -7,6 +7,8 @@ RUN python -m pip install --upgrade pip && pip install -r requirements.txt
 COPY libs ./libs
 COPY infra ./infra
 COPY scripts ./scripts
+COPY services/__init__.py ./services/__init__.py
+COPY services/_bootstrap.py ./services/_bootstrap.py
 COPY services/auth_service/app ./app
 
 RUN chmod +x ./scripts/run_migrations.sh

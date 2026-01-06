@@ -11,6 +11,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
 from libs.alert_events import AlertEventBase, AlertEventRepository
+from libs.entitlements.auth0_integration import install_auth0_with_entitlements
 
 from .config import Settings, get_settings
 from .dispatcher import NotificationDispatcher
@@ -50,6 +51,12 @@ def get_dispatcher(settings: Settings = Depends(get_settings)) -> NotificationDi
 
 
 app = FastAPI(title="Notification Service", version="0.1.0")
+
+install_auth0_with_entitlements(
+    app,
+    required_capabilities=["can.use_notifications"],
+    skip_paths=["/health"],
+)
 
 
 @app.get("/health")

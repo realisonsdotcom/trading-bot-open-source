@@ -5,6 +5,11 @@ ARG SERVICE_DIR
 ARG SERVICE_PACKAGE
 ARG SERVICE_MODULE="app.main"
 
+# Expose build args to the runtime container so the entrypoint can resolve the uvicorn app path
+ENV SERVICE_DIR=${SERVICE_DIR} \
+    SERVICE_PACKAGE=${SERVICE_PACKAGE} \
+    SERVICE_MODULE=${SERVICE_MODULE}
+
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1
@@ -27,6 +32,10 @@ COPY providers ./providers
 COPY schemas ./schemas
 COPY infra ./infra
 COPY scripts ./scripts
+# Provide the entire `services` package so cross-service imports resolve during migrations
+COPY services /app/services
+
+# Copy the target service into a flattened location to allow importing it as a top-level module
 COPY services/${SERVICE_DIR} /app/service/${SERVICE_PACKAGE}
 
 ENV PYTHONPATH="/app/service:/app" \
@@ -34,4 +43,4 @@ ENV PYTHONPATH="/app/service:/app" \
 
 RUN chmod +x ./scripts/run_migrations.sh
 
-CMD ["bash", "-c", "if [ \"${RUN_MIGRATIONS:-1}\" = \"1\" ]; then ./scripts/run_migrations.sh || exit 1; fi; exec uvicorn ${SERVICE_PACKAGE}.${SERVICE_MODULE}:app --host 0.0.0.0 --port 8000"]
+CMD ["bash", "-c", "export PYTHONPATH=\"/app/service:/app:${PYTHONPATH:-}\"; if [ \"${RUN_MIGRATIONS:-1}\" = \"1\" ]; then ./scripts/run_migrations.sh || exit 1; fi; exec uvicorn ${SERVICE_PACKAGE}.${SERVICE_MODULE}:app --host 0.0.0.0 --port 8000"]

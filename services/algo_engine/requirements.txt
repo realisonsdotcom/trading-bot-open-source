@@ -3,6 +3,7 @@ uvicorn[standard]
 httpx>=0.24
 pydantic>=2
 prometheus-client>=0.20
+psycopg2-binary>=2.9
 
 # Optional AI strategy assistant runtime
 langchain==0.2.11

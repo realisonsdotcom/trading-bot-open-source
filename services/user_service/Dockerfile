@@ -8,6 +8,8 @@ RUN python -m pip install --upgrade pip && \
 COPY libs ./libs
 COPY infra ./infra
 COPY scripts ./scripts
+COPY services/__init__.py ./services/__init__.py
+COPY services/_bootstrap.py ./services/_bootstrap.py
 COPY services/user_service/app ./app
 
 RUN chmod +x ./scripts/run_migrations.sh

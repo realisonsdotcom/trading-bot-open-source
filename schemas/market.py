@@ -4,7 +4,12 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 from enum import Enum
-from typing import List, Self
+from typing import List
+
+try:  # Python 3.11+ exposes Self in typing
+    from typing import Self
+except ImportError:  # pragma: no cover - fallback for Python 3.10 test environments
+    from typing_extensions import Self
 
 from pydantic import BaseModel, Field, RootModel, model_validator
 
