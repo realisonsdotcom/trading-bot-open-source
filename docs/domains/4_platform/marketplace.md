@@ -1,3 +1,11 @@
+---
+title: Marketplace Service
+domain: 4_platform
+description: Service de marketplace pour publier des stratégies et gérer les abonnements copy-trading
+keywords: [marketplace, strategies, copy-trading, Stripe Connect, subscriptions, platform, monetization]
+last_updated: 2026-01-06
+---
+
 # Marketplace Service
 
 The marketplace service exposes APIs to publish algorithmic strategies and to

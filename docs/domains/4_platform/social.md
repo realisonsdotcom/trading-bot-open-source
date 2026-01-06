@@ -1,3 +1,11 @@
+---
+title: Social Service
+domain: 4_platform
+description: Service social pour profils publics, relations de suivi, flux d'activité et classements
+keywords: [social, profiles, follow, activity-feed, leaderboards, platform, community]
+last_updated: 2026-01-06
+---
+
 # Social Service
 
 The social service powers public profiles, follow relationships, activity feeds

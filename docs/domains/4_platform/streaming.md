@@ -1,3 +1,11 @@
+---
+title: Streaming Module
+domain: 4_platform
+description: Module de streaming temps réel pour tableaux de bord et indicateurs métiers
+keywords: [streaming, WebSocket, real-time, OBS, TradingView, overlay, platform, live]
+last_updated: 2026-01-06
+---
+
 # Module streaming
 
 Ce document décrit la mise en place du module de streaming temps réel couvrant les services `streaming_gateway`, `overlay_renderer`, `obs_controller` et `streaming_bus` ainsi que les intégrations OAuth et TradingView.

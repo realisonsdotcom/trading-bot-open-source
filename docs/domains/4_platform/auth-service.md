@@ -1,3 +1,11 @@
+---
+title: Auth Service Configuration
+domain: 4_platform
+description: Authentication service that issues JWTs, manages credentials and enforces entitlements
+keywords: [auth-service, authentication, JWT, entitlements, CORS, security, platform]
+last_updated: 2026-01-06
+---
+
 # Auth Service Configuration
 
 The **auth-service** issues JWTs, manages user credentials and enforces

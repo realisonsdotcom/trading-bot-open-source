@@ -1,3 +1,11 @@
+---
+title: User Service
+domain: 4_platform
+description: Service centralisant les profils applicatifs avec API REST sécurisée par JWT
+keywords: [user-service, profiles, user-management, JWT, entitlements, platform, API]
+last_updated: 2026-01-06
+---
+
 # User Service
 
 Le service **User** centralise les profils applicatifs et expose une API REST sécurisée
