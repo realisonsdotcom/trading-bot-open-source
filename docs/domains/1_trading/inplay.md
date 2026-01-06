@@ -1,3 +1,15 @@
+---
+domain: 1_trading
+title: InPlay Monitoring Service
+description: Real-time monitoring UI and WebSocket feed for detected trading setups
+keywords: inplay, real-time, monitoring, websocket, setups, dashboard
+last_updated: 2026-01-06
+related:
+  - screener.md
+  - market-data.md
+  - ../2_architecture/streaming.md
+---
+
 # In-Play Monitoring UI
 
 Le service `inplay` fournit une API REST et un flux WebSocket permettant à l'interface utilisateur de visualiser en temps réel les setups détectés sur les symboles surveillés.

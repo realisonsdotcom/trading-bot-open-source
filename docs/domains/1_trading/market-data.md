@@ -1,3 +1,15 @@
+---
+domain: 1_trading
+title: Market Data Service
+description: Real-time and historical market data ingestion, normalization and persistence
+keywords: market-data, real-time, historical, data-ingestion, adapters, providers
+last_updated: 2026-01-06
+related:
+  - screener.md
+  - inplay.md
+  - ../2_architecture/streaming.md
+---
+
 # Market data service
 
 The `services/market_data` package implements a FastAPI service and background
