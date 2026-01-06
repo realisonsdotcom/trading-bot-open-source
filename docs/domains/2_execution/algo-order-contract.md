@@ -1,3 +1,11 @@
+---
+title: Contrat d'acheminement d'ordre sandbox
+domain: 2_execution
+description: Contrat REST entre algorithme et order-router pour déposer des ordres standardisés
+keywords: [execution, order-contract, ExecutionIntent, ExecutionReport, REST, API, sandbox]
+last_updated: 2026-01-06
+---
+
 # Contrat d'acheminement d'ordre sandbox
 
 Ce document décrit le contrat REST utilisé entre un algorithme et le service

@@ -1,3 +1,11 @@
+---
+title: Order Router Service
+domain: 2_execution
+description: Service centralisant l'envoi d'ordres vers plusieurs brokers avec règles de risque
+keywords: [order-router, execution, orders, brokers, risk-rules, Binance, IBKR]
+last_updated: 2026-01-06
+---
+
 # Order Router Service
 
 Le service **Order Router** centralise l'envoi d'ordres vers plusieurs brokers et applique des règles de risque.
