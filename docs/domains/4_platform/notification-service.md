@@ -1,3 +1,11 @@
+---
+title: Notification Service Configuration
+domain: 4_platform
+description: Service de notifications multi-canaux (webhook, Slack, email, Telegram, SMS)
+keywords: [notification-service, notifications, Slack, email, Telegram, SMS, webhook, platform]
+last_updated: 2026-01-06
+---
+
 # Notification Service Configuration
 
 Le service est **en bêta** : les canaux webhook, Slack, email, Telegram et SMS fonctionnent en mode dry-run par défaut.

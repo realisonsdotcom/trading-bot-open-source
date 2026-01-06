@@ -1,3 +1,11 @@
+---
+title: Billing & Entitlements Integration
+domain: 4_platform
+description: Billing service integrating Stripe with entitlements database and query API
+keywords: [billing, entitlements, Stripe, subscriptions, payments, platform, monetization]
+last_updated: 2026-01-06
+---
+
 # Billing & Entitlements Integration
 
 This repository ships a dedicated `billing-service` (FastAPI) responsible for synchronising Stripe Billing objects with the internal entitlements database as well as an `entitlements-service` exposing a query API.
