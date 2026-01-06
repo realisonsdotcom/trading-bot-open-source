@@ -1,3 +1,11 @@
+---
+title: KPI Dashboard
+domain: 3_operations
+description: Generated KPI dashboard snapshot.
+keywords: [metrics, kpi, dashboard, reporting]
+last_updated: 2026-01-06
+---
+
 # Tableau de bord KPI
 
 > Dernière génération : 2025-09-28T22:51:25.885402+00:00Z

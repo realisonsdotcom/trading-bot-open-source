@@ -1,3 +1,11 @@
+---
+title: Demo Environment Setup
+domain: 3_operations
+description: Run the full demo stack with Docker Compose and validate services.
+keywords: [demo, operations, docker, setup, observability]
+last_updated: 2026-01-06
+---
+
 # Run Demo Guide
 
 This guide walks you through spinning up the full Trading-Bot stack and executing the demo

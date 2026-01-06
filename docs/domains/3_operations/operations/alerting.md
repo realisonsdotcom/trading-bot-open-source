@@ -1,4 +1,12 @@
-# Procédure d'escalade des alertes FastAPI
+---
+title: FastAPI Alert Escalation Procedure
+domain: 3_operations
+description: Escalation workflow for FastAPI alerting thresholds and response.
+keywords: [alerting, operations, incident, prometheus, grafana]
+last_updated: 2026-01-06
+---
+
+# Procedure d'escalade des alertes FastAPI
 
 Cette procédure couvre les deux alertes Prometheus livrées par défaut :
 

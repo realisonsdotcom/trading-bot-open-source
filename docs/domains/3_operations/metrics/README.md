@@ -1,4 +1,12 @@
-# Observabilité des KPI
+---
+title: KPI Observability
+domain: 3_operations
+description: KPI dashboard generation and reporting workflow.
+keywords: [metrics, kpi, observability, dashboard, reporting]
+last_updated: 2026-01-06
+---
+
+# Observabilite des KPI
 
 Ce dossier centralise le tableau de bord consolidé des indicateurs clés du programme trading bot.
 
@@ -13,13 +21,13 @@ les statuts des scénarios E2E et les KPI manuels pour publier le tableau de bor
 
 ```bash
 python scripts/metrics/build_dashboard.py \
-  --config docs/metrics/kpi-config.toml \
+  --config docs/domains/3_operations/metrics/kpi-config.toml \
   --coverage-xml coverage.xml \
   --test-outcome "$TEST_STATUS" \
   --e2e-log reports/e2e.log \
   --e2e-outcome "$E2E_STATUS" \
-  --output-md docs/metrics/kpi-dashboard.md \
-  --output-json docs/metrics/kpi-dashboard.json
+  --output-md docs/domains/3_operations/metrics/kpi-dashboard.md \
+  --output-json docs/domains/3_operations/metrics/kpi-dashboard.json
 ```
 
 Les artefacts `kpi-dashboard.md` et `kpi-dashboard.json` sont publiés automatiquement dans GitHub Actions pour être consommés
