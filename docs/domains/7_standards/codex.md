@@ -1,3 +1,14 @@
+---
+domain: 7_standards
+title: Codex Automation Platform
+description: GitHub/Stripe/TradingView automation for contribution lifecycle and billing management
+keywords: codex, automation, github, webhooks, ci-cd, contribution-management
+last_updated: 2026-01-06
+related:
+  - ../5_community/governance/
+  - ../2_architecture/billing.md
+---
+
 # Codex Automation Platform
 
 Le projet Codex automatise les interactions GitHub/Stripe/TradingView pour gérer le cycle de vie des contributions ouvertes et la facturation associée.
