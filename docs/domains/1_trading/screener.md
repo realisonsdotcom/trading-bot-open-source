@@ -1,3 +1,14 @@
+---
+domain: 1_trading
+title: Screener Service
+description: Market scanning and opportunity detection with third-party provider integration
+keywords: screener, market-scanning, stocks, filters, presets, financial-modeling-prep
+last_updated: 2026-01-06
+related:
+  - market-data.md
+  - inplay.md
+---
+
 # Screener Service
 
 Le service **Screener** expose une API REST permettant d'exécuter des screeners actions
