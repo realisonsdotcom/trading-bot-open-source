@@ -1,3 +1,11 @@
+---
+title: Web Dashboard SPA Overview
+domain: 5_webapp
+description: SPA shell architecture, providers, and routing overview for the web dashboard.
+keywords: [web-dashboard, spa, routing, frontend, ui]
+last_updated: 2026-01-06
+---
+
 # Web Dashboard SPA Shell — Capabilities Overview
 
 ## Entry Point and Providers
