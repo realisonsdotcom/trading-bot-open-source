@@ -1,3 +1,11 @@
+---
+title: Dashboard Modernization Specification
+domain: 5_webapp
+description: Modernization roadmap and requirements for the trading dashboard SPA.
+keywords: [dashboard, modernization, ui, roadmap, webapp]
+last_updated: 2026-01-06
+---
+
 # Dashboard Modernization Specification (Rev. 2026-01)
 
 ## Purpose
@@ -100,7 +108,7 @@ Retain all sidebar entries defined in `layouts/DashboardLayout.jsx` while applyi
 
 ## Gaps to Address
 1. **Visual refinements**
-   - Harmonize spacing/typography with the design tokens in `docs/ui/README.md` and add missing dark-mode states for secondary panels.
+   - Harmonize spacing/typography with the design tokens in `README.md` and add missing dark-mode states for secondary panels.
    - Refresh the sidebar and header to match current branding (iconography, responsive collapse behaviour).
 2. **Performance & responsiveness**
    - Audit bundle size, enable code-splitting on infrequently used routes (e.g., strategy documentation) and lazy-load heavy charting modules.
@@ -115,7 +123,7 @@ Retain all sidebar entries defined in `layouts/DashboardLayout.jsx` while applyi
 
 ## Out of Scope
 - Replacing React Router, rebuilding the layout container, or re-writing auth guards. These components are already production-ready.
-- Backend API contract changes beyond what is already captured in `docs/ui/dashboard-data-contracts.md`.
+- Backend API contract changes beyond what is already captured in `dashboard-data-contracts.md`.
 
 ## Deliverables
 1. Updated UI components meeting the visual, performance, and observability requirements above.

@@ -1,3 +1,11 @@
+---
+title: Dashboard Data Contracts
+domain: 5_webapp
+description: JSON payloads exchanged between the web dashboard and upstream services.
+keywords: [dashboard, data-contracts, api, ui, webapp]
+last_updated: 2026-01-06
+---
+
 # Contrats JSON du tableau de bord
 
 Ce document décrit la structure des données échangées entre le service **web-dashboard** et les

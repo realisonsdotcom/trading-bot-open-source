@@ -1,3 +1,11 @@
+---
+title: Trading UI Design System
+domain: 5_webapp
+description: Design tokens and UI principles for the trading dashboard interfaces.
+keywords: [ui, design-system, tokens, dashboard, frontend]
+last_updated: 2026-01-06
+---
+
 # Design system léger pour les interfaces de trading
 
 Ce design system fournit une base cohérente pour les micro-fronts du projet. Il est centré sur
