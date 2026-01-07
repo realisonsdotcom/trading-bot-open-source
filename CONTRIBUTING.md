@@ -61,14 +61,20 @@ Document new commands, environment variables, or schemas in `docs/`.
 - Validate metadata before submitting:
 
 ```bash
-python3 scripts/validate_docs_metadata.py
+python3 scripts/validate_docs_metadata.py --strict
 ```
 
 - (Optional) Regenerate domain indexes:
 
 ```bash
+# v2: Recursive generation for domains and subdirectories
+python3 scripts/generate_index_v2.py
+
+# Legacy v1: Domain-level only
 python3 scripts/generate_index.py
 ```
+
+See [docs/GENERATE_INDEX_V2_GUIDE.md](docs/GENERATE_INDEX_V2_GUIDE.md) for advanced usage.
 
 - CI validates docs via `.github/workflows/validate-docs.yml`.
 
@@ -158,7 +164,7 @@ Documentez les nouvelles commandes, variables d'environnement ou schémas dans `
 - Verifiez les metadonnees avant soumission :
 
 ```bash
-python3 scripts/validate_docs_metadata.py
+python3 scripts/validate_docs_metadata.py --strict
 ```
 
 - (Optionnel) Regenerez les index de domaine :
