@@ -110,9 +110,7 @@ def _strip_link_target(target: str) -> str:
 
 
 def _is_external_target(target: str) -> bool:
-    if "://" in target:
-        return True
-    return target.startswith(EXTERNAL_PREFIXES)
+    return target.startswith(EXTERNAL_PREFIXES) or "://" in target
 
 
 def _validate_related_links(path: Path, metadata: dict) -> list[str]:

@@ -3,7 +3,7 @@ domain: 3_operations
 title: Operations and Deployment Domain Index
 description: Demo setup, observability stack, metrics, and operational procedures.
 keywords: operations, demo, observability, metrics, alerting, deployment
-last_updated: 2026-01-06
+last_updated: 2026-01-07
 ---
 
 # Operations and Deployment Domain
@@ -29,6 +29,7 @@ This domain covers how to run the platform in local and production-like environm
 
 - [Demo Setup](demo.md) - Full demo environment walkthrough
 - [MVP Sandbox Flow](mvp-sandbox-flow.md) - MVP sandbox execution flow
+- [Documentation CI Pipeline](cicd-pipeline.md) - validate-docs workflow steps
 
 ### Observability and Metrics
 
