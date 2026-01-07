@@ -29,7 +29,7 @@ related:
    - ✅ Service de synchronisation utilisateurs
    - ✅ Endpoints d'authentification complets
    - ✅ Migration Alembic pour les tables
-   - ✅ Configuration Docker + docker-compose
+   - ✅ Configuration Docker + docker compose
    - ✅ Documentation complète (README.md)
 
 **Localisation**: `services/auth_gateway_service/`
@@ -45,7 +45,7 @@ related:
 
 #### 3. **Configuration**
    - ✅ Variables d'environnement dans `config/.env.dev`
-   - ✅ Configuration docker-compose
+   - ✅ Configuration docker compose
    - ✅ Port exposé: 8012
 
 ### 🏗️ Architecture implémentée
@@ -332,7 +332,7 @@ INSERT INTO plan_features (plan_id, feature_id, limit) VALUES
 
 ```bash
 # Démarrer la base de données et dépendances
-docker-compose up -d postgres redis
+docker compose --project-directory . -f infra/docker-compose.yml up -d postgres redis
 
 # Appliquer les migrations du auth_gateway_service
 cd services/auth_gateway_service
@@ -340,7 +340,7 @@ alembic upgrade head
 cd ../..
 
 # Lancer tous les services
-docker-compose up -d
+docker compose --project-directory . -f infra/docker-compose.yml up -d
 ```
 
 ### 3. Vérifier que auth_gateway_service fonctionne
@@ -451,9 +451,9 @@ Une fois la migration complète:
 - `services/auth_gateway_service/README.md` - Service documentation
 
 **Troubleshooting**:
-- Vérifier logs: `docker-compose logs auth_gateway_service`
+- Vérifier logs: `docker compose --project-directory . -f infra/docker-compose.yml logs auth_gateway_service`
 - Health check: `curl http://localhost:8012/health`
-- Database: `docker-compose exec postgres psql -U trading -d trading`
+- Database: `docker compose --project-directory . -f infra/docker-compose.yml exec postgres psql -U trading -d trading`
 
 **Resources**:
 - [Auth0 Documentation](https://auth0.com/docs)

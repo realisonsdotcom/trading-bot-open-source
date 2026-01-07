@@ -418,7 +418,7 @@ git checkout HEAD -- app/main.py
 
 # Ou bypass temporaire
 export AUTH0_BYPASS=1
-docker-compose restart SERVICE_NAME
+docker compose --project-directory . -f infra/docker-compose.yml restart SERVICE_NAME
 ```
 
 ---
@@ -452,7 +452,7 @@ En cas de problème:
 
 1. **Vérifier bypass mode**: `export AUTH0_BYPASS=1`
 2. **Vérifier auth_gateway_service**: `curl http://localhost:8012/health`
-3. **Vérifier les logs**: `docker-compose logs SERVICE_NAME`
+3. **Vérifier les logs**: `docker compose --project-directory . -f infra/docker-compose.yml logs SERVICE_NAME`
 4. **Consulter la doc**: `libs/entitlements/README_AUTH0.md`
 
 ---

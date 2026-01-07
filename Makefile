@@ -7,17 +7,25 @@ ALEMBIC_CONFIG ?= infra/migrations/alembic.ini
 ALEMBIC_DATABASE_URL ?= postgresql+psycopg2://trading:trading@localhost:5432/trading
 REVISION ?= head
 DOWN_REVISION ?= -1
+PRE_COMMIT_CONFIG ?= config/pre-commit-config.yaml
+REQUIREMENTS_DEV ?= requirements/requirements-dev.txt
+COVERAGE_RCFILE ?= config/coveragerc
+COMPOSE_PROJECT_DIR ?= .
+COMPOSE_FILE_BASE ?= infra/docker-compose.yml
+COMPOSE_FILE_OVERRIDE ?= infra/docker-compose.override.yml
+COMPOSE_FILES = -f $(COMPOSE_FILE_BASE) $(if $(wildcard $(COMPOSE_FILE_OVERRIDE)),-f $(COMPOSE_FILE_OVERRIDE))
+DOCKER_COMPOSE = docker compose --project-directory $(COMPOSE_PROJECT_DIR) $(COMPOSE_FILES)
 
 setup:
 	pipx install pre-commit || pip install pre-commit
-	pre-commit install
+	pre-commit install --config $(PRE_COMMIT_CONFIG)
 
 dev-up:
-	docker compose up -d postgres redis
-	docker compose up -d --build auth_service user_service
+	$(DOCKER_COMPOSE) up -d postgres redis
+	$(DOCKER_COMPOSE) up -d --build auth_service user_service
 
 dev-down:
-	docker compose down -v
+	$(DOCKER_COMPOSE) down -v
 
 native-up:
 	./scripts/dev/native_up.sh
@@ -26,30 +34,30 @@ native-down:
 	./scripts/dev/native_down.sh
 
 demo-up:
-	docker compose up -d postgres redis
-	until docker compose exec -T postgres pg_isready -U trading -d trading >/dev/null 2>&1; do \
+	$(DOCKER_COMPOSE) up -d postgres redis
+	until $(DOCKER_COMPOSE) exec -T postgres pg_isready -U trading -d trading >/dev/null 2>&1; do \
 	        echo "Waiting for postgres to be ready..."; \
 	        sleep 1; \
 	done
-	docker compose run --rm db_migrations
-	docker compose up -d --build auth_service user_service billing_service streaming streaming_gateway market_data \
+	$(DOCKER_COMPOSE) run --rm db_migrations
+	$(DOCKER_COMPOSE) up -d --build auth_service user_service billing_service streaming streaming_gateway market_data \
 	order_router algo_engine reports alert_engine notification_service inplay web_dashboard \
 	prometheus grafana
 
 demo-down:
-	docker compose down -v
+	$(DOCKER_COMPOSE) down -v
 
 lint:
-	pre-commit run -a
+	pre-commit run -a --config $(PRE_COMMIT_CONFIG)
 
 test:
-	python -m pip install -r requirements-dev.txt
+	python -m pip install -r $(REQUIREMENTS_DEV)
 	python -m pip install -r requirements/services.txt
 	python -m pip install -r requirements/services-dev.txt
-	python -m coverage erase
-	python -m coverage run -m pytest -m "not slow"
-	python -m coverage xml
-	python -m coverage html
+	python -m coverage --rcfile $(COVERAGE_RCFILE) erase
+	python -m coverage --rcfile $(COVERAGE_RCFILE) run -m pytest -m "not slow"
+	python -m coverage --rcfile $(COVERAGE_RCFILE) xml
+	python -m coverage --rcfile $(COVERAGE_RCFILE) html
 
 e2e:
 	pwsh -NoProfile -File ./scripts/e2e/auth_e2e.ps1
@@ -66,7 +74,7 @@ fix-makefile:
 
 # lance bootstrap dans le conteneur (robuste)
 demo-bootstrap:
-	docker compose exec \
+	$(DOCKER_COMPOSE) exec \
 		-e BOOTSTRAP_AUTH_URL=http://auth_service:8000 \
 		-e BOOTSTRAP_USER_URL=http://user_service:8000 \
 		-e BOOTSTRAP_ALGO_URL=http://algo_engine:8000 \

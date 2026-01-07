@@ -321,7 +321,7 @@ cd services/auth_portal
 npm install
 
 # 2. Configure .env.local
-cp .env.example .env.local
+cp config/.env.example .env.local
 # Edit with your Auth0 credentials
 
 # 3. Start dev server

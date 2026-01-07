@@ -39,7 +39,7 @@ Les tâches sont regroupées par criticité et se réfèrent aux services et bib
    - Documenter le parcours dans `docs/domains/3_operations/mvp-sandbox-flow.md`.
 
 2. **Playbook observabilité**
-   - Décrire le déploiement Prometheus/Grafana local & cloud, y compris l'alerte latence/erreur.【F:docker-compose.yml†L1-L56】
+   - Décrire le déploiement Prometheus/Grafana local & cloud, y compris l'alerte latence/erreur.【F:infra/docker-compose.yml†L1-L56】
    - Ajouter un tableau de bord Grafana partagé (`docs/domains/3_operations/observability/dashboards/roadmap.json`).
 
 3. **Connecteurs marchés**

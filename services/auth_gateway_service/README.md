@@ -234,7 +234,7 @@ BILLING_SERVICE_URL=http://billing_service:8000
 
 3. **Lancer les services**:
 ```bash
-docker-compose up -d postgres redis user_service entitlements_service billing_service
+docker compose --project-directory . -f infra/docker-compose.yml up -d postgres redis user_service entitlements_service billing_service
 ```
 
 4. **Appliquer les migrations**:
@@ -254,7 +254,7 @@ Le service sera accessible sur http://localhost:8012
 ### Avec Docker Compose
 
 ```bash
-docker-compose up auth_gateway_service
+docker compose --project-directory . -f infra/docker-compose.yml up auth_gateway_service
 ```
 
 ## 🧪 Tests

@@ -27,9 +27,9 @@ The Infrastructure domain covers all aspects of the technical infrastructure tha
 #### Docker & Containerization
 
 **Configuration Files**:
-- `docker-compose.yml` - Main Docker Compose configuration
-- `docker-compose.codespaces.yml` - Codespaces-specific configuration
-- `docker-compose.override.yml` - Local override configuration
+- `infra/docker-compose.yml` - Main Docker Compose configuration
+- `infra/docker-compose.codespaces.yml` - Codespaces-specific configuration
+- `infra/docker-compose.override.yml` - Local override configuration
 - `.dockerignore` - Docker ignore patterns
 - `infra/docker/fastapi-service.Dockerfile` - Base Dockerfile for FastAPI services
 
@@ -184,7 +184,7 @@ scripts/run_migrations.sh
 ## Infrastructure Files Reference
 
 ### Root Level
-- `docker-compose.yml` - Main compose file
+- `infra/docker-compose.yml` - Main compose file
 - `Makefile` - Infrastructure automation commands
 - `.dockerignore` - Docker build exclusions
 
@@ -209,7 +209,7 @@ scripts/run_migrations.sh
 
 | Topic | Location |
 |-------|----------|
-| Docker Compose | `docker-compose.yml` |
+| Docker Compose | `infra/docker-compose.yml` |
 | Database Migrations | `infra/migrations/` |
 | Prometheus Config | `infra/prometheus/prometheus.yml` |
 | Grafana Dashboards | `infra/grafana/provisioning/dashboards/` |

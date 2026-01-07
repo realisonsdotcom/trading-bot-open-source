@@ -5,8 +5,8 @@ description: Guide for contributing patterns, tools, and workflows back to the c
 keywords: retro-contribution, community, tooling, documentation, best-practices, sharing
 last_updated: 2026-01-07
 related:
-  - ../../7_standards/retro-contribution-rbok-tooling.md
-  - ../../7_standards/codex.md
+  - ../7_standards/retro-contribution-rbok-tooling.md
+  - ../7_standards/codex.md
 ---
 
 # Retro-Contribution Guide
@@ -394,7 +394,7 @@ For your first retro-contribution:
 ### Need Help?
 
 **Resources**:
-- See [Retro-Contribution Tooling Guide](../../7_standards/retro-contribution-rbok-tooling.md) for technical details
+- See [Retro-Contribution Tooling Guide](../7_standards/retro-contribution-rbok-tooling.md) for technical details
 - Check [CONTRIBUTING.md](../../../CONTRIBUTING.md) for project guidelines
 - Ask in GitHub Discussions
 
@@ -405,8 +405,8 @@ For your first retro-contribution:
 
 ## Related Documentation
 
-- [Retro-Contribution Tooling Guide](../../7_standards/retro-contribution-rbok-tooling.md) - Technical implementation details
-- [Codex Automation Platform](../../7_standards/codex.md) - Advanced automation platform
+- [Retro-Contribution Tooling Guide](../7_standards/retro-contribution-rbok-tooling.md) - Technical implementation details
+- [Codex Automation Platform](../7_standards/codex.md) - Advanced automation platform
 - [Community Index](INDEX.md) - Community domain overview
 - [CONTRIBUTING.md](../../../CONTRIBUTING.md) - Contribution guidelines
 

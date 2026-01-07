@@ -39,8 +39,8 @@ formalisation des procédures de gestion des secrets.
 
 ## 3. Infrastructure et opérations
 
-- **Conteneurisation** : `docker-compose` orchestre Postgres, Redis, auth/user services et ajoute la stack
-  Prometheus/Grafana pré-configurée pour le monitoring local.【F:docker-compose.yml†L1-L56】
+- **Conteneurisation** : `docker compose` orchestre Postgres, Redis, auth/user services et ajoute la stack
+  Prometheus/Grafana pré-configurée pour le monitoring local.【F:infra/docker-compose.yml†L1-L56】
 - **Outillage** : le `Makefile` centralise setup, lint, tests, coverage et lancement de la stack locale, ce
   qui facilite l'onboarding des contributeurs.【F:Makefile†L1-L28】
 - **Observabilité** : toutes les APIs installent le middleware de logs structurés et exposent `/metrics`,

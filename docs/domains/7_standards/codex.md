@@ -52,7 +52,7 @@ Chaque commande nécessite une capability OpenFeature : `codex.plan` ou `codex.p
 Trois workflows réutilisables sont fournis :
 
 - `.github/workflows/lint.yml` : exécute `make lint` sur un environnement Python 3.12.
-- `.github/workflows/test.yml` : installe `requirements-dev.txt`, lance `make test` et publie les rapports pytest.
+- `.github/workflows/test.yml` : installe `requirements/requirements-dev.txt`, lance `make test` et publie les rapports pytest.
 - `.github/workflows/codex-run.yml` : workflow déclenché par commentaire `/codex <cmd>` qui appelle le worker via un job réutilisable.
 
 Les workflows sont définis avec `workflow_call` pour être invoqués depuis les pipelines de produit.

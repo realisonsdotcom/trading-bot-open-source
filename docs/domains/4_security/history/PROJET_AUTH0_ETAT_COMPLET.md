@@ -116,7 +116,7 @@ services/auth_portal/
 │   ├── main.jsx                # Auth0Provider
 │   └── index.css
 ├── package.json
-├── .env.example
+├── config/.env.example
 └── README.md
 ```
 
@@ -313,7 +313,7 @@ services/auth_portal/
   ├── src/App.jsx
   ├── src/main.jsx
   ├── package.json
-  ├── .env.example
+  ├── config/.env.example
   └── README.md
 services/web_dashboard/src/components/auth/UserMenu.jsx
 docs/domains/2_architecture/webapp/ui/user-menu.md
@@ -465,7 +465,7 @@ python -m app.main
 ```bash
 cd services/auth_portal
 npm install
-cp .env.example .env.local
+cp config/.env.example .env.local
 # Éditer .env.local avec vos credentials Auth0
 npm run dev
 # Accessible sur http://localhost:3000
@@ -475,7 +475,7 @@ npm run dev
 ```bash
 cd services/web_dashboard
 npm install
-cp .env.example .env.local
+cp config/.env.example .env.local
 # Éditer .env.local avec vos credentials Auth0
 npm run dev
 # Accessible sur http://localhost:8022

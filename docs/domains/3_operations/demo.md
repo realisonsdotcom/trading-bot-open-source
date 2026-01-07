@@ -26,7 +26,7 @@ git clone https://github.com/<your-org>/trading-bot-open-source.git
 cd trading-bot-open-source
 python -m venv .venv && source .venv/bin/activate   # optional but recommended
 pip install --upgrade pip
-pip install -r requirements-dev.txt
+pip install -r requirements/requirements-dev.txt
 ```
 
 If you intend to exercise the web dashboard end-to-end tests, install Playwright assets once:
@@ -71,7 +71,7 @@ you use `make demo-up` the compose file seeds the following defaults:
 | Order router | `WEB_DASHBOARD_ORDER_ROUTER_BASE_URL` | `http://order_router:8000/` | `http://localhost:8013` |
 | Marketplace | `WEB_DASHBOARD_MARKETPLACE_URL` | `http://marketplace:8000/` | *(configure if enabled)* |
 
-Adjust these variables in your environment or override them in `docker-compose.override.yml` when
+Adjust these variables in your environment or override them in `infra/docker-compose.override.yml` when
 pointing the dashboard at remote services.
 
 ### Streaming defaults consumed by demo services
@@ -93,7 +93,7 @@ rotate the shared token.
 
 Containers built from `infra/docker/fastapi-service.Dockerfile` honour a `RUN_MIGRATIONS`
 environment variable. It defaults to `1` (run Alembic on startup) via `config/.env.dev`, and
-`docker-compose.yml` overrides it to `0` for stateless services such as `streaming`,
+`infra/docker-compose.yml` overrides it to `0` for stateless services such as `streaming`,
 `streaming_gateway`, `inplay`, `notification_service`, and `web_dashboard`. Leave the flag enabled
 for services backed by PostgreSQL (`billing_service`, `order_router`, `market_data`, `reports`,
 `alert_engine`) so they apply schema updates automatically.
@@ -168,10 +168,10 @@ remain reachable even if the dashboard is unavailable.
 
 | Symptom | Fix |
 | ------- | --- |
-| `curl` to `/health` hangs | Verify containers are running (`docker compose ps`). Restart an unhealthy service with `docker compose restart <service>`.
+| `curl` to `/health` hangs | Verify containers are running (`docker compose --project-directory . -f infra/docker-compose.yml ps`). Restart an unhealthy service with `docker compose --project-directory . -f infra/docker-compose.yml restart <service>`.
 | Login fails with 401 | Ensure you registered the user in both auth-service and user-service and that the JWT secret matches (`JWT_SECRET=test-onboarding-secret`).
 | Playwright complains about missing browsers | Run `python -m playwright install --with-deps chromium` in your virtualenv.
-| Ports already in use | Edit `docker-compose.yml` port mappings or stop the conflicting process.
+| Ports already in use | Edit `infra/docker-compose.yml` port mappings or stop the conflicting process.
 | Grafana dashboard empty | Check Prometheus scrape targets at http://localhost:9090/targets and confirm services expose `/metrics`.
 
 With the stack healthy and the demo flow complete you now have a baseline environment for building
