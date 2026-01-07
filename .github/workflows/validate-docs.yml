@@ -6,6 +6,8 @@ on:
       - 'docs/**/*.md'
       - 'AGENTS.md'
       - 'INDEX.md'
+      - 'scripts/validate_docs_metadata.py'
+      - 'scripts/generate_index_v2.py'
   push:
     branches:
       - main
@@ -13,6 +15,8 @@ on:
       - 'docs/**/*.md'
       - 'AGENTS.md'
       - 'INDEX.md'
+      - 'scripts/validate_docs_metadata.py'
+      - 'scripts/generate_index_v2.py'
 
 jobs:
   validate-metadata:
@@ -27,10 +31,13 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install pyyaml
+        run: pip install pyyaml jinja2
 
-      - name: Validate documentation metadata
-        run: python3 scripts/validate_docs_metadata.py
+      - name: Generate documentation indexes
+        run: python3 scripts/generate_index_v2.py
+
+      - name: Validate documentation metadata and links
+        run: python3 scripts/validate_docs_metadata.py --strict
 
       - name: Check markdown links
         uses: gaurav-nelson/github-action-markdown-link-check@v1

@@ -3,7 +3,7 @@ domain: 3_operations
 title: Infrastructure Domain Documentation
 description: Infrastructure setup, Docker configuration, database migrations, and infrastructure as code.
 keywords: infrastructure, docker, migrations, operations, index
-last_updated: 2026-01-06
+last_updated: 2026-01-07
 ---
 
 # Infrastructure Domain Documentation
@@ -215,6 +215,7 @@ scripts/run_migrations.sh
 | Grafana Dashboards | `infra/grafana/provisioning/dashboards/` |
 | Database Models | `infra/*_models.py` |
 | Makefile Commands | `Makefile` |
+| Docs CI Workflow | `docs/domains/3_operations/cicd-pipeline.md` |
 
 ---
 
@@ -225,7 +226,6 @@ scripts/run_migrations.sh
 - Production deployment infrastructure guide
 - Infrastructure scaling guidelines
 - Infrastructure as Code (IaC) documentation (Terraform/Ansible)
-- CI/CD pipeline infrastructure
 - Disaster recovery procedures
 - Infrastructure monitoring best practices
 
