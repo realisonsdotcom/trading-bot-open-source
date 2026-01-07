@@ -49,8 +49,8 @@ archived_reason: "Migrated from root after documentation restructuring"
 **Problem**: Services skip migrations via `RUN_MIGRATIONS=0` environment variable
 
 **Files Modified**:
-- `docker-compose.yml:78` - auth_service
-- `docker-compose.yml:105` - user_service
+- `infra/docker-compose.yml:78` - auth_service
+- `infra/docker-compose.yml:105` - user_service
 
 **Resolution Options**:
 1. **Keep as-is** (Recommended for MVP): Run migrations separately before starting services
@@ -83,16 +83,16 @@ docker exec trading-bot-open-source-postgres-1 psql -U trading -d trading -c "CR
 
 ```bash
 # Start core trading services
-docker compose up -d billing_service algo_engine order_router
+docker compose --project-directory . -f infra/docker-compose.yml up -d billing_service algo_engine order_router
 
 # Start market data service
-docker compose up -d market_data
+docker compose --project-directory . -f infra/docker-compose.yml up -d market_data
 
 # Start streaming services
-docker compose up -d streaming streaming_gateway
+docker compose --project-directory . -f infra/docker-compose.yml up -d streaming streaming_gateway
 
 # Optional: Start web dashboard
-docker compose up -d web_dashboard
+docker compose --project-directory . -f infra/docker-compose.yml up -d web_dashboard
 ```
 
 #### Expected Service Ports
@@ -339,7 +339,7 @@ CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_market_data_ohlcv_symbol_timestamp
 #### Docker Optimization
 
 ```yaml
-# Add resource limits in docker-compose.yml
+# Add resource limits in infra/docker-compose.yml
 services:
   postgres:
     deploy:
@@ -398,26 +398,26 @@ services:
 
 ### Start All MVP Services
 ```bash
-docker compose up -d postgres redis
-docker compose up -d auth_service user_service billing_service
-docker compose up -d algo_engine order_router market_data
-docker compose up -d streaming streaming_gateway
-docker compose up -d web_dashboard
+docker compose --project-directory . -f infra/docker-compose.yml up -d postgres redis
+docker compose --project-directory . -f infra/docker-compose.yml up -d auth_service user_service billing_service
+docker compose --project-directory . -f infra/docker-compose.yml up -d algo_engine order_router market_data
+docker compose --project-directory . -f infra/docker-compose.yml up -d streaming streaming_gateway
+docker compose --project-directory . -f infra/docker-compose.yml up -d web_dashboard
 ```
 
 ### View All Logs
 ```bash
-docker compose logs -f --tail=100
+docker compose --project-directory . -f infra/docker-compose.yml logs -f --tail=100
 ```
 
 ### Restart a Service
 ```bash
-docker compose restart <service_name>
+docker compose --project-directory . -f infra/docker-compose.yml restart <service_name>
 ```
 
 ### Rebuild a Service
 ```bash
-docker compose up -d --build <service_name>
+docker compose --project-directory . -f infra/docker-compose.yml up -d --build <service_name>
 ```
 
 ### Check Service Health
@@ -454,13 +454,13 @@ trading-bot-open-source/
 ```
 
 ### Key Files
-- `docker-compose.yml` - Service orchestration
+- `infra/docker-compose.yml` - Service orchestration
 - `config/.env.dev` - Development environment config
 - `Makefile` - Build & deployment commands
 - `infra/migrations/` - Database schema versions
 
 ### Getting Help
-- Check service logs: `docker compose logs <service>`
+- Check service logs: `docker compose --project-directory . -f infra/docker-compose.yml logs <service>`
 - Review API docs: `http://localhost:<port>/docs`
 - Inspect database: `psql -h localhost -U trading -d trading`
 

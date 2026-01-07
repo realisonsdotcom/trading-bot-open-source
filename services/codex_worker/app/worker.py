@@ -112,7 +112,7 @@ class CodexWorker:
             f"cd {repository.split('/')[-1]}",
             "git fetch origin",
             f"git checkout {head_sha}",
-            "pip install -r requirements-dev.txt || true",
+            "pip install -r requirements/requirements-dev.txt || true",
             "pytest",
         ]
         result = await self._sandbox.run(repository, commands)

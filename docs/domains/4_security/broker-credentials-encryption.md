@@ -32,7 +32,7 @@ Conservez la valeur générée dans votre coffre de secrets (Vault, Doppler, AWS
 
 1. **Secret manager** : ajoutez la clé `BROKER_CREDENTIALS_ENCRYPTION_KEY` au coffre utilisé par le déploiement (`SECRET_MANAGER_PROVIDER`).
 2. **Configuration runtime** :
-   - Sur les environnements orchestrés (`docker-compose`, Kubernetes), exposez la variable d'environnement `BROKER_CREDENTIALS_ENCRYPTION_KEY` pour le conteneur `user_service`.
+   - Sur les environnements orchestrés (`docker compose`, Kubernetes), exposez la variable d'environnement `BROKER_CREDENTIALS_ENCRYPTION_KEY` pour le conteneur `user_service`.
    - Pour le développement local, ajoutez la clé à `config/.env.dev` ou laissez `scripts/dev/start.sh` générer une clé éphémère.
 3. **Redémarrage** : redémarrez `user-service` après mise à jour afin que la clé soit lue et mise en cache.
 

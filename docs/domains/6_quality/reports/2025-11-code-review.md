@@ -12,7 +12,7 @@ last_updated: 2026-01-06
 
 Cette revue couvre l'état du dépôt `trading-bot-open-source` au 25 novembre 2025. Elle s'appuie sur
 l'analyse des principaux services Python (FastAPI), des bibliothèques partagées sous `libs/`,
-des fournisseurs `libs/providers/` ainsi que des actifs d'infrastructure (`docker-compose`, observabilité).
+des fournisseurs `libs/providers/` ainsi que des actifs d'infrastructure (`docker compose`, observabilité).
 Les constats sont regroupés par domaine afin d'orienter les prochaines itérations produit et
 techniques.
 
@@ -40,8 +40,8 @@ tests couvrant la génération de stratégies, les backtests et le routage d'ord
 - **Tests E2E & CI** — des scripts Bash/Powershell valident le flux auth dans la CI GitHub Actions, et le
 Makefile automatise lint/tests/coverage pour un onboarding rapide.【F:docs/domains/7_standards/plans/codex.plan.yaml†L45-L109】【F:Makefile†L1-L28】
 - **Observabilité & monitoring** — toutes les APIs FastAPI installent le middleware de logs structurés et
-exposent `/metrics`; `docker-compose` embarque Prometheus+Grafana pré-configurés pour la collecte locale.
-【F:services/auth-service/app/main.py†L12-L24】【F:services/user-service/app/main.py†L25-L52】【F:docker-compose.yml†L1-L56】
+exposent `/metrics`; `docker compose` embarque Prometheus+Grafana pré-configurés pour la collecte locale.
+【F:services/auth-service/app/main.py†L12-L24】【F:services/user-service/app/main.py†L25-L52】【F:infra/docker-compose.yml†L1-L56】
 
 ## 4. Points forts constatés
 

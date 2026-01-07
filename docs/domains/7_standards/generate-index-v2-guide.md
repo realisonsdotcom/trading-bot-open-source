@@ -30,7 +30,7 @@ The `generate_index_v2.py` script automatically generates `INDEX.md` files for d
 Install required dependencies:
 
 ```bash
-pip install -r requirements-dev.txt
+pip install -r requirements/requirements-dev.txt
 ```
 
 Or install individually:
@@ -276,7 +276,7 @@ The script automatically skips:
 
 ### Pre-commit Hook
 
-Add to `.pre-commit-config.yaml`:
+Add to `config/pre-commit-config.yaml`:
 
 ```yaml
 - repo: local
@@ -309,7 +309,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install -r requirements-dev.txt
+      - run: pip install -r requirements/requirements-dev.txt
       - run: python3 scripts/generate_index_v2.py --dry-run
 ```
 

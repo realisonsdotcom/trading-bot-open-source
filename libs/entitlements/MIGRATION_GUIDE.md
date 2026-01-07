@@ -252,11 +252,11 @@ ENTITLEMENTS_BYPASS=1
 
 ---
 
-## Étape 5: Mettre à jour docker-compose.yml
+## Étape 5: Mettre à jour infra/docker-compose.yml
 
 ### Ajouter dépendance à auth_gateway_service:
 
-**Dans `docker-compose.yml`**:
+**Dans `infra/docker-compose.yml`**:
 ```yaml
 your_service:
   # ... existing config ...
@@ -349,7 +349,7 @@ async def get_data(user_id: str = Depends(get_user_id)):
 - [ ] Installer EntitlementsMiddleware si nécessaire
 - [ ] Mettre à jour endpoints pour utiliser `request.state`
 - [ ] Remplacer `Depends(get_current_user)` par `Request` param
-- [ ] Ajouter `AUTH_GATEWAY_URL` dans docker-compose
+- [ ] Ajouter `AUTH_GATEWAY_URL` dans `infra/docker-compose.yml`
 - [ ] Tester health check (skip_paths)
 - [ ] Tester avec Auth0 token
 - [ ] Tester avec AUTH0_BYPASS=1
@@ -408,8 +408,8 @@ fetch('/api/data', {
 
 **Solution**:
 ```bash
-docker-compose up -d auth_gateway_service
-docker-compose logs auth_gateway_service
+docker compose --project-directory . -f infra/docker-compose.yml up -d auth_gateway_service
+docker compose --project-directory . -f infra/docker-compose.yml logs auth_gateway_service
 ```
 
 ### Erreur: "Missing x-customer-id header"

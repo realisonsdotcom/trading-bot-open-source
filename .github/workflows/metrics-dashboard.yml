@@ -27,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements-dev.txt
+          pip install -r requirements/requirements-dev.txt
           pip install -r requirements/services.txt
           pip install -r requirements/services-dev.txt
 
@@ -44,8 +44,8 @@ jobs:
 
       - name: Start services for E2E
         run: |
-          docker compose up -d postgres redis
-          docker compose up -d --build auth-service user-service
+          docker compose --project-directory . -f infra/docker-compose.yml up -d postgres redis
+          docker compose --project-directory . -f infra/docker-compose.yml up -d --build auth-service user-service
 
       - name: Wait for services
         run: |
@@ -101,7 +101,7 @@ jobs:
 
       - name: Tear down services
         if: always()
-        run: docker compose down -v
+        run: docker compose --project-directory . -f infra/docker-compose.yml down -v
 
       - name: Fail if previous steps failed
         if: steps.unit-tests.outcome == 'failure' || steps.e2e-run.outcome == 'failure'

@@ -265,7 +265,7 @@ Voir:
 **Solution**:
 ```bash
 curl http://localhost:8012/health
-docker-compose logs auth_gateway_service
+docker compose --project-directory . -f infra/docker-compose.yml logs auth_gateway_service
 ```
 
 ## Testing

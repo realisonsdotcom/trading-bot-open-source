@@ -226,9 +226,9 @@ For backend services to create/update users:
 Create the default `free_trial` plan in the database if it does not exist yet:
 
 ```bash
-docker-compose up -d postgres
+docker compose --project-directory . -f infra/docker-compose.yml up -d postgres
 
-docker-compose exec postgres psql -U trading -d trading << 'EOF'
+docker compose --project-directory . -f infra/docker-compose.yml exec postgres psql -U trading -d trading << 'EOF'
 INSERT INTO plans (code, name, stripe_price_id, description, trial_period_days, active)
 VALUES ('free_trial', 'Free Trial', NULL, '14-day free trial', 14, true)
 ON CONFLICT (code) DO NOTHING;
@@ -257,10 +257,10 @@ EOF
 ## 12. Run auth_gateway_service (Local)
 
 ```bash
-docker-compose up -d postgres redis user_service
-docker-compose build auth_gateway_service
-docker-compose run --rm auth_gateway_service alembic upgrade head
-docker-compose up -d auth_gateway_service
+docker compose --project-directory . -f infra/docker-compose.yml up -d postgres redis user_service
+docker compose --project-directory . -f infra/docker-compose.yml build auth_gateway_service
+docker compose --project-directory . -f infra/docker-compose.yml run --rm auth_gateway_service alembic upgrade head
+docker compose --project-directory . -f infra/docker-compose.yml up -d auth_gateway_service
 ```
 
 ## 13. Validate Configuration

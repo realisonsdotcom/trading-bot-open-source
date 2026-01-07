@@ -47,7 +47,7 @@ Consult the `Makefile` and the `docs/` directory for other useful commands (E2E 
 - Before pushing, run:
 
 ```bash
-pre-commit run -a
+pre-commit run -a --config config/pre-commit-config.yaml
 pytest -q            # add tests when you modify or introduce features
 make e2e             # optional but recommended to validate the auth flow
 ```
@@ -166,7 +166,7 @@ Consultez le `Makefile` et le dossier `docs/` pour d'autres commandes utiles (te
 - Avant de pousser, exécutez :
 
 ```bash
-pre-commit run -a
+pre-commit run -a --config config/pre-commit-config.yaml
 pytest -q            # ajoutez des tests lorsqu'une fonctionnalité est modifiée ou introduite
 make e2e             # optionnel mais recommandé pour valider le parcours auth
 ```

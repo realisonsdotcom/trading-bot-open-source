@@ -33,7 +33,7 @@ Quick reference checklist for tracking MVP setup progress.
 ## 🔧 Phase 3: Configuration Issues Resolved
 - [x] TimescaleDB dependencies removed from migrations
 - [x] Migration branch conflict (duplicate enum) fixed
-- [x] RUN_MIGRATIONS=0 flag added to docker-compose
+- [x] RUN_MIGRATIONS=0 flag added to `infra/docker-compose.yml`
 - [x] services/__init__.py and services/_bootstrap.py added to Dockerfiles
 - [x] httpx dependency added to requirements.txt
 - [x] pydantic[email] dependency added to user_service
@@ -43,19 +43,19 @@ Quick reference checklist for tracking MVP setup progress.
 ### Next Commands to Run:
 ```bash
 # Start billing service
-docker compose up -d --build billing_service
+docker compose --project-directory . -f infra/docker-compose.yml up -d --build billing_service
 
 # Start trading services
-docker compose up -d --build algo_engine order_router
+docker compose --project-directory . -f infra/docker-compose.yml up -d --build algo_engine order_router
 
 # Start market data services
-docker compose up -d --build market_data
+docker compose --project-directory . -f infra/docker-compose.yml up -d --build market_data
 
 # Start streaming services
-docker compose up -d --build streaming streaming_gateway
+docker compose --project-directory . -f infra/docker-compose.yml up -d --build streaming streaming_gateway
 
 # Start web dashboard
-docker compose up -d --build web_dashboard
+docker compose --project-directory . -f infra/docker-compose.yml up -d --build web_dashboard
 ```
 
 ### Expected Issues to Watch For:
@@ -109,7 +109,7 @@ curl http://localhost:8022/health  # web_dashboard
 PGPASSWORD=trading psql -h localhost -U trading -d trading -c "\dt"
 
 # View recent logs
-docker compose logs --tail=50 -f
+docker compose --project-directory . -f infra/docker-compose.yml logs --tail=50 -f
 ```
 
 ## 📝 Known Issues to Track
@@ -177,10 +177,10 @@ docker compose logs --tail=50 -f
 docker ps
 
 # Start next batch of services
-docker compose up -d --build billing_service algo_engine order_router
+docker compose --project-directory . -f infra/docker-compose.yml up -d --build billing_service algo_engine order_router
 
 # Monitor logs
-docker compose logs -f billing_service algo_engine order_router
+docker compose --project-directory . -f infra/docker-compose.yml logs -f billing_service algo_engine order_router
 
 # Test a service
 curl http://localhost:8013/health
@@ -189,10 +189,10 @@ curl http://localhost:8013/health
 PGPASSWORD=trading psql -h localhost -U trading -d trading
 
 # Restart everything
-docker compose restart
+docker compose --project-directory . -f infra/docker-compose.yml restart
 
 # Clean slate (careful!)
-docker compose down -v && docker compose up -d postgres redis
+docker compose --project-directory . -f infra/docker-compose.yml down -v && docker compose --project-directory . -f infra/docker-compose.yml up -d postgres redis
 ```
 
 ---

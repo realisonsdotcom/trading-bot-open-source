@@ -60,7 +60,7 @@ Le service de notifications est en cours de développement avec **292 lignes de 
 - API FastAPI (`main.py`, 43 lignes)
 - Schémas de données (`schemas.py`, 61 lignes)
 
-Ce service a été introduit dans la PR #36 "Add dashboard and notification services", mais n'est pas encore intégré dans le fichier docker-compose.yml, ce qui indique qu'il n'est pas prêt pour le déploiement.
+Ce service a été introduit dans la PR #36 "Add dashboard and notification services", mais n'est pas encore intégré dans le fichier infra/docker-compose.yml, ce qui indique qu'il n'est pas prêt pour le déploiement.
 
 ### 3. Dashboard Web (web-dashboard) - 50%
 
@@ -76,12 +76,12 @@ Les récentes pull requests montrent un développement actif de ce composant, av
 
 L'infrastructure d'observabilité est relativement mature avec :
 
-- Configuration Prometheus dans docker-compose.yml
-- Configuration Grafana dans docker-compose.yml
+- Configuration Prometheus dans infra/docker-compose.yml
+- Configuration Grafana dans infra/docker-compose.yml
 - Dashboard Grafana pour FastAPI (`fastapi-overview.json`)
 - Métriques KPI documentées (`docs/domains/3_operations/metrics/kpi-dashboard.md`)
 
-Cette infrastructure est déjà intégrée dans le fichier docker-compose.yml, ce qui indique qu'elle est prête pour le déploiement et l'utilisation.
+Cette infrastructure est déjà intégrée dans le fichier infra/docker-compose.yml, ce qui indique qu'elle est prête pour le déploiement et l'utilisation.
 
 ## Analyse des Issues et Pull Requests
 
@@ -119,14 +119,14 @@ Pour atteindre 100% d'achèvement de la Phase 4, les travaux restants incluent :
 
 1. **Service de Notifications (55% restant)**
    - Ajout de tests unitaires
-   - Intégration dans docker-compose.yml
+   - Intégration dans infra/docker-compose.yml
    - Documentation des endpoints API
    - Implémentation des canaux de notification supplémentaires
 
 2. **Dashboard Web (50% restant)**
    - Enrichissement des visualisations
    - Amélioration de la couverture de tests
-   - Intégration dans docker-compose.yml
+   - Intégration dans infra/docker-compose.yml
    - Documentation utilisateur
 
 3. **Infrastructure d'Observabilité (30% restant)**
@@ -145,7 +145,7 @@ Le projet Trading Bot Open Source montre une progression constante et méthodiqu
 
 Pour maximiser l'efficacité du développement restant, les recommandations suivantes sont proposées :
 
-1. **Prioriser l'intégration dans docker-compose.yml** des services de la Phase 4 pour faciliter les tests et le déploiement.
+1. **Prioriser l'intégration dans infra/docker-compose.yml** des services de la Phase 4 pour faciliter les tests et le déploiement.
 
 2. **Augmenter la couverture de tests** pour les services de notification et le dashboard web.
 

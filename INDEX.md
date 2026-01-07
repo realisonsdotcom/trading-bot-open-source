@@ -188,10 +188,11 @@ tests/              # Integration & end-to-end tests
 
 - **`config/.env.dev`**: Docker-based development environment variables
 - **`config/.env.native`**: Host-based (localhost) development environment variables
-- **`docker-compose.yml`**: Main service orchestration
+- **`config/.env.example`**: Example environment variables template
+- **`infra/docker-compose.yml`**: Main service orchestration
 - **`Makefile`**: Common development commands (`make dev-up`, `make test`, etc.)
 - **`pyproject.toml`**: Python project metadata & dependencies
-- **`.pre-commit-config.yaml`**: Code quality automation (black, mypy, bandit, etc.)
+- **`config/pre-commit-config.yaml`**: Code quality automation (black, mypy, bandit, etc.)
 
 ### When to Update Documentation
 
@@ -204,7 +205,7 @@ tests/              # Integration & end-to-end tests
 ### Code Quality Standards
 
 - **Python**: Black formatting (120 cols), mypy strict typing, pytest ≥80% coverage
-- **Pre-commit**: Run `pre-commit install` before first commit
+- **Pre-commit**: Run `pre-commit install --config config/pre-commit-config.yaml` before first commit
 - **Testing**: Always write tests for new features (see [Testing](#-testing--quality))
 - **Documentation**: Update relevant docs in same PR as code changes
 

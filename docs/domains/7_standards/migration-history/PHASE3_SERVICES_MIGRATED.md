@@ -126,7 +126,7 @@ archived_reason: "Migrated from root after documentation restructuring"
 2. Créer UserMenu component
 3. Remplacer AuthProvider par Auth0Provider dans `main.jsx`
 4. Mettre à jour DashboardLayout pour utiliser UserMenu
-5. Créer `.env.example` avec config Auth0
+5. Créer `config/.env.example` avec config Auth0
 
 **Estimation:** 30 min
 

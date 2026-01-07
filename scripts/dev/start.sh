@@ -39,5 +39,12 @@ PY
 )"
 fi
 
-docker compose up -d --build
+COMPOSE_FILES=(
+    "-f" "${PROJECT_ROOT}/infra/docker-compose.yml"
+)
+if [[ -f "${PROJECT_ROOT}/infra/docker-compose.override.yml" ]]; then
+    COMPOSE_FILES+=("-f" "${PROJECT_ROOT}/infra/docker-compose.override.yml")
+fi
+
+docker compose --project-directory "${PROJECT_ROOT}" "${COMPOSE_FILES[@]}" up -d --build
 echo "-> dev up. config_service: http://localhost:8000"

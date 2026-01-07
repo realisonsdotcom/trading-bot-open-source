@@ -36,7 +36,7 @@ export ENTITLEMENTS_BYPASS=1
 docker ps | grep postgres
 
 # Si pas démarré:
-docker-compose up -d postgres
+docker compose --project-directory . -f infra/docker-compose.yml up -d postgres
 ```
 
 ---
@@ -402,7 +402,7 @@ uvicorn app.main:app --port 8001
 docker ps | grep postgres
 
 # Démarrer si besoin
-docker-compose up -d postgres
+docker compose --project-directory . -f infra/docker-compose.yml up -d postgres
 
 # Tester connection
 psql -h localhost -U user -d trading_bot

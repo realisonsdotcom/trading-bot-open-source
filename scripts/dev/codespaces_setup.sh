@@ -2,8 +2,8 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-TEMPLATE_PATH="${ROOT_DIR}/docker-compose.codespaces.yml"
-OUTPUT_PATH="${ROOT_DIR}/docker-compose.override.yml"
+TEMPLATE_PATH="${ROOT_DIR}/infra/docker-compose.codespaces.yml"
+OUTPUT_PATH="${ROOT_DIR}/infra/docker-compose.override.yml"
 
 if [[ ! -f "${TEMPLATE_PATH}" ]]; then
   echo "Unable to find template ${TEMPLATE_PATH}" >&2

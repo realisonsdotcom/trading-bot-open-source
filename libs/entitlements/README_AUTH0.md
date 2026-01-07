@@ -264,10 +264,10 @@ headers: {
 **Solution**:
 ```bash
 # Check service status
-docker-compose ps auth_gateway_service
+docker compose --project-directory . -f infra/docker-compose.yml ps auth_gateway_service
 
 # Check logs
-docker-compose logs auth_gateway_service
+docker compose --project-directory . -f infra/docker-compose.yml logs auth_gateway_service
 
 # Verify URL
 curl http://auth_gateway_service:8000/health

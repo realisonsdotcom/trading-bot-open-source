@@ -12,7 +12,7 @@ Cette section décrit la configuration commune ajoutée à l'ensemble des servic
 
 - une journalisation JSON corrélée sur stdout ;
 - un endpoint `/metrics` compatible Prometheus ;
-- le stack de supervision Prometheus + Grafana fourni via `docker-compose`.
+- le stack de supervision Prometheus + Grafana fourni via `docker compose`.
 
 ## Journalisation JSON corrélée
 
@@ -45,7 +45,7 @@ L'endpoint `/metrics` est exclu de la documentation OpenAPI mais renvoie les mé
 
 ## Prometheus & Grafana
 
-Le fichier `docker-compose.yml` expose deux nouveaux services :
+Le fichier `infra/docker-compose.yml` expose deux nouveaux services :
 
 - `prometheus` (port `9090`) chargé avec `infra/prometheus/prometheus.yml` et les règles d'alerte `infra/prometheus/alert_rules.yml` ;
 - `grafana` (port `3000`) pre-provisionne avec une source de donnees Prometheus et le tableau de bord `docs/domains/3_operations/observability/dashboards/fastapi-overview.json`.
@@ -53,7 +53,7 @@ Le fichier `docker-compose.yml` expose deux nouveaux services :
 ### Démarrage rapide
 
 ```bash
-docker-compose up prometheus grafana
+docker compose --project-directory . -f infra/docker-compose.yml up prometheus grafana
 ```
 
 Accédez à Grafana via http://localhost:3000 (login/par défaut `admin`/`admin`). Le tableau de bord **FastAPI - Vue d'ensemble** affiche le débit, la latence P95 et le taux d'erreurs 5xx filtrables par service.

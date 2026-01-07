@@ -46,7 +46,7 @@ npm install
 Créer un fichier `.env.local`:
 
 ```bash
-cp .env.example .env.local
+cp config/.env.example .env.local
 ```
 
 Editer `.env.local`:
@@ -294,10 +294,10 @@ npm run dev
 curl http://localhost:8012/health
 
 # Vérifier les logs
-docker-compose logs auth_gateway_service
+docker compose --project-directory . -f infra/docker-compose.yml logs auth_gateway_service
 
 # Démarrer si nécessaire
-docker-compose up -d auth_gateway_service
+docker compose --project-directory . -f infra/docker-compose.yml up -d auth_gateway_service
 ```
 
 ### CORS errors
@@ -377,5 +377,5 @@ Après avoir testé le portail:
 F12 → Console
 
 # Backend logs
-docker-compose logs -f auth_gateway_service
+docker compose --project-directory . -f infra/docker-compose.yml logs -f auth_gateway_service
 ```
