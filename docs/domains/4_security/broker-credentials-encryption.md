@@ -2,8 +2,13 @@
 domain: 4_security
 title: Gestion des identifiants brokers chiffrés
 description: Les endpoints `/users/me/broker-credentials` du service **user-service** permettent désormais de stocker les clés API des brokers après chiffrement côté serveur. Cette page décrit la marche à suivre pour activer la fonctionnalité en environnement de déploiement.
-keywords: 4 security, broker, credentials, encryption
+keywords: security, broker, credentials, encryption, user-service
 last_updated: 2026-01-06
+status: published
+related:
+  - AUTH0_SETUP.md
+  - jwt-totp-key-rotation.md
+  - ../2_architecture/platform/user-service.md
 ---
 
 # Gestion des identifiants brokers chiffrés

@@ -108,8 +108,8 @@ open http://localhost:3000/dashboard
 
 ## 🔗 Related Domains
 
-- **[2_execution](../2_execution/INDEX.md)** - Order Router and execution services
-- **[4_platform](../4_platform/INDEX.md)** - Streaming Service integration
+- **[2_architecture (Execution)](../2_architecture/execution/INDEX.md)** - Order Router and execution services
+- **[2_architecture (Platform)](../2_architecture/platform/INDEX.md)** - Streaming Service integration
 - **[3_operations](../3_operations/INDEX.md)** - Deployment and monitoring setup
 - **[6_quality](../6_quality/INDEX.md)** - Testing strategies and quality assurance
 

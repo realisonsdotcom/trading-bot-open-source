@@ -4,6 +4,12 @@ title: Auth0 Setup Instructions - Trading Bot
 description: Step-by-step Auth0 configuration and local quick start.
 keywords: auth0, setup, security, identity, quick-start
 last_updated: 2026-01-06
+status: published
+related:
+  - INDEX.md
+  - broker-credentials-encryption.md
+  - jwt-totp-key-rotation.md
+  - history/AUTH0_MIGRATION_STATUS.md
 ---
 
 # Auth0 Setup Instructions - Trading Bot

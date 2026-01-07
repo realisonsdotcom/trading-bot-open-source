@@ -6,7 +6,7 @@ keywords: algo-order, contract, integration, order-router, strategy-execution
 last_updated: 2026-01-06
 related:
   - algo-engine.md
-  - ../2_execution/order-router.md
+  - ../2_architecture/execution/order-router.md
 ---
 
 # Contrat d'acheminement d'ordre sandbox
