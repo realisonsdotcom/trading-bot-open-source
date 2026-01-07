@@ -1,3 +1,13 @@
+---
+domain: 6_quality
+title: Local Auth0 Test Guide
+description: Steps to test the Auth0 flow locally end to end.
+keywords: tests, local, auth0, guide, archived
+last_updated: 2026-01-06
+status: deprecated
+archived_reason: "Migrated from root after documentation restructuring"
+---
+
 # 🧪 Guide de Test Local - Auth0 Flow Complet
 
 **Date**: 12 novembre 2025

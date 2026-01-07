@@ -1,3 +1,13 @@
+---
+domain: 7_standards
+title: MVP Completion Checklist
+description: Checklist for MVP readiness tracking.
+keywords: mvp, checklist, project-management, standards, archived
+last_updated: 2026-01-06
+status: deprecated
+archived_reason: "Migrated from root after documentation restructuring"
+---
+
 # MVP Completion Checklist
 
 Quick reference checklist for tracking MVP setup progress.

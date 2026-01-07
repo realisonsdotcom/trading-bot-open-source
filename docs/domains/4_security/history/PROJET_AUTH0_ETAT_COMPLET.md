@@ -1,3 +1,13 @@
+---
+domain: 4_security
+title: Auth0 Migration Status - Full State
+description: Comprehensive status snapshot of the Auth0 migration project.
+keywords: auth0, migration, status, snapshot, archived
+last_updated: 2026-01-06
+status: deprecated
+archived_reason: "Migrated from root after documentation restructuring"
+---
+
 # 📊 État Complet du Projet - Migration Auth0
 
 **Date**: 12 novembre 2025
@@ -335,10 +345,10 @@ services/web_dashboard/src/pages/CallbackPage.jsx
 ### Documentation
 
 ```
-PHASE2_COMPLETED.md
-PHASE3_SERVICES_MIGRATED.md
-PHASE3_BACKEND_COMPLETED.md
-PROJET_AUTH0_ETAT_COMPLET.md (ce document)
+docs/domains/7_standards/migration-history/PHASE2_COMPLETED.md
+docs/domains/7_standards/migration-history/PHASE3_SERVICES_MIGRATED.md
+docs/domains/7_standards/migration-history/PHASE3_BACKEND_COMPLETED.md
+docs/domains/4_security/history/PROJET_AUTH0_ETAT_COMPLET.md (ce document)
 ```
 
 **Total**: ~30 fichiers créés, ~10 modifiés

@@ -1,3 +1,13 @@
+---
+domain: 7_standards
+title: Trading Bot MVP - Next Steps
+description: Post-MVP priorities and follow-up tasks.
+keywords: mvp, next-steps, planning, standards, archived
+last_updated: 2026-01-06
+status: deprecated
+archived_reason: "Migrated from root after documentation restructuring"
+---
+
 # Trading Bot MVP - Next Steps
 
 ## Current Status

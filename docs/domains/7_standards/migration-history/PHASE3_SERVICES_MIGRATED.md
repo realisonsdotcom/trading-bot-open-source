@@ -1,3 +1,13 @@
+---
+domain: 7_standards
+title: Phase 3 Services Migrated
+description: Summary of services migrated during phase 3.
+keywords: migration, phase-3, services, history, archived
+last_updated: 2026-01-06
+status: deprecated
+archived_reason: "Migrated from root after documentation restructuring"
+---
+
 # ✅ Phase 3 - Services Migrated (In Progress)
 
 **Date**: 12 novembre 2025

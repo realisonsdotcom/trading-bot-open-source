@@ -1,12 +1,20 @@
 ---
 domain: 4_security
 title: Auth0 Setup Instructions - Trading Bot
-description: 1. Go to https://auth0.com/signup
-keywords: 4 security, auth0, setup
+description: Step-by-step Auth0 configuration and local quick start.
+keywords: auth0, setup, security, identity, quick-start
 last_updated: 2026-01-06
 ---
 
 # Auth0 Setup Instructions - Trading Bot
+
+## Quick Start (30 minutes)
+
+1. Create the Auth0 tenant, SPA application, and API (sections 1-3).
+2. Configure environment variables (section 9 + summary below).
+3. Seed the default plan (section 11).
+4. Run the auth gateway service locally (section 12).
+5. Validate the login flow (section 13).
 
 ## 1. Create Auth0 Tenant
 
@@ -207,9 +215,88 @@ For backend services to create/update users:
    - `read:user_idp_tokens`
 5. Copy **Client ID** and **Client Secret**
 
-## 11. Test Configuration
+## 11. Seed Default Plan (Optional)
+
+Create the default `free_trial` plan in the database if it does not exist yet:
+
+```bash
+docker-compose up -d postgres
+
+docker-compose exec postgres psql -U trading -d trading << 'EOF'
+INSERT INTO plans (code, name, stripe_price_id, description, trial_period_days, active)
+VALUES ('free_trial', 'Free Trial', NULL, '14-day free trial', 14, true)
+ON CONFLICT (code) DO NOTHING;
+
+INSERT INTO features (code, name, kind, description) VALUES
+  ('can.use_strategies', 'Use Strategies', 'capability', 'Access to trading strategies'),
+  ('can.use_alerts', 'Use Alerts', 'capability', 'Create and manage alerts'),
+  ('quota.active_algos', 'Active Algorithms', 'quota', 'Max concurrent algorithms'),
+  ('quota.api_calls_per_minute', 'API Rate Limit', 'quota', 'API calls per minute')
+ON CONFLICT (code) DO NOTHING;
+
+INSERT INTO plan_features (plan_id, feature_id, limit)
+SELECT p.id, f.id,
+  CASE
+    WHEN f.code = 'quota.active_algos' THEN 3
+    WHEN f.code = 'quota.api_calls_per_minute' THEN 100
+    ELSE NULL
+  END
+FROM plans p, features f
+WHERE p.code = 'free_trial'
+  AND f.code IN ('can.use_strategies', 'can.use_alerts', 'quota.active_algos', 'quota.api_calls_per_minute')
+ON CONFLICT DO NOTHING;
+EOF
+```
+
+## 12. Run auth_gateway_service (Local)
+
+```bash
+docker-compose up -d postgres redis user_service
+docker-compose build auth_gateway_service
+docker-compose run --rm auth_gateway_service alembic upgrade head
+docker-compose up -d auth_gateway_service
+```
+
+## 13. Validate Configuration
 
 Use Auth0's **Try It** button in your application settings to test login flow.
+
+### Health check
+
+```bash
+curl http://localhost:8012/health
+```
+
+### Session test (browser + curl)
+
+```bash
+# 1. Get login URL
+curl -I http://localhost:8012/auth/login
+
+# 2. Complete login in the browser and capture the session cookie
+
+# 3. Verify session (replace SESSION_ID)
+curl -b "trading_bot_session=SESSION_ID" \
+  http://localhost:8012/auth/session
+
+# 4. Fetch user info
+curl -b "trading_bot_session=SESSION_ID" \
+  http://localhost:8012/auth/user
+```
+
+## Validation Checklist
+
+- [ ] Auth0 tenant created
+- [ ] SPA application configured
+- [ ] API created with correct audience
+- [ ] Custom action deployed
+- [ ] `.env.dev` updated
+- [ ] Default plan created (optional)
+- [ ] Service starts without errors
+- [ ] Health check responds (http://localhost:8012/health)
+- [ ] Login redirect works
+- [ ] Session persists and validates
+- [ ] User info returns correctly
 
 ---
 
@@ -243,6 +330,11 @@ Once Auth0 is configured:
 3. ✅ Verify token validation and entitlements
 4. ✅ Test social login providers
 5. ✅ Create test users and assign roles
+
+## Historical References
+
+- `docs/domains/4_security/history/AUTH0_MIGRATION_STATUS.md`
+- `docs/domains/4_security/history/PROJET_AUTH0_ETAT_COMPLET.md`
 
 ---
 
