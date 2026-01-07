@@ -6,6 +6,8 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/)
 
 ## [Unreleased]
 ### Ajouté
+- Guide de rétro-contribution (`docs/domains/5_community/retro-contribution-guide.md`) pour partager outils et patterns avec la communauté (#56)
+- Section rétro-contribution dans CONTRIBUTING.md (anglais et français)
 - Script `generate_index_v2.py` pour génération récursive d'INDEX.md avec support Jinja2 (#52)
 - Template Jinja2 pour personnalisation des index (`docs/templates/index-template.md.j2`)
 - Guide d'utilisation complet pour `generate_index_v2.py` (`docs/GENERATE_INDEX_V2_GUIDE.md`)
@@ -18,9 +20,10 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/)
 - Mise à jour du changelog synthétique et des guides service-specific (algo-engine, marketplace, market-data, inplay, notifications, streaming).
 
 ### Modifié
+- INDEX.md du domaine Community avec référence au guide de rétro-contribution
 - Alignement du calendrier de releases avec des jalons trimestriels (clarifié dans `docs/domains/5_community/release-highlights/2025-12.md`).
 - Documentation communautaire couvrant les rituels AMA et live coding.
-- CONTRIBUTING.md avec référence au nouveau générateur d'index v2
+- CONTRIBUTING.md avec référence au nouveau générateur d'index v2 et section rétro-contribution
 
 ## [0.2.0] - 2023-12-15
 ### Ajouté

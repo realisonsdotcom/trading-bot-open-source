@@ -113,6 +113,22 @@ Before merging or approving a pull request, ensure that:
 
 Documentation, translations, project management, and testing are equally appreciated. Please surface them via dedicated issues or discussions.
 
+### 9. Retro-Contribution
+
+We encourage sharing tools, patterns, and workflows developed in this project with the broader community. This practice, called **retro-contribution**, helps other projects benefit from our solutions.
+
+**What to Share**:
+- Documentation patterns and tools (e.g., `generate_index_v2.py`)
+- CI/CD workflows and automation scripts
+- Architecture patterns and best practices
+- Development tooling and utilities
+
+**How to Share**:
+- See [Retro-Contribution Guide](docs/domains/5_community/retro-contribution-guide.md) for complete guidelines
+- See [Retro-Contribution Tooling Guide](docs/domains/7_standards/retro-contribution-rbok-tooling.md) for technical details
+- Always credit contributors and maintain proper licensing
+- Ensure tools are well-documented and tested before sharing
+
 ---
 
 <a id="guide-francais"></a>
@@ -209,6 +225,22 @@ Avant de fusionner ou d'approuver une pull request, vérifiez :
 ### 8. Contribution non-code
 
 Les contributions sur la documentation, les traductions, la gestion de projet et les tests sont tout autant appréciées. Signalez-les via des issues dédiées ou des discussions.
+
+### 9. Rétro-contribution
+
+Nous encourageons le partage d'outils, de patterns et de workflows développés dans ce projet avec la communauté open source au sens large. Cette pratique, appelée **rétro-contribution**, aide d'autres projets à bénéficier de nos solutions.
+
+**Quoi partager** :
+- Patterns et outils de documentation (ex: `generate_index_v2.py`)
+- Workflows CI/CD et scripts d'automatisation
+- Patterns d'architecture et bonnes pratiques
+- Outils de développement et utilitaires
+
+**Comment partager** :
+- Voir [Guide de Rétro-contribution](docs/domains/5_community/retro-contribution-guide.md) pour les lignes directrices complètes
+- Voir [Guide Technique de Rétro-contribution](docs/domains/7_standards/retro-contribution-rbok-tooling.md) pour les détails techniques
+- Toujours créditer les contributeurs et maintenir les licences appropriées
+- S'assurer que les outils sont bien documentés et testés avant de les partager
 
 ---
 
