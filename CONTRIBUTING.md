@@ -74,7 +74,7 @@ python3 scripts/generate_index_v2.py
 python3 scripts/generate_index.py
 ```
 
-See [docs/GENERATE_INDEX_V2_GUIDE.md](docs/GENERATE_INDEX_V2_GUIDE.md) for advanced usage.
+See [docs/domains/7_standards/generate-index-v2-guide.md](docs/domains/7_standards/generate-index-v2-guide.md) for advanced usage.
 
 - CI validates docs via `.github/workflows/validate-docs.yml`.
 

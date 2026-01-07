@@ -41,6 +41,7 @@ YAML_PATTERN = re.compile(r"^---\n(.*?)\n---\n", re.DOTALL)
 LINK_PATTERN = re.compile(r"!?\[[^\]]+\]\(([^)]+)\)")
 DATE_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 EXTERNAL_PREFIXES = ("http://", "https://", "mailto:", "tel:")
+FENCE_PATTERN = re.compile(r"(```|~~~).*?\1", re.DOTALL)
 
 
 def _extract_front_matter(path: Path) -> dict | None:
@@ -135,7 +136,8 @@ def _validate_related_links(path: Path, metadata: dict) -> list[str]:
 
 def _validate_markdown_links(path: Path, content: str) -> list[str]:
     errors: list[str] = []
-    for match in LINK_PATTERN.finditer(content):
+    sanitized = FENCE_PATTERN.sub("", content)
+    for match in LINK_PATTERN.finditer(sanitized):
         target = match.group(1).strip()
         if not target or target.startswith("#") or _is_external_target(target):
             continue

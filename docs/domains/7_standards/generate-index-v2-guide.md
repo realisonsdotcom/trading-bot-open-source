@@ -1,3 +1,15 @@
+---
+domain: 7_standards
+title: Generate Index v2 Guide
+description: Guide for generating documentation indexes with generate_index_v2.py.
+keywords: documentation, index, tooling, generate-index, jinja2
+last_updated: 2026-01-07
+status: published
+related:
+  - INDEX.md
+  - retro-contribution-rbok-tooling.md
+---
+
 # Generate Index Script (v2)
 
 ## Overview
@@ -355,9 +367,9 @@ python3 scripts/generate_index_v2.py --template docs/templates/index-template.md
 
 ## Related Documentation
 
-- [DOCUMENTATION-GUIDE-FOR-AGENTS.md](../DOCUMENTATION-GUIDE-FOR-AGENTS.md) - Documentation standards
-- [docs/templates/](../docs/templates/) - Template examples
-- [CONTRIBUTING.md](../CONTRIBUTING.md) - Contribution guidelines
+- [DOCUMENTATION-GUIDE-FOR-AGENTS.md](../../DOCUMENTATION-GUIDE-FOR-AGENTS.md) - Documentation standards
+- [docs/templates/](../../templates/) - Template examples
+- [CONTRIBUTING.md](../../../CONTRIBUTING.md) - Contribution guidelines
 
 ## Maintainers
 

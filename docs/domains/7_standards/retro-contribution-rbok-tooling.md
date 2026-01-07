@@ -7,6 +7,7 @@ last_updated: 2026-01-07
 related:
   - codex.md
   - project-evaluation.md
+  - generate-index-v2-guide.md
 ---
 
 # Retro-Contribution Tooling Guide
@@ -31,9 +32,11 @@ The `trading-bot-open-source` project has developed several tooling solutions th
 
 ### 1. Documentation Scripts
 
-#### `scripts/generate_index.py`
+#### `scripts/generate_index_v2.py`
 
 **Purpose**: Automatically generates `INDEX.md` files for documentation domains from YAML front matter metadata.
+
+> **Note**: This v2 script supersedes the legacy `generate_index.py` and adds recursive indexing plus Jinja2 templates.
 
 **Features**:
 - Scans markdown files in domain directories
@@ -42,9 +45,9 @@ The `trading-bot-open-source` project has developed several tooling solutions th
 - Supports custom domain ordering
 - Dry-run mode for testing
 
-**Location**: `trading-bot-open-source/scripts/generate_index.py`
+**Location**: `trading-bot-open-source/scripts/generate_index_v2.py`
 
-**Dependencies**: `pyyaml`
+**Dependencies**: `pyyaml`, `jinja2`
 
 **Adaptation for Target Project**:
 - Update `DOMAIN_ORDER` to match the target project's domain structure:
@@ -170,7 +173,7 @@ The `trading-bot-open-source` project has developed several tooling solutions th
 1. **Copy Tooling Files**
    ```bash
    # From trading-bot-open-source
-   cp scripts/generate_index.py /path/to/target-project/scripts/
+   cp scripts/generate_index_v2.py /path/to/target-project/scripts/
    cp scripts/validate_docs_metadata.py /path/to/target-project/scripts/
    cp .github/workflows/validate-docs.yml /path/to/target-project/.github/workflows/
    ```
@@ -184,7 +187,7 @@ The `trading-bot-open-source` project has developed several tooling solutions th
 3. **Test Locally**
    ```bash
    # Test index generation
-   python scripts/generate_index.py --dry-run
+   python scripts/generate_index_v2.py --dry-run
    
    # Test metadata validation
    python scripts/validate_docs_metadata.py
@@ -208,7 +211,7 @@ docs-validate:
     python scripts/validate_docs_metadata.py
 
 docs-index:
-    python scripts/generate_index.py
+    python scripts/generate_index_v2.py
    ```
 
 ### Phase 4: Validation
@@ -230,7 +233,7 @@ docs-index:
 ```bash
 cd /path/to/target-project
 mkdir -p scripts
-cp /path/to/trading-bot-open-source/scripts/generate_index.py scripts/
+cp /path/to/trading-bot-open-source/scripts/generate_index_v2.py scripts/
 cp /path/to/trading-bot-open-source/scripts/validate_docs_metadata.py scripts/
 chmod +x scripts/*.py
 ```
@@ -244,7 +247,7 @@ pip install pyyaml
 
 ### Step 3: Adapt Domain Configuration
 
-Edit `scripts/generate_index.py`:
+Edit `scripts/generate_index_v2.py`:
 
 ```python
 DOMAIN_ORDER = [
@@ -272,7 +275,7 @@ VALID_DOMAINS = {
 
 ```bash
 # Test index generation (dry-run)
-python scripts/generate_index.py --root docs/domains --dry-run
+python scripts/generate_index_v2.py --root docs/domains --dry-run
 
 # Test metadata validation
 python scripts/validate_docs_metadata.py
@@ -282,7 +285,7 @@ python scripts/validate_docs_metadata.py
 
 ```bash
 # Generate all domain indexes
-python scripts/generate_index.py --root docs/domains
+python scripts/generate_index_v2.py --root docs/domains
 ```
 
 ## Step-by-Step: CI/CD Workflow

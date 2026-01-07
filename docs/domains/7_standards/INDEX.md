@@ -3,7 +3,7 @@ domain: 7_standards
 title: Standards Domain Index
 description: Engineering standards, planning artifacts, and project evaluation.
 keywords: standards, codex, planning, roadmap, evaluation, index
-last_updated: 2026-01-06
+last_updated: 2026-01-07
 ---
 
 # Standards Domain Index
@@ -15,6 +15,12 @@ This domain captures standards, planning artifacts, and project evaluation notes
 - [Codex](codex.md) - Automation and quality standards.
 - [Project Evaluation](project-evaluation.md) - Codebase assessment.
 - [Migration Map](migration-map.md) - Documentation migration reference.
+- [Metadata Audit](metadata-audit-2026-01-07.md) - YAML metadata compliance snapshot.
+
+## Documentation Tooling
+
+- [Generate Index v2 Guide](generate-index-v2-guide.md) - Index generation workflow.
+- [Retro-Contribution Tooling Guide](retro-contribution-rbok-tooling.md) - Share tooling with other projects.
 
 ## Planning
 
