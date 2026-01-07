@@ -1,8 +1,8 @@
 ---
-title: KPI Observability
 domain: 3_operations
+title: KPI Observability
 description: KPI dashboard generation and reporting workflow.
-keywords: [metrics, kpi, observability, dashboard, reporting]
+keywords: metrics, kpi, observability, dashboard, reporting
 last_updated: 2026-01-06
 ---
 

@@ -640,7 +640,7 @@ services:
       GF_SECURITY_ADMIN_PASSWORD: admin
       GF_PATHS_PROVISIONING: /etc/grafana/provisioning
     volumes:
-      - ./docs/observability/dashboards:/var/lib/grafana/dashboards:ro
+      - ./docs/domains/3_operations/observability/dashboards:/var/lib/grafana/dashboards:ro
       - ./infra/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
       - ./infra/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
     ports:

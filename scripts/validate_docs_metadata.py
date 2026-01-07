@@ -14,42 +14,27 @@ except ImportError as exc:  # pragma: no cover - runtime guard
 
 REQUIRED_FIELDS = {
     "domain",
-    "responsible",
-    "status",
+    "title",
+    "description",
+    "keywords",
     "last_updated",
 }
 
 FIELD_ALIASES = {
     "last_updated": ["last_updated", "last-updated"],
-    "keywords": ["keywords", "tags"],
 }
 
 VALID_DOMAINS = {
     "1_trading",
-    "2_execution",
-    "3_operations",
-    "4_platform",
-    "5_webapp",
-    "6_infrastructure",
-    "7_standards",
     "2_architecture",
+    "3_operations",
     "4_security",
     "5_community",
     "6_quality",
-    "meta",
+    "7_standards",
 }
 
-VALID_STATUSES = {"draft", "active", "deprecated", "archived"}
-
-VALID_AGENTS = {
-    "TradingAgent",
-    "ExecutionAgent",
-    "MonitoringAgent",
-    "PlatformAgent",
-    "WebAppAgent",
-    "InfraAgent",
-    "QualityAgent",
-}
+VALID_STATUSES = {"draft", "review", "published", "deprecated"}
 
 YAML_PATTERN = re.compile(r"^---\n(.*?)\n---\n", re.DOTALL)
 DATE_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -92,18 +77,9 @@ def _validate_metadata(path: Path, metadata: dict) -> list[str]:
     if status is not None and status not in VALID_STATUSES:
         errors.append(f"Invalid status: {status}")
 
-    responsible = _get_field(metadata, "responsible")
-    if responsible is not None:
-        if not isinstance(responsible, list):
-            errors.append("'responsible' must be a list")
-        else:
-            for agent in responsible:
-                if agent not in VALID_AGENTS:
-                    errors.append(f"Invalid agent: {agent}")
-
     keywords = _get_field(metadata, "keywords")
-    if keywords is not None and not isinstance(keywords, list):
-        errors.append("'keywords' must be a list")
+    if keywords is not None and not isinstance(keywords, str):
+        errors.append("'keywords' must be a comma-separated string")
 
     last_updated = _get_field(metadata, "last_updated")
     if last_updated is not None:

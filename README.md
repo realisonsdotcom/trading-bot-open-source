@@ -53,7 +53,7 @@ trading-bot-open-source/
 | Notifications & alerts | Alert engine, multi-channel notification service (Slack, email, Telegram, SMS) | Delivered (core delivery), Beta (templates/throttling) | Configure channel-specific environment variables; keep `NOTIFICATION_SERVICE_DRY_RUN` for staging |
 | Marketplace & onboarding | Listings API with Stripe Connect splits, copy-trading subscriptions, onboarding automation | Beta private launch | Stripe Connect account, entitlements via billing service |
 
-Track detailed milestones and owners in [`docs/release-highlights/2025-12.md`](docs/release-highlights/2025-12.md).
+Track detailed milestones and owners in [`docs/domains/5_community/release-highlights/2025-12.md`](docs/domains/5_community/release-highlights/2025-12.md).
 
 ## 🚀 Quick Start
 
@@ -252,10 +252,10 @@ A complete technical review of the repository was conducted in November 2025. Th
 
 Find the detailed review, roadmap and backlog in:
 
-- [`docs/reports/2025-11-code-review.md`](docs/reports/2025-11-code-review.md)
-- [`docs/project-evaluation.md`](docs/project-evaluation.md)
+- [`docs/domains/6_quality/reports/2025-11-code-review.md`](docs/domains/6_quality/reports/2025-11-code-review.md)
+- [`docs/domains/7_standards/project-evaluation.md`](docs/domains/7_standards/project-evaluation.md)
 - [`docs/tasks/2025-q4-backlog.md`](docs/tasks/2025-q4-backlog.md)
-- [`docs/release-highlights/2025-12.md`](docs/release-highlights/2025-12.md)
+- [`docs/domains/5_community/release-highlights/2025-12.md`](docs/domains/5_community/release-highlights/2025-12.md)
 
 ## 🗺️ Roadmap and Next Steps
 

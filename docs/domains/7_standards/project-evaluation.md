@@ -60,8 +60,8 @@ formalisation des procédures de gestion des secrets.
 
 - **Guides** : README (EN/FR) détaillent l'architecture, les phases projet et l'onboarding. Les guides
   complémentaires (`docs/`) couvrent stratégies, observabilité, sécurité, governance et roadmap.【F:README.md†L1-L120】【F:docs/ROADMAP.md†L1-L24】
-- **Gouvernance** : le comité KPI hebdomadaire est documenté (`docs/governance/kpi-review.md`) et la roadmap
-  2025→2026 aligne releases et backlog (`docs/tasks/2025-q4-backlog.md`).【F:docs/governance/kpi-review.md†L1-L40】【F:docs/tasks/2025-q4-backlog.md†L1-L56】
+- **Gouvernance** : le comité KPI hebdomadaire est documenté (`docs/domains/5_community/governance/kpi-review.md`) et la roadmap
+  2025→2026 aligne releases et backlog (`docs/tasks/2025-q4-backlog.md`).【F:docs/domains/5_community/governance/kpi-review.md†L1-L40】【F:docs/tasks/2025-q4-backlog.md†L1-L56】
 
 ## 6. Risques et points d'attention
 
@@ -110,5 +110,5 @@ formalisation des procédures de gestion des secrets.
 ---
 
 Pour la synthèse détaillée et le backlog priorisé, consulter :
-- Rapport de revue : `docs/reports/2025-11-code-review.md`.
+- Rapport de revue : `docs/domains/6_quality/reports/2025-11-code-review.md`.
 - Backlog : `docs/tasks/2025-q4-backlog.md`.

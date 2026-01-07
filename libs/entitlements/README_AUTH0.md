@@ -318,4 +318,4 @@ See example services:
 - Auth0 Middleware docs: This file
 - Entitlements docs: `libs/entitlements/README.md`
 - Auth Gateway docs: `services/auth_gateway_service/README.md`
-- Auth0 Setup: `docs/AUTH0_SETUP.md`
+- Auth0 Setup: `docs/domains/4_security/AUTH0_SETUP.md`

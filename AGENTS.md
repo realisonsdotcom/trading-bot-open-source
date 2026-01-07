@@ -16,12 +16,12 @@
 | Agent | Primary Task | Branch Pattern | Domain |
 | --- | --- | --- | --- |
 | TradingAgent | Strategies and Analysis | feat/agent-trading-* | Trading |
-| ExecutionAgent | Order Execution and Market Data | feat/agent-exec-* | Execution |
-| MonitoringAgent | Reports and Alerts | feat/agent-monitor-* | Monitoring |
-| PlatformAgent | Platform Services | feat/agent-platform-* | Platform |
-| WebAppAgent | Web Dashboard | feat/agent-webapp-* | WebApp |
-| InfraAgent | Infrastructure and CI/CD | chore/agent-infra-* | Infrastructure |
-| QualityAgent | Standards and Testing | test/agent-quality-* | Standards |
+| ExecutionAgent | Order Execution and Market Data | feat/agent-exec-* | Architecture (Execution) |
+| MonitoringAgent | Reports and Alerts | feat/agent-monitor-* | Operations (Observability) |
+| PlatformAgent | Platform Services | feat/agent-platform-* | Architecture (Platform) |
+| WebAppAgent | Web Dashboard | feat/agent-webapp-* | Architecture (WebApp) |
+| InfraAgent | Infrastructure and CI/CD | chore/agent-infra-* | Operations (Infrastructure) |
+| QualityAgent | Standards and Testing | test/agent-quality-* | Quality / Standards |
 
 ## Essential Code Standards
 
@@ -107,11 +107,11 @@ Conventional Commits:
 ## Documentation by Domain
 
 - Trading: docs/domains/1_trading/INDEX.md
-- Execution: docs/domains/2_execution/INDEX.md
-- Monitoring: docs/domains/3_monitoring/INDEX.md
-- Platform: docs/domains/4_platform/INDEX.md
-- WebApp: docs/domains/5_webapp/INDEX.md
-- Infrastructure: docs/domains/6_infrastructure/INDEX.md
+- Architecture: docs/domains/2_architecture/INDEX.md
+- Operations: docs/domains/3_operations/INDEX.md
+- Security: docs/domains/4_security/INDEX.md
+- Community: docs/domains/5_community/INDEX.md
+- Quality: docs/domains/6_quality/INDEX.md
 - Standards: docs/domains/7_standards/INDEX.md
 
 ## CI/CD and Testing
@@ -125,7 +125,7 @@ Conventional Commits:
 
 - Documentation question: docs/DOCUMENTATION-GUIDE-FOR-AGENTS.md
 - Code style question: standards section above
-- Architecture question: docs/domains/6_infrastructure/
+- Architecture question: docs/domains/2_architecture/
 - Blocked: escalate to maintainers
 
 Last Updated: 2026-01-04

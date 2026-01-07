@@ -1,8 +1,8 @@
 ---
 title: Start Here
-domain: meta
+domain: 7_standards
 description: Quick navigation guide for humans and AI agents.
-keywords: [start-here, navigation, onboarding, docs]
+keywords: start-here, navigation, onboarding, docs
 last_updated: 2026-01-06
 ---
 
@@ -29,17 +29,12 @@ Recommended next step:
 
 Primary domain indexes:
 - [Trading](domains/1_trading/INDEX.md)
-- [Execution](domains/2_execution/INDEX.md)
+- [Architecture](domains/2_architecture/INDEX.md)
 - [Operations](domains/3_operations/INDEX.md)
-- [Platform](domains/4_platform/INDEX.md)
-- [Infrastructure](domains/6_infrastructure/INDEX.md)
-
-Additional domain folders (indexes pending):
-- [Architecture](domains/2_architecture/)
-- [Security](domains/4_security/)
-- [Community](domains/5_community/)
-- [Quality](domains/6_quality/)
-- [Standards](domains/7_standards/)
+- [Security](domains/4_security/INDEX.md)
+- [Community](domains/5_community/INDEX.md)
+- [Quality](domains/6_quality/INDEX.md)
+- [Standards](domains/7_standards/INDEX.md)
 
 ## Documentation Structure
 
@@ -57,12 +52,9 @@ trading-bot-open-source/
     └── domains/
         ├── 1_trading/
         ├── 2_architecture/
-        ├── 2_execution/
         ├── 3_operations/
-        ├── 4_platform/
         ├── 4_security/
         ├── 5_community/
-        ├── 6_infrastructure/
         ├── 6_quality/
         └── 7_standards/
 ```

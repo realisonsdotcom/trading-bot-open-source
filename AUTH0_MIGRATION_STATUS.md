@@ -28,7 +28,7 @@
    - ✅ Configuration des rôles et permissions
    - ✅ Custom claims pour les métadonnées
 
-**Localisation**: `docs/AUTH0_SETUP.md`
+**Localisation**: `docs/domains/4_security/AUTH0_SETUP.md`
 
 #### 3. **Configuration**
    - ✅ Variables d'environnement dans `.env.dev`
@@ -257,7 +257,7 @@ export const AuthCallback = () => {
 
 ### 1. Auth0 Tenant Setup
 
-Suivre: `docs/AUTH0_SETUP.md`
+Suivre: `docs/domains/4_security/AUTH0_SETUP.md`
 
 **Valeurs à configurer dans `.env.dev`**:
 ```bash
@@ -312,7 +312,7 @@ INSERT INTO plan_features (plan_id, feature_id, limit) VALUES
 ### 1. Prérequis
 
 - Docker & Docker Compose
-- Auth0 tenant configuré (suivre `docs/AUTH0_SETUP.md`)
+- Auth0 tenant configuré (suivre `docs/domains/4_security/AUTH0_SETUP.md`)
 - Variables d'environnement dans `.env.dev`
 
 ### 2. Lancer les services backend
@@ -434,7 +434,7 @@ Une fois la migration complète:
 ## 📞 Support
 
 **Documentation**:
-- `docs/AUTH0_SETUP.md` - Setup Auth0
+- `docs/domains/4_security/AUTH0_SETUP.md` - Setup Auth0
 - `services/auth_gateway_service/README.md` - Service documentation
 
 **Troubleshooting**:

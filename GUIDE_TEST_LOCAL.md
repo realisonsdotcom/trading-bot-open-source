@@ -17,7 +17,7 @@ export AUTH0_BYPASS=1
 export ENTITLEMENTS_BYPASS=1
 ```
 
-> ⚠️ **Note**: Le bypass mode permet de tester sans Auth0 configuré. Pour un test complet avec Auth0, suivez `docs/AUTH0_SETUP.md`.
+> ⚠️ **Note**: Le bypass mode permet de tester sans Auth0 configuré. Pour un test complet avec Auth0, suivez `docs/domains/4_security/AUTH0_SETUP.md`.
 
 ### 2. Base de Données
 
@@ -271,7 +271,7 @@ curl -H "x-customer-id: 1" http://localhost:8001/users/me | jq .
 
 ### Test 4: Auth0 Flow (Si Auth0 configuré)
 
-**Prérequis**: Avoir configuré Auth0 selon `docs/AUTH0_SETUP.md`
+**Prérequis**: Avoir configuré Auth0 selon `docs/domains/4_security/AUTH0_SETUP.md`
 
 #### Étape 1: Supprimer bypass mode
 

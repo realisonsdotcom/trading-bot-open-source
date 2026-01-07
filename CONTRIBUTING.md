@@ -20,7 +20,7 @@ Thank you for your interest in Trading Bot Open Source! This guide outlines what
 ### 1. Before You Start
 
 - Read the [Code of Conduct](CODE_OF_CONDUCT.md) and agree to follow it.
-- Review the existing issues and roadmap in `docs/project-evaluation.md` to identify current priorities.
+- Review the existing issues and roadmap in `docs/domains/7_standards/project-evaluation.md` to identify current priorities.
 - Open an issue if you want to discuss a new feature or major change before you begin coding.
 
 ### 2. Set Up Your Environment
@@ -99,7 +99,7 @@ Before merging or approving a pull request, ensure that:
 
 - [ ] Secrets and credentials are retrieved via `libs.secrets` (no secrets in git diffs or plaintext `.env`).
 - [ ] New environment variables or secret keys are documented in `docs/` or service READMEs.
-- [ ] JWT/TOTP changes follow the [rotation guide](docs/security/jwt-totp-key-rotation.md).
+- [ ] JWT/TOTP changes follow the [rotation guide](docs/domains/4_security/jwt-totp-key-rotation.md).
 - [ ] External dependencies introduced are vetted for licenses and minimum versions.
 - [ ] Logs or metrics added do not leak sensitive data (PII, secrets, access tokens).
 
@@ -117,7 +117,7 @@ Merci de votre intérêt pour Trading Bot Open Source ! Ce guide résume les a
 ### 1. Avant de commencer
 
 - Lisez le [Code de conduite](CODE_OF_CONDUCT.md) et engagez-vous à le respecter.
-- Parcourez les issues existantes et la feuille de route dans `docs/project-evaluation.md` pour identifier les priorités actuelles.
+- Parcourez les issues existantes et la feuille de route dans `docs/domains/7_standards/project-evaluation.md` pour identifier les priorités actuelles.
 - Ouvrez une issue si vous souhaitez discuter d'une nouvelle fonctionnalité ou d'un changement majeur avant de démarrer le développement.
 
 ### 2. Préparer votre environnement
@@ -196,7 +196,7 @@ Avant de fusionner ou d'approuver une pull request, vérifiez :
 
 - [ ] Les secrets et identifiants sont récupérés via `libs.secrets` (pas de secret en clair dans Git ou `.env`).
 - [ ] Les nouvelles variables d'environnement ou clés secrètes sont documentées dans `docs/` ou les READMEs de service.
-- [ ] Les modifications JWT/TOTP respectent le [guide de rotation](docs/security/jwt-totp-key-rotation.md).
+- [ ] Les modifications JWT/TOTP respectent le [guide de rotation](docs/domains/4_security/jwt-totp-key-rotation.md).
 - [ ] Les dépendances externes ajoutées sont auditées (licence, version minimale, maintenance).
 - [ ] Les logs/metrics n'exposent aucune donnée sensible (PII, secrets, tokens).
 

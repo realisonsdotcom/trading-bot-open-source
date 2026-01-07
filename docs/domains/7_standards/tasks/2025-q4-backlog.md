@@ -1,3 +1,11 @@
+---
+domain: 7_standards
+title: Backlog priorisé — Q4 2025
+description: Cette liste couvre les chantiers techniques prioritaires issus de la revue de novembre 2025.
+keywords: 7 standards, 2025, q4, backlog
+last_updated: 2026-01-06
+---
+
 # Backlog priorisé — Q4 2025
 
 Cette liste couvre les chantiers techniques prioritaires issus de la revue de novembre 2025.
@@ -28,11 +36,11 @@ Les tâches sont regroupées par criticité et se réfèrent aux services et bib
 
 1. **Démo trading sandbox**
    - Livrer un script CLI (`scripts/dev/demo_trade.py`) orchestrant quote ➜ plan ➜ ordre ➜ rapport via les services existants.【F:providers/limits.py†L1-L120】
-   - Documenter le parcours dans `docs/mvp-sandbox-flow.md`.
+   - Documenter le parcours dans `docs/domains/3_operations/mvp-sandbox-flow.md`.
 
 2. **Playbook observabilité**
    - Décrire le déploiement Prometheus/Grafana local & cloud, y compris l'alerte latence/erreur.【F:docker-compose.yml†L1-L56】
-   - Ajouter un tableau de bord Grafana partagé (`docs/observability/dashboards/roadmap.json`).
+   - Ajouter un tableau de bord Grafana partagé (`docs/domains/3_operations/observability/dashboards/roadmap.json`).
 
 3. **Connecteurs marchés**
    - Prioriser Binance Spot : ajouter des tests d'intégration avec `AsyncRateLimiter` et gestion d'erreurs API.【F:services/market_data/adapters/__init__.py†L1-L11】
@@ -46,12 +54,12 @@ Les tâches sont regroupées par criticité et se réfèrent aux services et bib
 
 1. **Gouvernance & communauté**
    - Publier un backlog public (GitHub Projects) aligné sur cette liste et synchroniser la roadmap trimestrielle.【F:docs/ROADMAP.md†L1-L40】
-   - Documenter un rituel communautaire (AMA trimestriel) dans `docs/community`.
+   - Documenter un rituel communautaire (AMA trimestriel) dans `docs/domains/5_community/community`.
 
 2. **Reporting & KPI**
-   - Relier le tableau de bord KPI (`docs/metrics`) aux nouveaux tests/alertes.
+   - Relier le tableau de bord KPI (`docs/domains/3_operations/metrics`) aux nouveaux tests/alertes.
    - Automatiser la génération d'un rapport mensuel (coverage, E2E, incidents).
 
 3. **Expérience utilisateur**
    - Étendre `web-dashboard` avec une page statique affichant les derniers ordres simulés.
-   - Préparer un kit design minimal (`docs/ui/style-guide.md`).
+   - Préparer un kit design minimal (`docs/domains/2_architecture/webapp/ui/style-guide.md`).

@@ -310,7 +310,7 @@ Une fois le backend fonctionnel:
 ## 🆘 Besoin d'aide?
 
 **Documentation**:
-- `docs/AUTH0_SETUP.md` - Setup détaillé
+- `docs/domains/4_security/AUTH0_SETUP.md` - Setup détaillé
 - `services/auth_gateway_service/README.md` - Doc du service
 - `AUTH0_MIGRATION_STATUS.md` - État de la migration
 

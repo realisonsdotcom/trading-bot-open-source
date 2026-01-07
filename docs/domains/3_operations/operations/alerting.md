@@ -1,8 +1,8 @@
 ---
-title: FastAPI Alert Escalation Procedure
 domain: 3_operations
+title: FastAPI Alert Escalation Procedure
 description: Escalation workflow for FastAPI alerting thresholds and response.
-keywords: [alerting, operations, incident, prometheus, grafana]
+keywords: alerting, operations, incident, prometheus, grafana
 last_updated: 2026-01-06
 ---
 

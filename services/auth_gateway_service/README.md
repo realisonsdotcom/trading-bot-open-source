@@ -194,7 +194,7 @@ Infos sur l'utilisateur courant.
 
 ## 🔐 Configuration Auth0
 
-Voir [docs/AUTH0_SETUP.md](../../docs/AUTH0_SETUP.md) pour les instructions complètes.
+Voir [docs/domains/4_security/AUTH0_SETUP.md](../../docs/domains/4_security/AUTH0_SETUP.md) pour les instructions complètes.
 
 ### Variables d'environnement requises
 
@@ -228,7 +228,7 @@ BILLING_SERVICE_URL=http://billing_service:8000
 
 ### Développement local
 
-1. **Configurer Auth0** (voir [AUTH0_SETUP.md](../../docs/AUTH0_SETUP.md))
+1. **Configurer Auth0** (voir [AUTH0_SETUP.md](../../docs/domains/4_security/AUTH0_SETUP.md))
 
 2. **Mettre à jour `.env.dev`** avec vos credentials Auth0
 
@@ -366,4 +366,4 @@ const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
 - [Auth0 Documentation](https://auth0.com/docs)
 - [Auth0 Python SDK](https://github.com/auth0/auth0-python)
 - [FastAPI Documentation](https://fastapi.tiangolo.com/)
-- [Project docs/AUTH0_SETUP.md](../../docs/AUTH0_SETUP.md)
+- [Project docs/domains/4_security/AUTH0_SETUP.md](../../docs/domains/4_security/AUTH0_SETUP.md)

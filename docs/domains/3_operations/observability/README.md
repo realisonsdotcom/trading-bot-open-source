@@ -1,8 +1,8 @@
 ---
-title: Observability Stack
 domain: 3_operations
+title: Observability Stack
 description: Logging, metrics, Prometheus, and Grafana setup for services.
-keywords: [observability, logging, metrics, prometheus, grafana]
+keywords: observability, logging, metrics, prometheus, grafana
 last_updated: 2026-01-06
 ---
 

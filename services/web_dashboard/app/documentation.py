@@ -122,9 +122,9 @@ def _build_tutorial_asset(title: str, body: str) -> TutorialAsset:
         embed_title = "Notebook backtest-sandbox.ipynb"
         embed_url = (
             "https://nbviewer.org/github/decarvalhoe/trading-bot-open-source/blob/main/"
-            "docs/tutorials/backtest-sandbox.ipynb"
+            "docs/domains/6_quality/tutorials/backtest-sandbox.ipynb"
         )
-        source_url = f"{GITHUB_BASE_URL}/docs/tutorials/backtest-sandbox.ipynb"
+        source_url = f"{GITHUB_BASE_URL}/docs/domains/6_quality/tutorials/backtest-sandbox.ipynb"
     elif "screencast" in lowered:
         if DESIGNER_EMBED_URL:
             embed_kind = "video"
@@ -138,7 +138,7 @@ def _build_tutorial_asset(title: str, body: str) -> TutorialAsset:
                 "Suivez le lien de la fiche tutoriel pour y accéder."
                 "</p>"
             )
-        source_url = f"{GITHUB_BASE_URL}/docs/tutorials/README.md#strategy-designer-screencast"
+        source_url = f"{GITHUB_BASE_URL}/docs/domains/6_quality/tutorials/README.md#strategy-designer-screencast"
     elif "dashboard" in lowered and "walkthrough" in lowered:
         embed_kind = "html"
         embed_html = (
@@ -146,7 +146,7 @@ def _build_tutorial_asset(title: str, body: str) -> TutorialAsset:
             "Ce tutoriel fournit un guide pas-à-pas. Consultez les notes pour les instructions complètes."
             "</p>"
         )
-        source_url = f"{GITHUB_BASE_URL}/docs/tutorials/README.md#real-time-dashboard-walkthrough"
+        source_url = f"{GITHUB_BASE_URL}/docs/domains/6_quality/tutorials/README.md#real-time-dashboard-walkthrough"
 
     return TutorialAsset(
         slug=slug,

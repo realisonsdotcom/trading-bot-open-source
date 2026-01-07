@@ -74,7 +74,7 @@ async def create_strategy(request: Request):
 
 ### Prérequis
 
-- Auth0 configuré (voir `docs/AUTH0_SETUP.md`)
+- Auth0 configuré (voir `docs/domains/4_security/AUTH0_SETUP.md`)
 - auth_gateway_service running
 - entitlements_service running
 

@@ -1,8 +1,8 @@
 ---
-title: KPI Dashboard
 domain: 3_operations
+title: KPI Dashboard
 description: Generated KPI dashboard snapshot.
-keywords: [metrics, kpi, dashboard, reporting]
+keywords: metrics, kpi, dashboard, reporting
 last_updated: 2026-01-06
 ---
 

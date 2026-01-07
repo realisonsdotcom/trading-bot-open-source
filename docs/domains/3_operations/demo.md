@@ -1,8 +1,8 @@
 ---
-title: Demo Environment Setup
 domain: 3_operations
+title: Demo Environment Setup
 description: Run the full demo stack with Docker Compose and validate services.
-keywords: [demo, operations, docker, setup, observability]
+keywords: demo, operations, docker, setup, observability
 last_updated: 2026-01-06
 ---
 

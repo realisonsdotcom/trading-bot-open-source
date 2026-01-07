@@ -75,7 +75,7 @@ commande fonctionne directement depuis `services/algo_engine`. Vous pouvez
 également utiliser le chemin de module complet :
 `uvicorn services.algo_engine.app.main:app`. Dans ce cas,
 `/strategies/generate` renverra un HTTP 503 indiquant que la fonctionnalité est
-désactivée. Le tutoriel `docs/tutorials/backtest-sandbox.ipynb` fournit un exemple
+désactivée. Le tutoriel `docs/domains/6_quality/tutorials/backtest-sandbox.ipynb` fournit un exemple
 d'appel complet.
 
 Le middleware d'entitlements vérifie la capacité `can.manage_strategies` et expose la limite de stratégies actives (`max_active_strategies`). L'orchestrateur interne applique les limites journalières.
