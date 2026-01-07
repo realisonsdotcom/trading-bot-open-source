@@ -5,7 +5,7 @@ description: Comprehensive project assessment covering architecture, code qualit
 keywords: evaluation, assessment, architecture, code-review, project-status
 last_updated: 2026-01-06
 related:
-  - roadmap.md
+  - ../../ROADMAP.md
   - tasks/2025-q4-backlog.md
 ---
 

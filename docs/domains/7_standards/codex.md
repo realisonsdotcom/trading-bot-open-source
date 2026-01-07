@@ -5,8 +5,8 @@ description: GitHub/Stripe/TradingView automation for contribution lifecycle and
 keywords: codex, automation, github, webhooks, ci-cd, contribution-management
 last_updated: 2026-01-06
 related:
-  - ../5_community/governance/
-  - ../2_architecture/billing.md
+  - ../5_community/governance/kpi-review.md
+  - ../2_architecture/platform/billing.md
 ---
 
 # Codex Automation Platform

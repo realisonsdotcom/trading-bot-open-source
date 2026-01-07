@@ -7,7 +7,7 @@ last_updated: 2026-01-06
 related:
   - screener.md
   - market-data.md
-  - ../4_platform/streaming.md
+  - ../2_architecture/platform/streaming.md
 ---
 
 # In-Play Monitoring UI
