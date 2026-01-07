@@ -1,3 +1,13 @@
+---
+domain: 4_security
+title: Auth0 Migration Status (2025-11)
+description: Status report for the Auth0 migration effort.
+keywords: auth0, migration, status, security, archived
+last_updated: 2026-01-06
+status: deprecated
+archived_reason: "Migrated from root after documentation restructuring"
+---
+
 # 🚀 Migration Auth0 - État d'Avancement
 
 **Date**: 12 novembre 2025

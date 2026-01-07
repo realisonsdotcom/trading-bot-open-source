@@ -21,6 +21,10 @@ This domain aggregates tutorials, help content, reports, and risk notes.
 - [Tutorials Index](tutorials/README.md)
 - [Backtest Sandbox Notebook](tutorials/backtest-sandbox.ipynb)
 
+## Guides (Archived)
+
+- [Local Auth0 Test Guide](guides/GUIDE_TEST_LOCAL.md)
+
 ## Reports and Risk
 
 - [Reports](reports/)

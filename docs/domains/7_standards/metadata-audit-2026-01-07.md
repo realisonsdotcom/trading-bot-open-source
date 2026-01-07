@@ -4,7 +4,7 @@ title: Documentation Metadata Audit Report
 description: Complete audit of YAML front matter metadata across all documentation domains
 keywords: audit, metadata, yaml, quality, compliance, validation
 last_updated: 2026-01-07
-status: completed
+status: published
 ---
 
 # Documentation Metadata Audit Report

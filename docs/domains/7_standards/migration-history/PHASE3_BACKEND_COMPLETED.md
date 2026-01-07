@@ -1,3 +1,13 @@
+---
+domain: 7_standards
+title: Phase 3 Backend Completion
+description: Completion summary for phase 3 backend migration.
+keywords: migration, phase-3, backend, history, archived
+last_updated: 2026-01-06
+status: deprecated
+archived_reason: "Migrated from root after documentation restructuring"
+---
+
 # ✅ Phase 3 - Backend Services Migration COMPLETED
 
 **Date**: 12 novembre 2025
@@ -387,8 +397,8 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 | Document | Description | Localisation |
 |----------|-------------|--------------|
-| **PHASE3_SERVICES_MIGRATED.md** | Plan et progression | Racine |
-| **PHASE3_BACKEND_COMPLETED.md** | Ce document (résumé complet) | Racine |
+| **PHASE3_SERVICES_MIGRATED.md** | Plan et progression | docs/domains/7_standards/migration-history |
+| **PHASE3_BACKEND_COMPLETED.md** | Ce document (résumé complet) | docs/domains/7_standards/migration-history |
 
 ---
 

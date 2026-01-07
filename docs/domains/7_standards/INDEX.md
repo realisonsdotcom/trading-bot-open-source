@@ -20,3 +20,12 @@ This domain captures standards, planning artifacts, and project evaluation notes
 
 - [Task Backlog](tasks/)
 - [Roadmap](../../ROADMAP.md)
+
+## Project Management (Archived)
+
+- [MVP Checklist](project-management/MVP_CHECKLIST.md)
+- [MVP Next Steps](project-management/MVP_NEXT_STEPS.md)
+
+## Migration History (Archived)
+
+- [Migration History Index](migration-history/INDEX.md)
