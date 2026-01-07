@@ -1,0 +1,66 @@
+name: Validate Documentation
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**/*.md'
+      - 'AGENTS.md'
+      - 'INDEX.md'
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**/*.md'
+      - 'AGENTS.md'
+      - 'INDEX.md'
+
+jobs:
+  validate-metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Validate documentation metadata
+        run: python3 scripts/validate_docs_metadata.py
+
+      - name: Check markdown links
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          config-file: '.github/markdown-link-check-config.json'
+
+  validate-structure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate docs structure
+        run: |
+          ALLOWED_FILES=("00-START-HERE.md" "DOCUMENTATION-GUIDE-FOR-AGENTS.md" "ROADMAP.md")
+          FOUND_INVALID=0
+
+          for file in docs/*.md; do
+            if [ -f "$file" ]; then
+              basename=$(basename "$file")
+              if [[ ! " ${ALLOWED_FILES[*]} " =~ " ${basename} " ]]; then
+                echo "Invalid docs root file: $file (move to docs/domains/)"
+                FOUND_INVALID=1
+              fi
+            fi
+          done
+
+          if [ $FOUND_INVALID -eq 1 ]; then
+            exit 1
+          fi
+
+          echo "Docs structure OK"
