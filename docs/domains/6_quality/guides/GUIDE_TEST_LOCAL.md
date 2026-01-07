@@ -625,49 +625,15 @@ Profile loaded: { name: "John", plan: "free" }
 ### Démarrer tous les services (Bypass Mode)
 
 ```bash
-# Script de démarrage rapide
-cat > start-all-services.sh << 'EOF'
-#!/bin/bash
-
-export AUTH0_BYPASS=1
-export ENTITLEMENTS_BYPASS=1
-export DATABASE_URL="postgresql://user:password@localhost:5432/trading_bot"
-
-# Terminal 1: auth_gateway
-cd services/auth_gateway_service && python -m uvicorn app.main:app --port 8012 &
-
-# Terminal 2: algo_engine
-cd services/algo_engine && python -m uvicorn app.main:app --port 8000 &
-
-# Terminal 3: user_service
-cd services/user_service && python -m uvicorn app.main:app --port 8001 &
-
-# Terminal 4: auth_portal
-cd services/auth_portal && npm run dev &
-
-# Terminal 5: web_dashboard
-cd services/web_dashboard && npm run dev -- --port 8022 &
-
-echo "✅ All services started!"
-echo "- auth_gateway: http://localhost:8012"
-echo "- algo_engine: http://localhost:8000"
-echo "- user_service: http://localhost:8001"
-echo "- auth_portal: http://localhost:3000"
-echo "- web_dashboard: http://localhost:8022"
-EOF
-
-chmod +x start-all-services.sh
-./start-all-services.sh
+chmod +x scripts/dev/start-all-services.sh
+scripts/dev/start-all-services.sh
 ```
 
 ### Stopper tous les services
 
 ```bash
-# Trouver et tuer les process
-pkill -f "uvicorn.*app.main"
-pkill -f "vite"
-
-echo "✅ All services stopped"
+chmod +x scripts/dev/stop-all-services.sh
+scripts/dev/stop-all-services.sh
 ```
 
 ---

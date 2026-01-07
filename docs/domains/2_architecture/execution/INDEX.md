@@ -62,7 +62,7 @@ REST contract specification between algorithms and the `order-router` service fo
 - Success: `201 Created`
 - Error codes: `400`, `403`, `404`, `500`
 
-**Schema Location**: `schemas/order_router.py`
+**Schema Location**: `libs/schemas/order_router.py`
 
 ---
 
@@ -116,7 +116,7 @@ Each rule returns a `RiskSignal` with level:
 ## Code References
 
 - **Service**: `services/order-router/`
-- **Schemas**: `schemas/order_router.py`
+- **Schemas**: `libs/schemas/order_router.py`
 - **Risk Rules**: `services/order-router/app/risk_rules.py`
 - **Broker Adapters**: `services/order-router/app/adapters/`
 

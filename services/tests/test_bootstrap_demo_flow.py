@@ -58,7 +58,7 @@ def _prepare_database(tmp_path: Path) -> str:
 
     from datetime import datetime, timezone
 
-    from schemas.report import StrategyName, Timeframe
+    from libs.schemas.report import StrategyName, Timeframe
 
     with db_module.engine.begin() as connection:
         connection.execute(report_tables.ReportSnapshot.__table__.delete())

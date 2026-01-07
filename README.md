@@ -83,13 +83,13 @@ make dev-down
 
 ### Native (host) development
 
-The default `.env.dev` assumes every dependency runs inside Docker. When you
+The default `config/.env.dev` assumes every dependency runs inside Docker. When you
 prefer to run PostgreSQL/Redis/RabbitMQ directly on your machine, switch to the
 native configuration helpers:
 
 ```bash
 # Point the stack at localhost services
-export $(cat .env.native | grep -v '^#' | xargs)
+export $(cat config/.env.native | grep -v '^#' | xargs)
 
 # Make sure ENVIRONMENT=native so shared helpers hand out localhost URLs
 echo $ENVIRONMENT  # native

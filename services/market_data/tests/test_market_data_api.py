@@ -10,7 +10,7 @@ from fastapi.testclient import TestClient
 os.environ.setdefault("TRADINGVIEW_HMAC_SECRET", "test-secret")
 
 from services.market_data.app.main import app, get_binance_adapter, get_ibkr_adapter  # noqa: E402
-from schemas.market import ExecutionVenue  # noqa: E402
+from libs.schemas.market import ExecutionVenue  # noqa: E402
 
 
 class _BaseConnector:

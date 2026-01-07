@@ -111,8 +111,8 @@ services/auth_portal/
 ### 4. **Composant UserMenu** (Frontend)
 
 #### Fichier créé:
-- `components/auth/UserMenu.jsx` - Composant dropdown user
-- `components/auth/README.md` - Documentation
+- `services/web_dashboard/src/components/auth/UserMenu.jsx` - Composant dropdown user
+- `docs/domains/2_architecture/webapp/ui/user-menu.md` - Documentation
 
 #### Features:
 ✅ Avatar utilisateur (avec fallback ui-avatars)
@@ -131,7 +131,7 @@ services/auth_portal/
 
 #### Usage:
 ```jsx
-import { UserMenu } from '@/components/auth/UserMenu'
+import { UserMenu } from "../components/auth/UserMenu.jsx"
 
 <Header>
   <UserMenu />
@@ -237,7 +237,7 @@ async def get_data(request: Request):
 | **README_AUTH0.md** | Intégration Auth0 + Entitlements | `libs/entitlements/` |
 | **MIGRATION_GUIDE.md** | Guide de migration complet | `libs/entitlements/` |
 | **auth_portal/README.md** | Documentation du portail login | `services/auth_portal/` |
-| **auth components README** | Usage du UserMenu | `components/auth/` |
+| **auth components README** | Usage du UserMenu | `docs/domains/2_architecture/webapp/ui/user-menu.md` |
 | **migrated_service README** | Service example | `examples/migrated_service/` |
 
 Total: **5 documents** de référence
@@ -340,7 +340,7 @@ npm install @auth0/auth0-react
 # 2. Wrap app with Auth0Provider (see docs)
 
 # 3. Add UserMenu to header
-import { UserMenu } from '@/components/auth/UserMenu'
+import { UserMenu } from "../components/auth/UserMenu.jsx"
 
 <Header>
   <UserMenu />
@@ -481,7 +481,7 @@ Pour chaque service:
 - Backend: `libs/entitlements/README_AUTH0.md`
 - Migration: `libs/entitlements/MIGRATION_GUIDE.md`
 - Auth Portal: `services/auth_portal/README.md`
-- UserMenu: `components/auth/README.md`
+- UserMenu: `docs/domains/2_architecture/webapp/ui/user-menu.md`
 
 **Services de référence**:
 - Backend: `examples/migrated_service/`

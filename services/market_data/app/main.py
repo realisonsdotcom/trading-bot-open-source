@@ -25,7 +25,7 @@ from fastapi.websockets import WebSocketState
 
 from libs.observability.logging import RequestContextMiddleware, configure_logging
 from libs.observability.metrics import setup_metrics
-from schemas.market import ExecutionVenue
+from libs.schemas.market import ExecutionVenue
 
 import httpx
 

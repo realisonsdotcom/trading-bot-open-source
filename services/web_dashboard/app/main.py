@@ -74,7 +74,7 @@ from .strategy_presets import STRATEGY_PRESETS
 from .localization import LocalizationMiddleware, template_base_context
 from .routes import status as status_routes
 from pydantic import BaseModel, Field, ConfigDict, EmailStr, model_validator
-from schemas.order_router import PositionCloseRequest
+from libs.schemas.order_router import PositionCloseRequest
 
 
 SESSION_SECRET = os.getenv("WEB_DASHBOARD_SESSION_SECRET", "dashboard-session-secret")

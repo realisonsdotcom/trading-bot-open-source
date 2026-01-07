@@ -1,15 +1,20 @@
 """Configuration for Auth Gateway Service."""
+from pathlib import Path
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+ROOT_DIR = Path(__file__).resolve().parents[3]
+DEFAULT_ENV_FILE = ROOT_DIR / "config/.env.dev"
 
 
 class Settings(BaseSettings):
     """Application settings."""
 
     model_config = SettingsConfigDict(
-        env_file=".env.dev",
+        env_file=str(DEFAULT_ENV_FILE),
         env_file_encoding="utf-8",
         case_sensitive=False,
-        extra="ignore"
+        extra="ignore",
     )
 
     # Service

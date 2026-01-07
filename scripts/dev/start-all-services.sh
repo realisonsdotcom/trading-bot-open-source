@@ -18,6 +18,8 @@ GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
+ROOT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
+
 # Fonction pour démarrer un service backend
 start_backend() {
     local name=$1
@@ -25,7 +27,7 @@ start_backend() {
     local path=$3
 
     echo -e "${BLUE}Starting $name on port $port...${NC}"
-    cd "$path"
+    cd "$ROOT_DIR/$path"
     python -m uvicorn app.main:app --host 0.0.0.0 --port "$port" --reload > "/tmp/${name}.log" 2>&1 &
     echo $! > "/tmp/${name}.pid"
     cd - > /dev/null
@@ -46,16 +48,13 @@ start_frontend() {
     local path=$3
 
     echo -e "${BLUE}Starting $name on port $port...${NC}"
-    cd "$path"
+    cd "$ROOT_DIR/$path"
     npm run dev -- --port "$port" > "/tmp/${name}.log" 2>&1 &
     echo $! > "/tmp/${name}.pid"
     cd - > /dev/null
     sleep 3
     echo -e "${GREEN}✅ $name started (check /tmp/${name}.log)${NC}"
 }
-
-# Aller dans le dossier du projet
-cd "$(dirname "$0")"
 
 echo ""
 echo "📦 Starting Backend Services..."
@@ -99,5 +98,5 @@ echo "⚠️  Note: Services are running in BYPASS MODE"
 echo "   Auth0 authentication is disabled for testing"
 echo ""
 echo "🛑 To stop all services:"
-echo "   ./stop-all-services.sh"
+echo "   $ROOT_DIR/scripts/dev/stop-all-services.sh"
 echo ""

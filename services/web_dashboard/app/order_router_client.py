@@ -9,7 +9,7 @@ from typing import Any
 import httpx
 from pydantic import ValidationError
 
-from schemas.order_router import (
+from libs.schemas.order_router import (
     OrderRecord,
     PaginatedOrders,
     PositionCloseRequest,

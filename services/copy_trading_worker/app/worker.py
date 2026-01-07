@@ -7,8 +7,8 @@ import logging
 from datetime import datetime, timezone
 from typing import Callable, Iterable, List, Protocol, Sequence
 
-from schemas.market import ExecutionReport, OrderType
-from schemas.order_router import ExecutionIntent
+from libs.schemas.market import ExecutionReport, OrderType
+from libs.schemas.order_router import ExecutionIntent
 
 from .events import LeaderExecutionEvent
 from .messaging import LeaderExecutionConsumer

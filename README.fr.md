@@ -79,13 +79,13 @@ make dev-down
 
 ### Développement natif (hors Docker)
 
-Le fichier `.env.dev` suppose que PostgreSQL/Redis/RabbitMQ tournent dans les
+Le fichier `config/.env.dev` suppose que PostgreSQL/Redis/RabbitMQ tournent dans les
 conteneurs Docker. Si vous exécutez ces dépendances directement sur votre
 machine, basculez sur la configuration native :
 
 ```bash
 # Pointer la stack vers les services locaux
-export $(cat .env.native | grep -v '^#' | xargs)
+export $(cat config/.env.native | grep -v '^#' | xargs)
 
 # Vérifier que ENVIRONMENT=native pour activer les URLs localhost
 echo $ENVIRONMENT  # native

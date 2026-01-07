@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Dict, Iterable, List, Mapping, Protocol, runtime_checkable
 
-from schemas.market import OrderRequest, OrderSide
+from libs.schemas.market import OrderRequest, OrderSide
 
 RiskContext = Dict[str, float | int | str | None]
 

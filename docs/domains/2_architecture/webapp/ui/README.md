@@ -63,6 +63,9 @@ Le composant existe en variantes `success`, `warning`, `critical`, `info`, `neut
 ### Typographie (`.heading`, `.text`)
 Quatre niveaux pour les titres et un style `text--muted` pour les éléments secondaires.
 
+### UserMenu (Auth0)
+Menu utilisateur Auth0 pour le dashboard web. Voir `user-menu.md` pour l'installation et l'usage.
+
 ## Accessibilité
 
 - **Couleurs** : vérifier que tout texte sur un fond coloré conserve un ratio de contraste ≥ 4.5:1.

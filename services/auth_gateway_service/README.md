@@ -230,7 +230,7 @@ BILLING_SERVICE_URL=http://billing_service:8000
 
 1. **Configurer Auth0** (voir [AUTH0_SETUP.md](../../docs/domains/4_security/AUTH0_SETUP.md))
 
-2. **Mettre à jour `.env.dev`** avec vos credentials Auth0
+2. **Mettre à jour `config/.env.dev`** avec vos credentials Auth0
 
 3. **Lancer les services**:
 ```bash
@@ -358,7 +358,7 @@ const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
 - Checker la table `user_sessions` en DB
 
 ### CORS errors
-- Ajouter l'origin à `ALLOWED_ORIGINS` dans `.env.dev`
+- Ajouter l'origin à `ALLOWED_ORIGINS` dans `config/.env.dev`
 - Vérifier les settings CORS dans Auth0
 
 ## 📚 Ressources

@@ -10,7 +10,7 @@ last_updated: 2026-01-06
 
 Ce guide décrit le flux cible entre les services `market_data`, `algo-engine` et `order-router`
 pour une exécution spot simplifiée. Il s'appuie sur les nouveaux contrats de données partagés
-(`schemas/market.py`) et sur les limites configurées dans `providers/limits.py`.
+(`libs/schemas/market.py`) et sur les limites configurées dans `libs/providers/limits.py`.
 
 ## Politique de retry du client order-router
 

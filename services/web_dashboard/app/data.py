@@ -16,7 +16,7 @@ from urllib.parse import quote, urljoin
 
 import httpx
 
-from schemas.order_router import OrderRecord
+from libs.schemas.order_router import OrderRecord
 from libs.portfolio import encode_portfolio_key, encode_position_key
 
 from .config import default_service_url

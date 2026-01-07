@@ -5,7 +5,7 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from schemas.market import ExecutionVenue
+from libs.schemas.market import ExecutionVenue
 
 
 class TradingViewSignal(BaseModel):

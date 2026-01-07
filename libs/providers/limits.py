@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Dict, Iterable
 
-from schemas.market import (
+from libs.schemas.market import (
     ExecutionPlan,
     ExecutionVenue,
     OrderBookLevel,
@@ -172,7 +172,7 @@ def build_plan(order: OrderRequest) -> ExecutionPlan:
     book = build_orderbook(limit)
     rationale = (
         f"Sandbox plan for {order.side} {order.quantity} {order.symbol} on {order.venue}."
-        " Risk controls sourced from providers.limits."
+        " Risk controls sourced from libs.providers.limits."
     )
     return ExecutionPlan(
         venue=order.venue,

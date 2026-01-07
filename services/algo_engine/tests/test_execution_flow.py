@@ -20,7 +20,7 @@ from algo_engine.app.strategies.base import StrategyBase, StrategyConfig
 
 from libs.db.db import SessionLocal
 from sqlalchemy.orm import sessionmaker
-from schemas.market import ExecutionStatus, ExecutionVenue, OrderSide, OrderType
+from libs.schemas.market import ExecutionStatus, ExecutionVenue, OrderSide, OrderType
 
 
 class StaticSignalStrategy(StrategyBase):

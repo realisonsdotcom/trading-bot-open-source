@@ -290,7 +290,7 @@ curl -b "trading_bot_session=SESSION_ID" \
 - [ ] SPA application configured
 - [ ] API created with correct audience
 - [ ] Custom action deployed
-- [ ] `.env.dev` updated
+- [ ] `config/.env.dev` updated
 - [ ] Default plan created (optional)
 - [ ] Service starts without errors
 - [ ] Health check responds (http://localhost:8012/health)
@@ -302,7 +302,7 @@ curl -b "trading_bot_session=SESSION_ID" \
 
 ## Environment Variables Summary
 
-Add to `.env.dev`:
+Add to `config/.env.dev`:
 
 ```bash
 # ===== Auth0 Configuration =====

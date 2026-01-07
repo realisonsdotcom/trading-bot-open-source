@@ -9,7 +9,7 @@ from sqlalchemy import Enum as SAEnum
 from sqlalchemy import Float, Integer, String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
-from schemas.report import StrategyName, Timeframe, TradeOutcome
+from libs.schemas.report import StrategyName, Timeframe, TradeOutcome
 
 
 class Base(DeclarativeBase):

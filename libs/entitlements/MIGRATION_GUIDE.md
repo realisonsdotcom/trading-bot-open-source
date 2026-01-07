@@ -228,7 +228,7 @@ async def create_algo(request: Request):
 
 ## Étape 4: Mettre à jour les variables d'environnement
 
-### Ajouter dans `.env.dev`:
+### Ajouter dans `config/.env.dev`:
 
 ```bash
 # Auth Gateway Service (new)
