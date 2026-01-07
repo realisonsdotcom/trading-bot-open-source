@@ -58,8 +58,8 @@ install_auth0_with_entitlements(
 ### 2. **Service Exemple** (Backend)
 
 #### Fichier créé:
-- `examples/migrated_service/app/main.py` - Service example complet
-- `examples/migrated_service/README.md` - Documentation
+- `docs/domains/6_quality/examples/migrated_service/app/main.py` - Service example complet
+- `docs/domains/6_quality/examples/migrated_service/README.md` - Documentation
 
 #### Démontre:
 - Installation des middlewares
@@ -238,7 +238,7 @@ async def get_data(request: Request):
 | **MIGRATION_GUIDE.md** | Guide de migration complet | `libs/entitlements/` |
 | **auth_portal/README.md** | Documentation du portail login | `services/auth_portal/` |
 | **auth components README** | Usage du UserMenu | `docs/domains/2_architecture/webapp/ui/user-menu.md` |
-| **migrated_service README** | Service example | `examples/migrated_service/` |
+| **migrated_service README** | Service example | `docs/domains/6_quality/examples/migrated_service/` |
 
 Total: **5 documents** de référence
 
@@ -484,13 +484,13 @@ Pour chaque service:
 - UserMenu: `docs/domains/2_architecture/webapp/ui/user-menu.md`
 
 **Services de référence**:
-- Backend: `examples/migrated_service/`
+- Backend: `docs/domains/6_quality/examples/migrated_service/`
 - Frontend: `services/auth_portal/`
 
 **Tests**:
 ```bash
 # Backend
-cd examples/migrated_service
+cd docs/domains/6_quality/examples/migrated_service
 python -m app.main
 
 # Frontend

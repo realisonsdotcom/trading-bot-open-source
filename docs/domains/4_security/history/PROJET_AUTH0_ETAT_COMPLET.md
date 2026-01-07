@@ -299,7 +299,7 @@ libs/entitlements/
   ├── auth0_integration.py
   ├── README_AUTH0.md
   └── MIGRATION_GUIDE.md
-examples/migrated_service/
+docs/domains/6_quality/examples/migrated_service/
   ├── app/main.py
   └── README.md
 ```
@@ -642,7 +642,7 @@ npm run dev
 
 ### Exemples de Code
 
-- **Backend migré**: `examples/migrated_service/`
+- **Backend migré**: `docs/domains/6_quality/examples/migrated_service/`
 - **Auth Portal**: `services/auth_portal/`
 - **UserMenu component**: `services/web_dashboard/src/components/auth/UserMenu.jsx`
 
