@@ -28,3 +28,8 @@ Thumbs.db
 alert_engine.db
 alert_events.db
 services/web_dashboard/node_modules/
+
+# Root artifacts
+/*.backup
+/*.patch
+/*.plan.yaml

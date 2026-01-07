@@ -431,7 +431,7 @@ docker-compose logs auth_gateway_service
 
 ## Exemple complet
 
-Voir `examples/migrated_service/` pour un exemple complet de service migré.
+Voir `docs/domains/6_quality/examples/migrated_service/` pour un exemple complet de service migré.
 
 ---
 

@@ -24,7 +24,7 @@ Ce dossier décrit comment la communauté participe au projet open-source, notam
 | Rituel | Cadence | Objectif | Supports |
 |--------|---------|----------|----------|
 | AMA trimestriel | Première semaine de chaque trimestre | Répondre aux questions de la communauté, présenter les avancées majeures et confirmer les priorités du trimestre. | Live stream (YouTube/Twitch) + notes publiées sur le repo (`docs/domains/5_community/community/ama-notes/`). |
-| Live coding mensuel | Dernier jeudi du mois | Co-développer une fonctionnalité prioritaire, onboarder de nouveaux contributeurs et partager les bonnes pratiques. | Session en direct + dépôt du code d'exemple dans `examples/`. |
+| Live coding mensuel | Dernier jeudi du mois | Co-développer une fonctionnalité prioritaire, onboarder de nouveaux contributeurs et partager les bonnes pratiques. | Session en direct + dépôt du code d'exemple dans `docs/domains/6_quality/examples/`. |
 | Roadmap Review | Deuxième mercredi du trimestre | Ajuster les jalons, vérifier l'avancement des issues et préparer la prochaine release. | Tableau de projet GitHub + `docs/ROADMAP.md`. |
 
 ## Comment participer

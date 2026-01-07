@@ -1,3 +1,12 @@
+---
+domain: 6_quality
+title: Migrated Service Example
+description: Example service showing an Auth0 migration with entitlements integration.
+keywords: example, auth0, entitlements, migration, service
+last_updated: 2026-01-07
+status: published
+---
+
 # Example Migrated Service
 
 Cet exemple montre comment migrer un service du système JWT custom vers Auth0.
@@ -5,7 +14,7 @@ Cet exemple montre comment migrer un service du système JWT custom vers Auth0.
 ## Structure
 
 ```
-examples/migrated_service/
+docs/domains/6_quality/examples/migrated_service/
 ├── app/
 │   └── main.py        # Service example avec Auth0 + Entitlements
 └── README.md          # Ce fichier
@@ -87,7 +96,7 @@ export ENTITLEMENTS_BYPASS=1
 export AUTH_GATEWAY_URL=http://localhost:8012
 
 # Lancer le service
-cd examples/migrated_service
+cd docs/domains/6_quality/examples/migrated_service
 python -m app.main
 ```
 

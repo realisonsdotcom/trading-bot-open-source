@@ -25,6 +25,10 @@ This domain aggregates tutorials, help content, reports, and risk notes.
 
 - [Local Auth0 Test Guide](guides/GUIDE_TEST_LOCAL.md)
 
+## Examples
+
+- [Migrated Service Example](examples/migrated_service/README.md)
+
 ## Reports and Risk
 
 - [Reports](reports/)
