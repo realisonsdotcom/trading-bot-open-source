@@ -6,6 +6,11 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/)
 
 ## [Unreleased]
 ### Ajouté
+- Script `generate_index_v2.py` pour génération récursive d'INDEX.md avec support Jinja2 (#52)
+- Template Jinja2 pour personnalisation des index (`docs/templates/index-template.md.j2`)
+- Guide d'utilisation complet pour `generate_index_v2.py` (`docs/GENERATE_INDEX_V2_GUIDE.md`)
+- Tests unitaires pour le générateur d'index v2 (`tests/test_generate_index_v2.py`)
+- Support de la génération d'index pour sous-domaines et répertoires imbriqués
 - Panorama fonctionnel par domaine (stratégies, trading temps réel, reporting, notifications, marketplace) dans les README EN/FR.
 - Documentation de statut et prérequis pour le Strategy Designer, l'assistant IA, les backtests et la stack streaming.
 - Hub de tutoriels (`docs/domains/6_quality/tutorials/`) incluant notebook backtest et références vidéos.
@@ -15,6 +20,7 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/)
 ### Modifié
 - Alignement du calendrier de releases avec des jalons trimestriels (clarifié dans `docs/domains/5_community/release-highlights/2025-12.md`).
 - Documentation communautaire couvrant les rituels AMA et live coding.
+- CONTRIBUTING.md avec référence au nouveau générateur d'index v2
 
 ## [0.2.0] - 2023-12-15
 ### Ajouté

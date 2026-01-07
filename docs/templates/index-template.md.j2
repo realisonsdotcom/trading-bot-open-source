@@ -1,0 +1,25 @@
+---
+domain: {{ domain }}
+title: {{ title }}
+description: {{ description }}
+keywords: {{ keywords }}
+last_updated: {{ last_updated }}
+---
+
+# {{ title }}
+
+> Auto-generated. Do not edit manually.
+
+## Documents
+
+{% for doc in documents %}
+- [{{ doc.title }}]({{ doc.path }}){% if doc.description %} - {{ doc.description }}{% endif %}
+{% endfor %}
+{% if subdirectories %}
+
+## Subdirectories
+
+{% for subdir in subdirectories %}
+- [{{ subdir.name }}]({{ subdir.path }}){% if subdir.description %} - {{ subdir.description }}{% endif %}
+{% endfor %}
+{% endif %}
