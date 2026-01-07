@@ -230,6 +230,13 @@ status: {draft|review|published|deprecated}
 ---
 ```
 
+### Templates Directory
+
+Reusable templates are available in `docs/templates/`:
+
+- `docs/templates/service-doc-template.md`
+- `docs/templates/guide-template.md`
+
 ### Minimal Valid Example
 
 ```yaml
