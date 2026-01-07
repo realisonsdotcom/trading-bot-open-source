@@ -7,7 +7,7 @@ last_updated: 2026-01-06
 related:
   - screener.md
   - inplay.md
-  - ../2_architecture/streaming.md
+  - ../4_platform/streaming.md
 ---
 
 # Market data service
