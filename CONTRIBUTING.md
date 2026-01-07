@@ -54,6 +54,24 @@ make e2e             # optional but recommended to validate the auth flow
 
 Document new commands, environment variables, or schemas in `docs/`.
 
+### 4ter. Documentation Workflow
+
+- Place documentation in `docs/domains/<domain>/` and follow [INDEX.md](INDEX.md).
+- Add YAML front matter to every markdown file (see [DOCUMENTATION-GUIDE-FOR-AGENTS.md](docs/DOCUMENTATION-GUIDE-FOR-AGENTS.md)).
+- Validate metadata before submitting:
+
+```bash
+python3 scripts/validate_docs_metadata.py
+```
+
+- (Optional) Regenerate domain indexes:
+
+```bash
+python3 scripts/generate_index.py
+```
+
+- CI validates docs via `.github/workflows/validate-docs.yml`.
+
 ### 4bis. Release Process & Changelog
 
 - Quarterly milestones are tracked in [`docs/ROADMAP.md`](docs/ROADMAP.md) and mirrored as GitHub milestones.
@@ -132,6 +150,24 @@ make e2e             # optionnel mais recommandé pour valider le parcours auth
 ```
 
 Documentez les nouvelles commandes, variables d'environnement ou schémas dans `docs/`.
+
+### 4ter. Workflow de documentation
+
+- Placez la documentation dans `docs/domains/<domaine>/` et suivez [INDEX.md](INDEX.md).
+- Ajoutez un en-tete YAML a chaque fichier markdown (voir [DOCUMENTATION-GUIDE-FOR-AGENTS.md](docs/DOCUMENTATION-GUIDE-FOR-AGENTS.md)).
+- Verifiez les metadonnees avant soumission :
+
+```bash
+python3 scripts/validate_docs_metadata.py
+```
+
+- (Optionnel) Regenerez les index de domaine :
+
+```bash
+python3 scripts/generate_index.py
+```
+
+- La CI valide la documentation via `.github/workflows/validate-docs.yml`.
 
 ### 4bis. Processus de release & changelog
 
