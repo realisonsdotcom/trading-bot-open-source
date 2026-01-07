@@ -10,7 +10,7 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/)
 - Section rétro-contribution dans CONTRIBUTING.md (anglais et français)
 - Script `generate_index_v2.py` pour génération récursive d'INDEX.md avec support Jinja2 (#52)
 - Template Jinja2 pour personnalisation des index (`docs/templates/index-template.md.j2`)
-- Guide d'utilisation complet pour `generate_index_v2.py` (`docs/GENERATE_INDEX_V2_GUIDE.md`)
+- Guide d'utilisation complet pour `generate_index_v2.py` (`docs/domains/7_standards/generate-index-v2-guide.md`)
 - Tests unitaires pour le générateur d'index v2 (`tests/test_generate_index_v2.py`)
 - Support de la génération d'index pour sous-domaines et répertoires imbriqués
 - Panorama fonctionnel par domaine (stratégies, trading temps réel, reporting, notifications, marketplace) dans les README EN/FR.

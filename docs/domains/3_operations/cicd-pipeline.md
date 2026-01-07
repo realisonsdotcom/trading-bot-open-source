@@ -9,7 +9,7 @@ related:
   - infrastructure/INDEX.md
   - ../7_standards/INDEX.md
   - ../../../.github/workflows/validate-docs.yml
-  - ../../GENERATE_INDEX_V2_GUIDE.md
+  - ../7_standards/generate-index-v2-guide.md
 ---
 
 # Documentation CI Pipeline (validate-docs)
