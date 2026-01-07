@@ -16,7 +16,7 @@ Ce dossier décrit comment la communauté participe au projet open-source, notam
 - Les étiquettes suivantes sont activées pour guider les contributions :
   - `good first issue` pour les tâches d'onboarding abordables par les nouveaux contributeurs.
   - `help wanted` pour les sujets nécessitant un renfort ponctuel ou une expertise spécifique.
-- Les mainteneurs s'assurent que chaque milestone de la [feuille de route](../ROADMAP.md) possède au moins un lot d'issues taggées avec ces labels pour encourager la participation.
+- Les mainteneurs s'assurent que chaque milestone de la [feuille de route](../../../ROADMAP.md) possède au moins un lot d'issues taggées avec ces labels pour encourager la participation.
 - Un tableau de projet GitHub (mode Kanban) est synchronisé avec les jalons trimestriels et utilisé lors des rituels ci-dessous.
 
 ## Rituels communautaires

@@ -20,7 +20,7 @@ with contributors and customer-facing teams.
 - Prerequisites: `pip install -r services/algo-engine/requirements.txt`
   (assistant auto-enabled) and an `OPENAI_API_KEY`; export
   `AI_ASSISTANT_ENABLED=0` if you prefer to keep the assistant disabled while
-  following the notebook. See [`services/algo_engine/app/main.py`](../../services/algo_engine/app/main.py)
+  following the notebook. See [`services/algo_engine/app/main.py`](../../../../services/algo_engine/app/main.py)
   for the environment flag logic.
 
 ## Strategy designer screencast
@@ -33,7 +33,7 @@ with contributors and customer-facing teams.
 
 ## Real-time dashboard walkthrough
 
-- Notes: follow `docs/inplay.md` and `docs/domains/2_architecture/platform/streaming.md` to configure service
+- Notes: follow `docs/domains/1_trading/inplay.md` and `docs/domains/2_architecture/platform/streaming.md` to configure service
   tokens, then watch the dashboard pick up live alerts and setups.
 - Complementary Grafana board exported under `docs/domains/3_operations/observability/` for latency
   troubleshooting.

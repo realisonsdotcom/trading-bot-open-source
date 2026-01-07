@@ -42,7 +42,7 @@ The Infrastructure domain covers all aspects of the technical infrastructure tha
 
 **Related Documentation**:
 - See [Operations Domain](../INDEX.md) for deployment guides
-- See [README.md](../../../README.md#-quick-start) for quick start instructions
+- See [README.md](../../../../README.md#-quick-start) for quick start instructions
 
 ---
 

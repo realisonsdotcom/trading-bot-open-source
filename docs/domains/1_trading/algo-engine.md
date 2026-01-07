@@ -67,7 +67,7 @@ sont maintenant déclarés dans `services/algo-engine/requirements.txt` afin que
 Le service reste néanmoins fonctionnel sans ces dépendances. Une fois les paquets
 installés, l'assistant démarre automatiquement sauf si le flag
 `AI_ASSISTANT_ENABLED` est positionné à `0` (voir
-[`services/algo_engine/app/main.py`](../services/algo_engine/app/main.py) pour la
+[`services/algo_engine/app/main.py`](../../../services/algo_engine/app/main.py) pour la
 logique de lecture). Pour désactiver explicitement l'assistant, définissez
 `AI_ASSISTANT_ENABLED=0` avant de lancer `uvicorn app.main:app`. Grâce au module de
 bootstrap partagé (`services._bootstrap`) importé par chaque service FastAPI, cette

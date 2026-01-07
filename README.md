@@ -254,7 +254,7 @@ Find the detailed review, roadmap and backlog in:
 
 - [`docs/domains/6_quality/reports/2025-11-code-review.md`](docs/domains/6_quality/reports/2025-11-code-review.md)
 - [`docs/domains/7_standards/project-evaluation.md`](docs/domains/7_standards/project-evaluation.md)
-- [`docs/tasks/2025-q4-backlog.md`](docs/tasks/2025-q4-backlog.md)
+- [`docs/domains/7_standards/tasks/2025-q4-backlog.md`](docs/domains/7_standards/tasks/2025-q4-backlog.md)
 - [`docs/domains/5_community/release-highlights/2025-12.md`](docs/domains/5_community/release-highlights/2025-12.md)
 
 ## 🗺️ Roadmap and Next Steps

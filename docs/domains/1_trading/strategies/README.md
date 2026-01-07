@@ -124,7 +124,7 @@ payload to the algo engine.
 > `langchain`, `langchain-openai` and `openai` dependencies needed by the assistant.
 > The feature is enabled by default once those packages are available; toggle it via
 > the `AI_ASSISTANT_ENABLED` environment flag handled in
-> [`services/algo_engine/app/main.py`](../../services/algo_engine/app/main.py). Set
+> [`services/algo_engine/app/main.py`](../../../../services/algo_engine/app/main.py). Set
 > `AI_ASSISTANT_ENABLED=0` to boot the algo engine without the feature; in that case
 > `/strategies/generate` returns HTTP 503 with a clear message.
 
@@ -137,4 +137,4 @@ Backtests run through the `/strategies/{id}/backtest` endpoint leverage the new 
 
 Each backtest updates the orchestrator state with `mode = "simulation"` and exposes the latest summary under `/state` (`last_simulation`).
 
-Make sure the `data/backtests` directory is writable in your deployment target if you want to persist the artefacts. Use the walkthrough in [`docs/domains/6_quality/tutorials/backtest-sandbox.ipynb`](../tutorials/backtest-sandbox.ipynb) to replay the demo script end-to-end.
+Make sure the `data/backtests` directory is writable in your deployment target if you want to persist the artefacts. Use the walkthrough in [`docs/domains/6_quality/tutorials/backtest-sandbox.ipynb`](../../6_quality/tutorials/backtest-sandbox.ipynb) to replay the demo script end-to-end.
