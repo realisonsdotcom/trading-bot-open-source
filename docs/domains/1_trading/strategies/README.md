@@ -1,3 +1,11 @@
+---
+domain: 1_trading
+title: Strategies - Declarative Format & APIs
+description: The algo engine now accepts declarative strategies that can be defined either in YAML (JSON is valid YAML) or in a lightweight Python file. Declarative strategies allow non-developers to describe trading rules that are dynamically evaluated by the engine and can be simulated before being promoted to live trading.
+keywords: 1 trading, readme
+last_updated: 2026-01-06
+---
+
 # Strategies - Declarative Format & APIs
 
 The algo engine now accepts declarative strategies that can be defined either in YAML (JSON is valid YAML) or in a lightweight Python file. Declarative strategies allow non-developers to describe trading rules that are dynamically evaluated by the engine and can be simulated before being promoted to live trading.
@@ -84,7 +92,7 @@ currently in **beta**:
 
 - Works best with the streaming stack running (`make demo-up`) so live setups stay in sync.
 - Requires the web dashboard service tokens (`WEB_DASHBOARD_*`) to reach `algo-engine`.
-- Tutorial: see the internal screencast referenced in `docs/tutorials/README.md`.
+- Tutorial: see the internal screencast referenced in `docs/domains/6_quality/tutorials/README.md`.
 
 Tests live under `services/web-dashboard/src/strategies/designer/__tests__/` and ensure
 block validation remains consistent when adding new components.
@@ -116,7 +124,7 @@ payload to the algo engine.
 > `langchain`, `langchain-openai` and `openai` dependencies needed by the assistant.
 > The feature is enabled by default once those packages are available; toggle it via
 > the `AI_ASSISTANT_ENABLED` environment flag handled in
-> [`services/algo_engine/app/main.py`](../../services/algo_engine/app/main.py). Set
+> [`services/algo_engine/app/main.py`](../../../../services/algo_engine/app/main.py). Set
 > `AI_ASSISTANT_ENABLED=0` to boot the algo engine without the feature; in that case
 > `/strategies/generate` returns HTTP 503 with a clear message.
 
@@ -129,4 +137,4 @@ Backtests run through the `/strategies/{id}/backtest` endpoint leverage the new 
 
 Each backtest updates the orchestrator state with `mode = "simulation"` and exposes the latest summary under `/state` (`last_simulation`).
 
-Make sure the `data/backtests` directory is writable in your deployment target if you want to persist the artefacts. Use the walkthrough in [`docs/tutorials/backtest-sandbox.ipynb`](../tutorials/backtest-sandbox.ipynb) to replay the demo script end-to-end.
+Make sure the `data/backtests` directory is writable in your deployment target if you want to persist the artefacts. Use the walkthrough in [`docs/domains/6_quality/tutorials/backtest-sandbox.ipynb`](../../6_quality/tutorials/backtest-sandbox.ipynb) to replay the demo script end-to-end.

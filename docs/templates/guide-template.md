@@ -2,10 +2,9 @@
 title: "Guide Title"
 domain: "domain-key"
 description: "Short description of what the guide covers."
-keywords: [guide, how-to]
-responsible: ["AgentName"]
-status: draft
+keywords: guide, how-to
 last_updated: 2026-01-06
+status: draft
 ---
 
 # Guide Title

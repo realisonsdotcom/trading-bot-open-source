@@ -1,3 +1,11 @@
+---
+domain: 7_standards
+title: Documentation Guide for AI Agents
+description: Documentation standards and workflow for AI agent contributions.
+keywords: documentation, guide, ai-agents, standards, workflow
+last_updated: 2026-01-06
+---
+
 # Documentation Guide for AI Agents
 
 > **Purpose**: This guide helps AI coding agents (GitHub Copilot, Cursor, Claude, etc.) create, update, and maintain documentation in this repository following our standards and conventions.
@@ -33,8 +41,8 @@ trading-bot-open-source/
 ├── CODE_OF_CONDUCT.md               # Community standards
 │
 └── docs/
+    ├── 00-START-HERE.md              # Quick navigation guide
     ├── DOCUMENTATION-GUIDE-FOR-AGENTS.md  # This file
-    ├── migration-map.md                   # Domain migration mapping
     │
     └── domains/                      # Domain-based organization
         ├── 1_trading/                # Trading & strategies domain
@@ -72,6 +80,7 @@ trading-bot-open-source/
         └── 7_standards/              # Standards & project management
             ├── INDEX.md
             ├── assets/
+            ├── migration-map.md
             └── ...
 ```
 
@@ -122,7 +131,12 @@ Content here...
 
 ### Rule 2: Domain Placement is STRICT
 
-**All documentation** (except root-level project files) **MUST** live in a domain directory:
+**All documentation** (except approved root-level docs) **MUST** live in a domain directory.
+
+Allowed at `docs/` root:
+- `docs/00-START-HERE.md`
+- `docs/DOCUMENTATION-GUIDE-FOR-AGENTS.md`
+- `docs/ROADMAP.md`
 
 ✅ **Correct**: `docs/domains/1_trading/algo-engine.md`  
 ❌ **Incorrect**: `docs/algo-engine.md`
@@ -179,7 +193,7 @@ When adding related documents, update the `related` field in both documents' YAM
 
 ### Migrating Existing Documentation
 
-1. **Check migration-map.md** for the file's target domain
+1. **Check `docs/domains/7_standards/migration-map.md`** for the file's target domain
 2. **Use `git mv`** to move the file (preserves history)
    ```bash
    git mv docs/old-file.md docs/domains/{domain}/
@@ -441,17 +455,17 @@ Edit `docs/domains/1_trading/INDEX.md`:
 
 ### Example 2: Migrating an Existing Service Doc
 
-**Original**: `docs/billing.md`  
-**Target**: `docs/domains/2_architecture/billing.md`
+**Original**: `docs/domains/4_platform/billing.md`  
+**Target**: `docs/domains/2_architecture/platform/billing.md`
 
 **Step 1**: Move with git mv
 ```bash
-git mv docs/billing.md docs/domains/2_architecture/
+git mv docs/domains/4_platform/billing.md docs/domains/2_architecture/platform/
 ```
 
 **Step 2**: Add YAML front matter
 
-Edit `docs/domains/2_architecture/billing.md`:
+Edit `docs/domains/2_architecture/platform/billing.md`:
 ```markdown
 ---
 domain: 2_architecture
@@ -461,7 +475,7 @@ keywords: billing, subscriptions, payments, stripe
 last_updated: 2026-01-06
 related:
   - user-service.md
-  - ../5_community/governance/pricing-policy.md
+  - ../../5_community/governance/pricing-policy.md
 ---
 
 # Billing Service
@@ -471,7 +485,7 @@ related:
 
 **Step 3**: Update domain INDEX
 
-Edit `docs/domains/2_architecture/INDEX.md`:
+Edit `docs/domains/2_architecture/platform/INDEX.md`:
 ```markdown
 ### Core Services
 
@@ -598,7 +612,7 @@ When asked to create/update documentation:
 - Parse existing YAML front matter before editing
 - Preserve formatting when updating `last_updated`
 - Batch update related documents in single commit
-- Use migration-map.md as authoritative source for file locations
+- Use `docs/domains/7_standards/migration-map.md` as the authoritative source for file locations
 
 ### Common Commands
 
@@ -624,7 +638,7 @@ grep -r "keyword" docs/domains/
 ## 📖 Additional Resources
 
 - **[Main Documentation Index](../../INDEX.md)** - Repository documentation hub
-- **[Migration Map](migration-map.md)** - Domain migration mapping
+- **[Migration Map](domains/7_standards/migration-map.md)** - Domain migration mapping
 - **[Contributing Guide](../../CONTRIBUTING.md)** - Contribution guidelines
 - **[README](../../README.md)** - Project overview
 

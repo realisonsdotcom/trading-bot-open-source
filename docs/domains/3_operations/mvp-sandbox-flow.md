@@ -1,8 +1,8 @@
 ---
-title: MVP Sandbox Flow
 domain: 3_operations
+title: MVP Sandbox Flow
 description: Sandbox workflow linking market data, algo-engine, and order-router for MVP flow.
-keywords: [mvp, sandbox, operations, order-router, market-data, algo-engine]
+keywords: mvp, sandbox, operations, order-router, market-data, algo-engine
 last_updated: 2026-01-06
 ---
 

@@ -1,8 +1,8 @@
 ---
-title: KPI Observability
 domain: 3_operations
+title: KPI Observability
 description: KPI dashboard generation and reporting workflow.
-keywords: [metrics, kpi, observability, dashboard, reporting]
+keywords: metrics, kpi, observability, dashboard, reporting
 last_updated: 2026-01-06
 ---
 
@@ -16,7 +16,7 @@ Ce dossier centralise le tableau de bord consolidé des indicateurs clés du pro
 
 ## Mise à jour automatique
 
-Le script [`scripts/metrics/build_dashboard.py`](../../scripts/metrics/build_dashboard.py) agrège les résultats de couverture (`coverage.xml`),
+Le script [`scripts/metrics/build_dashboard.py`](../../../../scripts/metrics/build_dashboard.py) agrège les résultats de couverture (`coverage.xml`),
 les statuts des scénarios E2E et les KPI manuels pour publier le tableau de bord. Il est exécuté par la CI avec les options suivantes :
 
 ```bash
@@ -36,4 +36,4 @@ dans un outil BI (Metabase, Power BI, ...).
 ## Mise à jour manuelle
 
 Les KPI `onboarding`, `mvp_strategy` et `community` restent mis à jour manuellement. Les responsables identifiés renseignent
-les nouvelles valeurs dans `kpi-config.toml` lors du comité KPI décrit dans `../governance/kpi-review.md`.
+les nouvelles valeurs dans `kpi-config.toml` lors du comité KPI décrit dans `../../5_community/governance/kpi-review.md`.

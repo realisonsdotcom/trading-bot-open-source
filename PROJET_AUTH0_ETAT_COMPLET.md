@@ -84,7 +84,7 @@ install_auth0_with_entitlements(
 ```
 
 #### 3. **Documentation**
-- `docs/AUTH0_SETUP.md` - Configuration Auth0
+- `docs/domains/4_security/AUTH0_SETUP.md` - Configuration Auth0
 - `libs/entitlements/README_AUTH0.md` - Intégration middleware
 - `libs/entitlements/MIGRATION_GUIDE.md` - Guide pas-à-pas
 
@@ -273,7 +273,7 @@ Tous les services ont été migrés pour utiliser Auth0:
 ### Nouveaux Fichiers (Phase 1)
 
 ```
-docs/AUTH0_SETUP.md
+docs/domains/4_security/AUTH0_SETUP.md
 services/auth_gateway_service/
   ├── app/main.py
   ├── app/auth0_client.py
@@ -423,7 +423,7 @@ exports.onExecutePostLogin = async (event, api) => {
 
 ### 1. Configuration Auth0
 
-Suivre `docs/AUTH0_SETUP.md` pour:
+Suivre `docs/domains/4_security/AUTH0_SETUP.md` pour:
 1. Créer un tenant Auth0
 2. Configurer les applications
 3. Ajouter les social connections

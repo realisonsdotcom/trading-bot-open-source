@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from datetime import date
 import sys
 from pathlib import Path
 
@@ -14,16 +15,12 @@ except ImportError as exc:  # pragma: no cover - runtime guard
 
 DOMAIN_ORDER = [
     "1_trading",
-    "2_execution",
-    "3_operations",
-    "4_platform",
-    "5_webapp",
-    "6_infrastructure",
-    "7_standards",
     "2_architecture",
+    "3_operations",
     "4_security",
     "5_community",
     "6_quality",
+    "7_standards",
 ]
 
 YAML_START = "---\n"
@@ -76,13 +73,14 @@ def _description_for_doc(metadata: dict) -> str:
 
 def _domain_header(domain: str) -> str:
     label = domain.replace("_", " ").title()
+    today = date.today().isoformat()
     return (
         f"---\n"
         f"domain: {domain}\n"
         f"title: {label} Domain Index\n"
         f"description: Auto-generated index for {domain}.\n"
-        f"keywords: {domain}\n"
-        f"last_updated: AUTO\n"
+        f"keywords: {domain}, index\n"
+        f"last_updated: {today}\n"
         f"---\n\n"
         f"# {label} Domain Index\n\n"
         f"> Auto-generated. Do not edit manually.\n\n"

@@ -2,10 +2,9 @@
 title: "Service Name"
 domain: "domain-key"
 description: "Short summary of the service purpose."
-keywords: [service, api, reference]
-responsible: ["AgentName"]
-status: draft
+keywords: service, api, reference
 last_updated: 2026-01-06
+status: draft
 ---
 
 # Service Name

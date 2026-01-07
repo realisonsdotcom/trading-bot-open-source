@@ -1,0 +1,145 @@
+---
+domain: 2_architecture
+title: Streaming Module
+description: Module de streaming temps réel pour tableaux de bord et indicateurs métiers
+keywords: streaming, WebSocket, real-time, OBS, TradingView, overlay, platform, live
+last_updated: 2026-01-06
+---
+
+# Module streaming
+
+Ce document décrit la mise en place du module de streaming temps réel couvrant les services `streaming_gateway`, `overlay_renderer`, `obs_controller` et `streaming_bus` ainsi que les intégrations OAuth et TradingView.
+
+## Statut et périmètre
+
+- **Statut** : streaming dashboards livrés, automatisation OBS/overlay en bêta.
+- **Prérequis** : configurez les jetons `STREAMING_SERVICE_TOKEN_*` et démarrez la stack (`make demo-up`).
+- **Tutoriels** : suivez les notes dans `docs/domains/6_quality/tutorials/README.md` pour la démo vidéo.
+
+## 1. Service `services/streaming`
+
+Le dossier `services/streaming/` expose une API FastAPI dédiée à la diffusion en direct des tableaux de bord et indicateurs métiers.
+
+### 1.1 Fonctionnalités clés
+
+- WebSocket `/ws/rooms/{roomId}` permettant à un client (overlay, UI web, mobile) de rejoindre une room et de recevoir les évènements publiés en temps réel.
+- Endpoints REST pour gérer le cycle de vie d'une session live : planification (`POST /sessions`), démarrage (`POST /sessions/{id}/start`), arrêt (`POST /sessions/{id}/stop`), publication de replays (`POST /sessions/{id}/replay`).
+- Outils de modération en temps réel via `POST /moderation/rooms/{roomId}` qui propagent des commandes (`mute`, `ban`, `warn`) vers les spectateurs connectés.
+- Pipeline d'ingestion (`POST /ingest/reports`, `POST /ingest/inplay`) sécurisé par des jetons de service et relayant les signaux des modules `reports` et `inplay` sur les rooms correspondantes.
+- Vérification systématique des entitlements : les appels REST utilisent le middleware partagé (`libs.entitlements`) et le WebSocket valide la capacité `can.stream_public` avant d'accepter la connexion.
+
+### 1.2 Configuration
+
+Variables d'environnement disponibles :
+
+- `STREAMING_PIPELINE_BACKEND`: `memory` (par défaut), `redis` ou `nats` pour sélectionner le bus de diffusion.
+- `STREAMING_REDIS_URL` / `STREAMING_NATS_URL`: URLs des backends respectifs.
+- `STREAMING_SERVICE_TOKEN_REPORTS` et `STREAMING_SERVICE_TOKEN_INPLAY`: jetons partagés utilisés par les services producteurs lors des appels d'ingestion.
+- `STREAMING_INGEST_URL` : URL de base (HTTP) utilisée par les producteurs comme `order-router` pour publier les événements d'exécution (`http://streaming:8000` en développement).
+- `STREAMING_SERVICE_TOKEN` : jeton d'authentification présenté par `order-router` lors des appels `POST /ingest/reports`.
+- `STREAMING_ROOM_ID` (optionnel) : identifiant de la room cible pour les rapports temps réel (défaut `public-room`).
+- `STREAMING_ENTITLEMENTS_CAPABILITY`: capacité requise côté client (défaut `can.stream_public`).
+
+En développement/test, `ENTITLEMENTS_BYPASS=1` autorise les connexions sans contacter le service d'entitlements.
+
+### 1.3 Intégration UI
+
+Dans le frontend, la connexion se fait ainsi :
+
+```ts
+const ws = new WebSocket(`wss://streaming.example.com/ws/rooms/${roomId}`, {
+  headers: { 'X-Customer-Id': viewerId }
+});
+
+ws.onmessage = (event) => {
+  const payload = JSON.parse(event.data);
+  switch (payload.payload.type) {
+    case 'session_started':
+      dashboard.showLiveSession(payload.payload.session_id);
+      break;
+    case 'moderation':
+      moderation.apply(payload.payload);
+      break;
+    default:
+      indicators.update(payload.payload);
+  }
+};
+```
+
+Les cartes/charts du dashboard doivent se mettre à jour à chaque message. Les modules `reports` et `inplay` publient des payloads métier (`payload.indicator`, `payload.marketState`, etc.) qui sont directement routés vers la room concernée.
+
+Un enregistrement de session (`POST /sessions/{id}/replay`) déclenche un message `{"type": "session_replay", "replay_url": ...}` permettant à l'UI d'afficher le replay dans la page historique.
+
+## 2. Connexion aux plateformes (Twitch, YouTube, Discord)
+
+1. Rendez-vous dans le portail développeur de chaque plateforme pour récupérer l'identifiant et le secret OAuth.
+2. Configurez les variables d'environnement suivantes pour le service FastAPI `streaming_gateway` :
+   - `STREAMING_GATEWAY_TWITCH_CLIENT_ID`
+   - `STREAMING_GATEWAY_TWITCH_CLIENT_SECRET`
+   - `STREAMING_GATEWAY_YOUTUBE_CLIENT_ID`
+   - `STREAMING_GATEWAY_YOUTUBE_CLIENT_SECRET`
+   - `STREAMING_GATEWAY_DISCORD_CLIENT_ID`
+   - `STREAMING_GATEWAY_DISCORD_CLIENT_SECRET`
+   - `STREAMING_GATEWAY_DISCORD_BOT_TOKEN`
+3. Démarrez le service et appelez `GET /auth/<provider>/start` pour obtenir l'URL d'autorisation. Redirigez l'utilisateur vers cette URL et complétez le consentement.
+4. Après le consentement, la plateforme redirige vers `/auth/<provider>/callback`. Le service échange le `code` contre des jetons chiffrés dans `EncryptedTokenStore`.
+5. Vérifiez les entitlements : les requêtes doivent inclure `X-User-Id` / `X-Customer-Id`. L'accès est refusé si l'utilisateur ne dispose pas de la capacité `can.stream`.
+
+## 2. Ajouter l'overlay à OBS
+
+1. Créez un overlay via `POST /overlays`. La réponse inclut un `signedUrl` et un `overlayId`.
+2. Appelez le service `obs_controller` pour créer automatiquement une source navigateur :
+   ```json
+   POST /obs/sources
+   {
+     "scene": "Live",
+     "url": "<signedUrl>",
+     "w": 1920,
+     "h": 1080,
+     "x": 0,
+     "y": 0
+   }
+   ```
+3. L'overlay React (`overlay_renderer`) charge les indicateurs configurés et écoute le WebSocket `/ws/overlay/{overlayId}` pour mettre à jour le canvas 60 fps.
+4. En cas de besoin, un overlay peut être re-signé via `GET /overlays/{overlayId}`.
+
+## 3. Alertes TradingView
+
+1. Dans TradingView, créez une alerte et renseignez l'URL du webhook `POST /webhooks/tradingview`.
+2. (Optionnel) Configurez `STREAMING_GATEWAY_TRADINGVIEW_HMAC_SECRET` pour valider la signature `X-Signature` (HMAC SHA256 base64).
+3. Utilisez l'en-tête `X-Idempotency-Key` pour garantir l'idempotence. Les doublons sont ignorés.
+4. Les champs pris en charge : `symbol`, `side`, `timeframe`, `note`, `price`, `extras`.
+
+## 4. Quotas & offres
+
+- `can.stream` : autorise l'accès aux endpoints historiques.
+- `can.stream_public` : autorise la consommation des flux temps réel exposés par `services/streaming`.
+- `limit.stream_overlays` : nombre maximum d'overlays actifs.
+- `limit.stream_bitrate` : limite la résolution/bitrate côté pipeline (à appliquer dans `streaming_bus`).
+- Les entitlements proviennent du service de billing (Stripe webhooks) et sont mis en cache dans `entitlements_cache`.
+- Le portail client Stripe permet à l'utilisateur de changer de plan, ce qui déclenche la mise à jour des droits.
+
+## 5. Pipeline temps réel
+
+- `streaming_bus` publie les mises à jour sur `overlay.*` et `chat.*` via Redis Streams ou NATS JetStream.
+- `services/streaming` publie les payloads métier dans les rooms (`StreamEvent`) et peut se connecter à Redis Streams ou NATS via les adaptateurs `RedisStreamPublisher` et `NatsJetStreamPublisher`.
+- `streaming_gateway` consomme ces flux pour pousser les indicateurs dans `/ws/overlay/{id}`.
+- `overlay_renderer` agrège les messages et les rend via Lightweight Charts (Apache-2.0).
+- Les métriques clés : latence webhook → overlay, latence WS, nombre de reconnexions EventSub, débit JetStream/Redis.
+
+## 6. Observabilité & tests
+
+- Tests unitaires :
+  - Mocks OAuth pour Twitch/YouTube/Discord.
+  - Validation des signatures HMAC (TradingView, Stripe).
+  - Tests du client obs-websocket.
+- Logs :
+  - Audit des connexions OAuth (`/auth/*`).
+  - Erreurs WebSocket.
+  - Refus liés aux entitlements.
+- Metrics : exposer un endpoint Prometheus (temps de réponse, erreurs, taux de reconnexion).
+
+## 7. Points légaux
+
+- Lightweight Charts (overlay) est Apache-2.0, attribution TradingView requise.
+- Ne pas distribuer la “Charting Library” commerciale.

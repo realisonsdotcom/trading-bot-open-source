@@ -67,7 +67,7 @@ sont maintenant déclarés dans `services/algo-engine/requirements.txt` afin que
 Le service reste néanmoins fonctionnel sans ces dépendances. Une fois les paquets
 installés, l'assistant démarre automatiquement sauf si le flag
 `AI_ASSISTANT_ENABLED` est positionné à `0` (voir
-[`services/algo_engine/app/main.py`](../services/algo_engine/app/main.py) pour la
+[`services/algo_engine/app/main.py`](../../../services/algo_engine/app/main.py) pour la
 logique de lecture). Pour désactiver explicitement l'assistant, définissez
 `AI_ASSISTANT_ENABLED=0` avant de lancer `uvicorn app.main:app`. Grâce au module de
 bootstrap partagé (`services._bootstrap`) importé par chaque service FastAPI, cette
@@ -75,7 +75,7 @@ commande fonctionne directement depuis `services/algo_engine`. Vous pouvez
 également utiliser le chemin de module complet :
 `uvicorn services.algo_engine.app.main:app`. Dans ce cas,
 `/strategies/generate` renverra un HTTP 503 indiquant que la fonctionnalité est
-désactivée. Le tutoriel `docs/tutorials/backtest-sandbox.ipynb` fournit un exemple
+désactivée. Le tutoriel `docs/domains/6_quality/tutorials/backtest-sandbox.ipynb` fournit un exemple
 d'appel complet.
 
 Le middleware d'entitlements vérifie la capacité `can.manage_strategies` et expose la limite de stratégies actives (`max_active_strategies`). L'orchestrateur interne applique les limites journalières.
