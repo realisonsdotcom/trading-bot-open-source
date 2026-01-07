@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import re
 import sys
 from pathlib import Path
@@ -37,7 +38,9 @@ VALID_DOMAINS = {
 VALID_STATUSES = {"draft", "review", "published", "deprecated"}
 
 YAML_PATTERN = re.compile(r"^---\n(.*?)\n---\n", re.DOTALL)
+LINK_PATTERN = re.compile(r"!?\[[^\]]+\]\(([^)]+)\)")
 DATE_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+EXTERNAL_PREFIXES = ("http://", "https://", "mailto:", "tel:")
 
 
 def _extract_front_matter(path: Path) -> dict | None:
@@ -70,8 +73,18 @@ def _validate_metadata(path: Path, metadata: dict) -> list[str]:
             errors.append(f"Missing required field: {field}")
 
     domain = _get_field(metadata, "domain")
-    if domain is not None and domain not in VALID_DOMAINS:
-        errors.append(f"Invalid domain: {domain}")
+    if domain is not None:
+        if domain not in VALID_DOMAINS:
+            errors.append(f"Invalid domain: {domain}")
+        else:
+            # Check if domain matches directory
+            parts = path.parts
+            if "domains" in parts:
+                idx = parts.index("domains")
+                if len(parts) > idx + 1:
+                    expected_domain = parts[idx + 1]
+                    if domain != expected_domain:
+                        errors.append(f"Domain mismatch: '{domain}' field does not match directory '{expected_domain}'")
 
     status = _get_field(metadata, "status")
     if status is not None and status not in VALID_STATUSES:
@@ -90,8 +103,66 @@ def _validate_metadata(path: Path, metadata: dict) -> list[str]:
     return errors
 
 
+def _strip_link_target(target: str) -> str:
+    target = target.split("#", 1)[0]
+    target = target.split("?", 1)[0]
+    return target.strip()
+
+
+def _is_external_target(target: str) -> bool:
+    if "://" in target:
+        return True
+    return target.startswith(EXTERNAL_PREFIXES)
+
+
+def _validate_related_links(path: Path, metadata: dict) -> list[str]:
+    errors: list[str] = []
+    related = metadata.get("related")
+    if related is None:
+        return errors
+    if not isinstance(related, list):
+        return ["'related' must be a list of relative paths"]
+    for rel in related:
+        if not isinstance(rel, str):
+            errors.append("Related entry must be a string path")
+            continue
+        rel_target = _strip_link_target(rel)
+        if not rel_target or rel_target.startswith("#") or _is_external_target(rel_target):
+            continue
+        rel_path = (path.parent / rel_target).resolve()
+        if not rel_path.exists():
+            errors.append(f"Broken related link: {rel}")
+    return errors
+
+
+def _validate_markdown_links(path: Path, content: str) -> list[str]:
+    errors: list[str] = []
+    for match in LINK_PATTERN.finditer(content):
+        target = match.group(1).strip()
+        if not target or target.startswith("#") or _is_external_target(target):
+            continue
+        target = _strip_link_target(target)
+        if not target:
+            continue
+        target_path = (path.parent / target).resolve()
+        if not target_path.exists():
+            errors.append(f"Broken markdown link: {target}")
+    return errors
+
+
 def main() -> int:
-    docs_dir = Path("docs/domains")
+    parser = argparse.ArgumentParser(
+        description="Validate YAML metadata and optionally validate doc links.",
+    )
+    parser.add_argument("--root", default="docs/domains", help="Docs domains root directory")
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="Validate related and markdown links (fails on broken links).",
+    )
+    args = parser.parse_args()
+
+    docs_dir = Path(args.root)
     if not docs_dir.exists():
         print(f"Directory not found: {docs_dir}")
         return 1
@@ -109,6 +180,10 @@ def main() -> int:
             continue
 
         errors = _validate_metadata(md_file, metadata)
+        if args.strict:
+            errors.extend(_validate_related_links(md_file, metadata))
+            content = md_file.read_text(encoding="utf-8")
+            errors.extend(_validate_markdown_links(md_file, content))
         if errors:
             files_with_errors += 1
             for error in errors:
