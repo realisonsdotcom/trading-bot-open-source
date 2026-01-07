@@ -2,7 +2,7 @@
 domain: 1_trading
 title: Strategies - Declarative Format & APIs
 description: The algo engine now accepts declarative strategies that can be defined either in YAML (JSON is valid YAML) or in a lightweight Python file. Declarative strategies allow non-developers to describe trading rules that are dynamically evaluated by the engine and can be simulated before being promoted to live trading.
-keywords: 1 trading, readme
+keywords: strategies, declarative, YAML, Python, backtesting, visual-designer, AI-assistant, trading-rules
 last_updated: 2026-01-06
 ---
 
