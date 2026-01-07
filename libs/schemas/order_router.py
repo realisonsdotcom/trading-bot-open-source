@@ -8,9 +8,9 @@ from typing import List
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
-from providers import normalize_binance_symbol, normalize_ibkr_symbol
-from schemas.market import ExecutionReport as MarketExecutionReport
-from schemas.market import OrderRequest
+from libs.providers import normalize_binance_symbol, normalize_ibkr_symbol
+from libs.schemas.market import ExecutionReport as MarketExecutionReport
+from libs.schemas.market import OrderRequest
 
 
 class RiskOverrides(BaseModel):

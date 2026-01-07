@@ -17,7 +17,7 @@ from libs.entitlements.client import Entitlements
 from libs.observability.logging import RequestContextMiddleware, configure_logging
 from libs.observability.metrics import setup_metrics
 from libs.secrets import get_secret
-from providers import FinancialModelingPrepClient, FinancialModelingPrepError
+from libs.providers import FinancialModelingPrepClient, FinancialModelingPrepError
 
 from .schemas import (
     ScreenerPresetCreate,

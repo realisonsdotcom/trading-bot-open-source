@@ -6,13 +6,13 @@ import httpx
 import pytest
 import respx
 
-from providers.binance import BinanceClient, BinanceConfig
-from providers.ibkr import IBKRClient, IBKRConfig
+from libs.providers.binance import BinanceClient, BinanceConfig
+from libs.providers.ibkr import IBKRClient, IBKRConfig
 
 
 @respx.mock
 def test_binance_client_signs_requests_and_retries(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr("providers.binance.time.time", lambda: 1_000_000.0)
+    monkeypatch.setattr("libs.providers.binance.time.time", lambda: 1_000_000.0)
     config = BinanceConfig(api_key="api-key", api_secret="secret", base_url="https://api.test")
     client = BinanceClient(config, max_retries=2, backoff_factor=0.0)
 
@@ -59,7 +59,7 @@ def test_binance_client_signs_requests_and_retries(monkeypatch: pytest.MonkeyPat
 
 @respx.mock
 def test_ibkr_client_reauthenticates_on_unauthorized(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr("providers.ibkr.time.sleep", lambda _: None)
+    monkeypatch.setattr("libs.providers.ibkr.time.sleep", lambda _: None)
     config = IBKRConfig(
         api_key="ib-key",
         api_secret="ib-secret",

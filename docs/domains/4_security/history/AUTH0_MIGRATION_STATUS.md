@@ -41,7 +41,7 @@ archived_reason: "Migrated from root after documentation restructuring"
 **Localisation**: `docs/domains/4_security/AUTH0_SETUP.md`
 
 #### 3. **Configuration**
-   - ✅ Variables d'environnement dans `.env.dev`
+   - ✅ Variables d'environnement dans `config/.env.dev`
    - ✅ Configuration docker-compose
    - ✅ Port exposé: 8012
 
@@ -269,7 +269,7 @@ export const AuthCallback = () => {
 
 Suivre: `docs/domains/4_security/AUTH0_SETUP.md`
 
-**Valeurs à configurer dans `.env.dev`**:
+**Valeurs à configurer dans `config/.env.dev`**:
 ```bash
 AUTH0_DOMAIN=your-tenant.auth0.com
 AUTH0_CLIENT_ID=<obtenir depuis Auth0 dashboard>
@@ -323,7 +323,7 @@ INSERT INTO plan_features (plan_id, feature_id, limit) VALUES
 
 - Docker & Docker Compose
 - Auth0 tenant configuré (suivre `docs/domains/4_security/AUTH0_SETUP.md`)
-- Variables d'environnement dans `.env.dev`
+- Variables d'environnement dans `config/.env.dev`
 
 ### 2. Lancer les services backend
 

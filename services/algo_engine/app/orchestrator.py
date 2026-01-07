@@ -7,7 +7,7 @@ import threading
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List
 
-from schemas.order_router import ExecutionIntent, ExecutionReport
+from libs.schemas.order_router import ExecutionIntent, ExecutionReport
 
 from .order_router_client import OrderRouterClient, OrderRouterClientError
 from .strategies.base import StrategyBase

@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import MagicMock
 
-from schemas.report import StrategyMetrics, StrategyName
+from libs.schemas.report import StrategyMetrics, StrategyName
 from services.reports.app.calculations import ReportCalculator
 
 

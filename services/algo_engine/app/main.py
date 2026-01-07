@@ -63,8 +63,8 @@ from libs.db.db import SessionLocal
 from libs.entitlements.auth0_integration import install_auth0_with_entitlements
 from libs.observability.logging import RequestContextMiddleware, configure_logging
 from libs.observability.metrics import setup_metrics
-from providers.limits import build_plan, get_pair_limit
-from schemas.market import (
+from libs.providers.limits import build_plan, get_pair_limit
+from libs.schemas.market import (
     ExecutionPlan,
     ExecutionVenue,
     OrderRequest,

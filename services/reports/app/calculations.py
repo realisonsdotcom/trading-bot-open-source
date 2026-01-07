@@ -11,7 +11,7 @@ from typing import Iterable, List, Sequence
 from sqlalchemy import or_, select
 from sqlalchemy.orm import Session
 
-from schemas.report import (
+from libs.schemas.report import (
     DailyRiskIncident,
     DailyRiskReport,
     PortfolioPerformance,

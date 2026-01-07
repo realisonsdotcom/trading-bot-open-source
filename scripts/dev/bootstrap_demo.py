@@ -20,8 +20,8 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from schemas.market import ExecutionVenue, OrderSide, OrderType
-from schemas.order_router import ExecutionIntent, ExecutionReport, RiskOverrides
+from libs.schemas.market import ExecutionVenue, OrderSide, OrderType
+from libs.schemas.order_router import ExecutionIntent, ExecutionReport, RiskOverrides
 from services.algo_engine.app.order_router_client import OrderRouterClient
 from services.web_dashboard.app.alerts_client import AlertsEngineClient
 

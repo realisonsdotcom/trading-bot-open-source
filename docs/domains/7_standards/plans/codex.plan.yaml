@@ -9,7 +9,7 @@ tasks:
 
   - id: ensure-env
     files:
-      - path: ".env.dev"
+      - path: "config/.env.dev"
         ensure_exists: true
         append_if_missing: |
           # ==== Auth/User defaults for local dev ====
@@ -24,7 +24,7 @@ tasks:
       instructions: |
         - For both services "auth-service" and "user-service", add:
             env_file:
-              - .env.dev
+              - config/.env.dev
         - Do not change ports or depends_on.
         - Keep YAML indentation consistent.
 

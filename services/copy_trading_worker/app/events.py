@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Optional
 
-from schemas.market import ExecutionReport
+from libs.schemas.market import ExecutionReport
 
 
 @dataclass(slots=True)

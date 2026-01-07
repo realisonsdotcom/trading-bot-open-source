@@ -16,11 +16,13 @@ from libs.env import (
 from .persistence import read_config_for_env
 
 
+ROOT_DIR = Path(__file__).resolve().parents[3]
+DEFAULT_ENV_FILE = ROOT_DIR / "config/.env.dev"
 ENV_FILE_MAP = {
-    "dev": ".env.dev",
-    "test": ".env.test",
-    "prod": ".env.prod",
-    "native": ".env.native",
+    "dev": ROOT_DIR / "config/.env.dev",
+    "test": ROOT_DIR / "config/.env.test",
+    "prod": ROOT_DIR / "config/.env.prod",
+    "native": ROOT_DIR / "config/.env.native",
 }
 
 
@@ -34,7 +36,10 @@ def _default_postgres_dsn() -> str:
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env.dev", env_prefix="", case_sensitive=False, extra="allow"
+        env_file=str(DEFAULT_ENV_FILE),
+        env_prefix="",
+        case_sensitive=False,
+        extra="allow",
     )
 
     APP_NAME: str = "trading-bot-config"
@@ -48,7 +53,7 @@ def load_settings() -> Settings:
     env_name = get_environment()
     env_file = ENV_FILE_MAP.get(env_name)
     settings_kwargs = {}
-    if env_file and Path(env_file).exists():
+    if env_file and env_file.exists():
         settings_kwargs["_env_file"] = env_file
 
     env_settings = Settings(**settings_kwargs)

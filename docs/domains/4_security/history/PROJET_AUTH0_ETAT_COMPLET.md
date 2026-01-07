@@ -126,9 +126,9 @@ services/auth_portal/
 
 #### 2. **UserMenu Component** (Dashboard)
 ```
-components/auth/
-├── UserMenu.jsx                # Dropdown user avec logout
-└── README.md                   # Documentation
+services/web_dashboard/src/components/auth/
+└── UserMenu.jsx                # Dropdown user avec logout
+docs/domains/2_architecture/webapp/ui/user-menu.md
 ```
 
 **Features:**
@@ -312,9 +312,8 @@ services/auth_portal/
   ├── package.json
   ├── .env.example
   └── README.md
-components/auth/
-  ├── UserMenu.jsx
-  └── README.md
+services/web_dashboard/src/components/auth/UserMenu.jsx
+docs/domains/2_architecture/webapp/ui/user-menu.md
 ```
 
 ### Fichiers Modifiés (Phase 3)
@@ -636,13 +635,13 @@ npm run dev
 | **README_AUTH0.md** | Intégration middleware backend | `libs/entitlements/` |
 | **MIGRATION_GUIDE.md** | Guide migration services | `libs/entitlements/` |
 | **Auth Portal README** | Doc portail login | `services/auth_portal/` |
-| **UserMenu README** | Doc composant UserMenu | `components/auth/` |
+| **UserMenu README** | Doc composant UserMenu | `docs/domains/2_architecture/webapp/ui/user-menu.md` |
 
 ### Exemples de Code
 
 - **Backend migré**: `examples/migrated_service/`
 - **Auth Portal**: `services/auth_portal/`
-- **UserMenu component**: `components/auth/UserMenu.jsx`
+- **UserMenu component**: `services/web_dashboard/src/components/auth/UserMenu.jsx`
 
 ### Liens Utiles
 

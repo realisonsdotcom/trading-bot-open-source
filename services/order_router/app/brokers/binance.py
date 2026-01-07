@@ -4,9 +4,9 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Iterable
 
-from providers.binance import BinanceClient, BinanceError, normalize_symbol as normalize_binance_symbol
-from schemas.market import ExecutionFill, ExecutionStatus, OrderRequest
-from schemas.order_router import ExecutionReport
+from libs.providers.binance import BinanceClient, BinanceError, normalize_symbol as normalize_binance_symbol
+from libs.schemas.market import ExecutionFill, ExecutionStatus, OrderRequest
+from libs.schemas.order_router import ExecutionReport
 
 from .base import BrokerAdapter
 

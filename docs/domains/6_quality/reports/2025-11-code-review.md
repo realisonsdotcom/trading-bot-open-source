@@ -12,7 +12,7 @@ last_updated: 2026-01-06
 
 Cette revue couvre l'état du dépôt `trading-bot-open-source` au 25 novembre 2025. Elle s'appuie sur
 l'analyse des principaux services Python (FastAPI), des bibliothèques partagées sous `libs/`,
-des fournisseurs `providers/` ainsi que des actifs d'infrastructure (`docker-compose`, observabilité).
+des fournisseurs `libs/providers/` ainsi que des actifs d'infrastructure (`docker-compose`, observabilité).
 Les constats sont regroupés par domaine afin d'orienter les prochaines itérations produit et
 techniques.
 
@@ -26,7 +26,7 @@ déclaratif en s'appuyant sur `StrategyRepository` (SQLAlchemy/PostgreSQL), tand
 persiste ordres et positions via SQLAlchemy en plus de son moteur de risque (limites dynamiques,
 stop-loss, alertes).【F:services/algo_engine/app/main.py†L1-L136】【F:services/algo_engine/app/repository.py†L1-L180】【F:services/order_router/app/main.py†L1-L1880】
 - **Données de marché** — `market_data` expose des webhooks TradingView, des snapshots de quotes/orderbook
-et configure les adaptateurs Binance/IBKR via des limites sandbox mutualisées.【F:services/market_data/app/main.py†L1-L88】【F:providers/limits.py†L1-L120】
+et configure les adaptateurs Binance/IBKR via des limites sandbox mutualisées.【F:services/market_data/app/main.py†L1-L88】【F:libs/providers/limits.py†L1-L120】
 - **Librairies transverses** — l'entitlements middleware unifie les contrôles d'accès, `libs/observability`
 ofre logs structurés (correlation/request id) et métriques Prometheus, `libs/secrets` centralise la
 résolution de secrets multi-providers.【F:libs/entitlements/__init__.py†L1-L34】【F:libs/observability/logging.py†L1-L123】【F:libs/observability/metrics.py†L1-L80】【F:libs/secrets/__init__.py†L1-L120】
@@ -38,7 +38,7 @@ profil, y compris l'application des entitlements. `algo-engine` et `order-router
 tests couvrant la génération de stratégies, les backtests et le routage d'ordres persisté.
 【F:services/user-service/tests/test_user.py†L1-L128】【F:services/algo_engine/tests/test_strategies.py†L1-L176】【F:services/order_router/tests/test_order_router.py†L1-L256】
 - **Tests E2E & CI** — des scripts Bash/Powershell valident le flux auth dans la CI GitHub Actions, et le
-Makefile automatise lint/tests/coverage pour un onboarding rapide.【F:codex.plan.yaml†L45-L109】【F:Makefile†L1-L28】
+Makefile automatise lint/tests/coverage pour un onboarding rapide.【F:docs/domains/7_standards/plans/codex.plan.yaml†L45-L109】【F:Makefile†L1-L28】
 - **Observabilité & monitoring** — toutes les APIs FastAPI installent le middleware de logs structurés et
 exposent `/metrics`; `docker-compose` embarque Prometheus+Grafana pré-configurés pour la collecte locale.
 【F:services/auth-service/app/main.py†L12-L24】【F:services/user-service/app/main.py†L25-L52】【F:docker-compose.yml†L1-L56】
@@ -68,7 +68,7 @@ exposent `/metrics`; `docker-compose` embarque Prometheus+Grafana pré-configur�
 1. **Finaliser le MVP parcours utilisateur** : orchestrer auth + user-service dans les tests E2E,
    documenter l'OpenAPI et ajouter un guide front pour les appels critiques.
 2. **Solidifier le trading sandbox** : automatiser les migrations SQL, ajouter des contrôles d'intégrité et
-   exposer une CLI démonstration s'appuyant sur `providers/limits` pour dérouler un trade complet.
+   exposer une CLI démonstration s'appuyant sur `libs/providers/limits` pour dérouler un trade complet.
 3. **Industrialiser l'observabilité** : publier un playbook Prometheus/Grafana, brancher l'alerte latence
    > 1s ou taux 5xx > 2% et définir l'escalade.
 4. **Sécuriser les secrets** : documenter les recettes Vault/Doppler/AWS, ajouter des checks de cohérence
@@ -88,5 +88,5 @@ exposent `/metrics`; `docker-compose` embarque Prometheus+Grafana pré-configur�
 ## 8. Actions documentaires
 
 - Mettre à jour la roadmap trimestrielle (2025-2026) avec jalons MVP trading & observabilité.
-- Publier cette revue et le backlog associé (`docs/tasks/2025-q4-backlog.md`).
+- Publier cette revue et le backlog associé (`docs/domains/7_standards/tasks/2025-q4-backlog.md`).
 - Rafraîchir les README (EN/FR) avec les dernières avancées et pointer vers ce rapport.

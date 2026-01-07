@@ -25,6 +25,7 @@ for the dashboard shell, component design, and data contracts.
 ### UI & Dashboard
 
 - [Trading UI Design System](ui/README.md) - Visual language, tokens, and UI principles.
+- [User Menu Component](ui/user-menu.md) - Auth0 user dropdown usage and integration notes.
 - [Dashboard Data Contracts](ui/dashboard-data-contracts.md) - JSON payload contracts for the dashboard.
 - [Web Dashboard SPA Overview](ui/web-dashboard-spa-overview.md) - SPA shell providers and routing map.
 - [Dashboard Modernization Specification](ui/dashboard-modernization.md) - UI upgrade plan and scope.

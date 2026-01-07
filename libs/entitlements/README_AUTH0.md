@@ -229,7 +229,7 @@ async def get_data(request: Request):
 During development, you can bypass Auth0 validation:
 
 ```bash
-# In .env.dev
+# In config/.env.dev
 AUTH0_BYPASS=1
 ENTITLEMENTS_BYPASS=1
 ```

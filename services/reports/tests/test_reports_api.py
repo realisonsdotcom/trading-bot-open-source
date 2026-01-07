@@ -10,7 +10,7 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
-from schemas.report import StrategyName, TradeOutcome
+from libs.schemas.report import StrategyName, TradeOutcome
 from services.reports.app import config
 from services.reports.app.database import get_engine, reset_engine, session_scope
 from services.reports.app.main import app

@@ -143,8 +143,8 @@ services:
 ### Environment Configuration
 
 **Development Environment**:
-- `.env.dev` - Docker-based development variables
-- `.env.native` - Host-based (localhost) development variables
+- `config/.env.dev` - Docker-based development variables
+- `config/.env.native` - Host-based (localhost) development variables
 
 **Key Variables**:
 - `DATABASE_URL` - PostgreSQL connection string
@@ -172,7 +172,7 @@ make dev-down
 
 ```bash
 # Use native host services
-export $(cat .env.native | grep -v '^#' | xargs)
+export $(cat config/.env.native | grep -v '^#' | xargs)
 export ENVIRONMENT=native
 
 # Run migrations

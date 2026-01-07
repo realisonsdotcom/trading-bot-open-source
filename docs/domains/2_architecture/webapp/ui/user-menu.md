@@ -1,3 +1,11 @@
+---
+domain: 2_architecture
+title: User Menu Component
+description: Composant UserMenu Auth0 pour le dashboard web (avatar, plan, logout).
+keywords: webapp, ui, auth0, user-menu, dashboard
+last_updated: 2026-01-07
+---
+
 # Auth Components
 
 Composants React réutilisables pour l'authentification Auth0.
@@ -21,11 +29,18 @@ Menu dropdown utilisateur avec avatar, nom, plan, et logout.
 
 ## Installation
 
-### 1. Copier le composant
+### 1. Utiliser le composant existant
+
+Le composant est déjà disponible ici :
+
+```
+services/web_dashboard/src/components/auth/UserMenu.jsx
+```
+
+Si vous souhaitez le réutiliser dans un autre frontend, copiez depuis cette source :
 
 ```bash
-# Copier dans votre projet
-cp components/auth/UserMenu.jsx services/web_dashboard/src/components/auth/
+cp services/web_dashboard/src/components/auth/UserMenu.jsx ./src/components/auth/
 ```
 
 ### 2. Installer Auth0 SDK
@@ -70,7 +85,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 ### Dans votre Header/Navbar
 
 ```jsx
-import { UserMenu } from '@/components/auth/UserMenu'
+import { UserMenu } from "../components/auth/UserMenu.jsx"
 
 export function Header() {
   return (
@@ -101,7 +116,7 @@ export function Header() {
 ### Exemple complet avec Layout
 
 ```jsx
-import { UserMenu } from '@/components/auth/UserMenu'
+import { UserMenu } from "../components/auth/UserMenu.jsx"
 import { useAuth0 } from '@auth0/auth0-react'
 
 export function DashboardLayout({ children }) {

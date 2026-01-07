@@ -6,8 +6,8 @@ import httpx
 import pytest
 from fastapi.testclient import TestClient
 
-from schemas.market import ExecutionStatus, ExecutionVenue, OrderSide
-from schemas.order_router import ExecutionReport, PositionCloseResponse, PositionsResponse
+from libs.schemas.market import ExecutionStatus, ExecutionVenue, OrderSide
+from libs.schemas.order_router import ExecutionReport, PositionCloseResponse, PositionsResponse
 
 from .utils import load_dashboard_app
 

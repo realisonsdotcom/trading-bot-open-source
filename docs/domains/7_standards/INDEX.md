@@ -21,6 +21,10 @@ This domain captures standards, planning artifacts, and project evaluation notes
 - [Task Backlog](tasks/)
 - [Roadmap](../../ROADMAP.md)
 
+## Plans
+
+- [Codex Plan (YAML)](plans/codex.plan.yaml)
+
 ## Project Management (Archived)
 
 - [MVP Checklist](project-management/MVP_CHECKLIST.md)

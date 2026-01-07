@@ -40,7 +40,7 @@ services:
         SERVICE_PACKAGE: auth_service
         SERVICE_MODULE: app.main
     env_file:
-      - .env.dev
+      - config/.env.dev
     environment:
       DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
     command:
@@ -58,7 +58,7 @@ services:
       context: .
       dockerfile: services/auth_service/Dockerfile
     env_file:
-      - .env.dev
+      - config/.env.dev
     environment:
       PYTHONPATH: /app
       DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
@@ -98,11 +98,11 @@ services:
       context: services/auth_gateway_service
       dockerfile: Dockerfile
     env_file:
-      - .env.dev
+      - config/.env.dev
     environment:
       PYTHONPATH: /app
       DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
-      # Auth0 settings loaded from .env.dev
+      # Auth0 settings loaded from config/.env.dev
       USER_SERVICE_URL: http://user_service:8000
       ENTITLEMENTS_SERVICE_URL: http://entitlements_service:8000
       BILLING_SERVICE_URL: http://billing_service:8000
@@ -130,7 +130,7 @@ services:
       context: .
       dockerfile: services/user_service/Dockerfile
     env_file:
-      - .env.dev
+      - config/.env.dev
     environment:
       PYTHONPATH: /app
       DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
@@ -159,7 +159,7 @@ services:
         SERVICE_PACKAGE: billing_service
         SERVICE_MODULE: app.main
     env_file:
-      - .env.dev
+      - config/.env.dev
     environment:
       RUN_MIGRATIONS: "0"
       DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
@@ -193,7 +193,7 @@ services:
         SERVICE_PACKAGE: order_router
         SERVICE_MODULE: app.main
     env_file:
-      - .env.dev
+      - config/.env.dev
     environment:
       RUN_MIGRATIONS: "0"
       DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
@@ -231,7 +231,7 @@ services:
         SERVICE_PACKAGE: algo_engine
         SERVICE_MODULE: app.main
     env_file:
-      - .env.dev
+      - config/.env.dev
     environment:
       RUN_MIGRATIONS: "0"
       DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
@@ -267,7 +267,7 @@ services:
         SERVICE_PACKAGE: market_data
         SERVICE_MODULE: app.main
     env_file:
-      - .env.dev
+      - config/.env.dev
     environment:
       RUN_MIGRATIONS: "0"
       MARKET_DATA_DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
@@ -304,7 +304,7 @@ services:
         SERVICE_PACKAGE: reports
         SERVICE_MODULE: app.main
     env_file:
-      - .env.dev
+      - config/.env.dev
     environment:
       RUN_MIGRATIONS: "0"
       REPORTS_DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
@@ -347,7 +347,7 @@ services:
         SERVICE_PACKAGE: alert_engine
         SERVICE_MODULE: app.main
     env_file:
-      - .env.dev
+      - config/.env.dev
     environment:
       RUN_MIGRATIONS: "0"
       ALERT_ENGINE_DATABASE_URL: postgresql+psycopg2://trading:trading@postgres:5432/trading
@@ -393,7 +393,7 @@ services:
         SERVICE_PACKAGE: notification_service
         SERVICE_MODULE: app.main
     env_file:
-      - .env.dev
+      - config/.env.dev
     environment:
       RUN_MIGRATIONS: "0"
       NOTIFICATION_SERVICE_EVENTS_DATABASE_URL: sqlite:////data/alert_events.db
@@ -431,7 +431,7 @@ services:
         SERVICE_PACKAGE: streaming
         SERVICE_MODULE: app.main
     env_file:
-      - .env.dev
+      - config/.env.dev
     environment:
       RUN_MIGRATIONS: "0"
       STREAMING_PIPELINE_BACKEND: ${STREAMING_PIPELINE_BACKEND:-memory}
@@ -467,7 +467,7 @@ services:
         SERVICE_PACKAGE: streaming_gateway
         SERVICE_MODULE: app.main
     env_file:
-      - .env.dev
+      - config/.env.dev
     environment:
       RUN_MIGRATIONS: "0"
       STREAMING_GATEWAY_REDIS_URL: redis://redis:6379/2
@@ -513,7 +513,7 @@ services:
         SERVICE_PACKAGE: inplay
         SERVICE_MODULE: app.main
     env_file:
-      - .env.dev
+      - config/.env.dev
     environment:
       RUN_MIGRATIONS: "0"
       INPLAY_REDIS_URL: redis://redis:6379/3
@@ -548,7 +548,7 @@ services:
         SERVICE_PACKAGE: web_dashboard
         SERVICE_MODULE: app.main
     env_file:
-      - .env.dev
+      - config/.env.dev
     environment:
       RUN_MIGRATIONS: "0"
       WEB_DASHBOARD_STREAMING_BASE_URL: http://streaming_gateway:8000

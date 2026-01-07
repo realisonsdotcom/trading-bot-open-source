@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 import httpx
 import pytest
 
-from schemas.order_router import (
+from libs.schemas.order_router import (
     ExecutionRecord,
     OrderRecord,
     OrdersLogMetadata,

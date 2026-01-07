@@ -9,7 +9,7 @@ from typing import Any
 
 import httpx
 
-from schemas.order_router import ExecutionIntent, ExecutionReport
+from libs.schemas.order_router import ExecutionIntent, ExecutionReport
 
 
 class OrderRouterClientError(RuntimeError):

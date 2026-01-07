@@ -33,7 +33,7 @@ formalisation des procédures de gestion des secrets.
 - **Routage d'ordres** : `order-router` combine adaptateurs Binance/IBKR simulés, moteur de risque (limites
   dynamiques, stop-loss, notional max) et journal des exécutions sauvegardé via SQLAlchemy.【F:services/order_router/app/main.py†L1-L1880】
 - **Données de marché** : `market_data` fournit un webhook TradingView sécurisé (HMAC), expose quotes et
-  orderbooks basés sur les limites sandbox partagées dans `providers/limits.py`.【F:services/market_data/app/main.py†L1-L88】【F:providers/limits.py†L1-L120】
+  orderbooks basés sur les limites sandbox partagées dans `libs/providers/limits.py`.【F:services/market_data/app/main.py†L1-L88】【F:libs/providers/limits.py†L1-L120】
 - **Libs transverses** : entitlements middleware mutualisé, logs JSON corrélés, métriques Prometheus et
   gestionnaire de secrets multi-providers sont disponibles pour tous les services.【F:libs/entitlements/__init__.py†L1-L34】【F:libs/observability/logging.py†L1-L123】【F:libs/observability/metrics.py†L1-L80】【F:libs/secrets/__init__.py†L1-L120】
 
@@ -52,7 +52,7 @@ formalisation des procédures de gestion des secrets.
   préférences, masquage entitlements). `algo-engine` et `order-router` possèdent également des tests
   couvrant le catalogue de stratégies, les backtests et le routage d'ordres persisté.【F:services/user-service/tests/test_user.py†L1-L128】【F:services/algo_engine/tests/test_backtests.py†L1-L184】【F:services/order_router/tests/test_order_router.py†L1-L256】
 - **E2E** : des scripts Bash/PowerShell exécutent le flux auth (register/login/me) et sont intégrés à la CI
-  GitHub Actions via `codex.plan.yaml` (workflow `e2e`).【F:codex.plan.yaml†L45-L109】
+  GitHub Actions via `docs/domains/7_standards/plans/codex.plan.yaml` (workflow `e2e`).【F:docs/domains/7_standards/plans/codex.plan.yaml†L45-L109】
 - **Qualité** : la configuration `pyproject.toml` impose Black, isort, Flake8, Mypy strict, garantissant un
   socle cohérent pour de futures contributions.【F:pyproject.toml†L1-L35】
 
@@ -61,7 +61,7 @@ formalisation des procédures de gestion des secrets.
 - **Guides** : README (EN/FR) détaillent l'architecture, les phases projet et l'onboarding. Les guides
   complémentaires (`docs/`) couvrent stratégies, observabilité, sécurité, governance et roadmap.【F:README.md†L1-L120】【F:docs/ROADMAP.md†L1-L24】
 - **Gouvernance** : le comité KPI hebdomadaire est documenté (`docs/domains/5_community/governance/kpi-review.md`) et la roadmap
-  2025→2026 aligne releases et backlog (`docs/tasks/2025-q4-backlog.md`).【F:docs/domains/5_community/governance/kpi-review.md†L1-L40】【F:docs/tasks/2025-q4-backlog.md†L1-L56】
+  2025→2026 aligne releases et backlog (`docs/domains/7_standards/tasks/2025-q4-backlog.md`).【F:docs/domains/5_community/governance/kpi-review.md†L1-L40】【F:docs/domains/7_standards/tasks/2025-q4-backlog.md†L1-L56】
 
 ## 6. Risques et points d'attention
 
@@ -111,4 +111,4 @@ formalisation des procédures de gestion des secrets.
 
 Pour la synthèse détaillée et le backlog priorisé, consulter :
 - Rapport de revue : `docs/domains/6_quality/reports/2025-11-code-review.md`.
-- Backlog : `docs/tasks/2025-q4-backlog.md`.
+- Backlog : `docs/domains/7_standards/tasks/2025-q4-backlog.md`.

@@ -177,6 +177,7 @@ services/           # Each service is a FastAPI app (auth, algo_engine, etc.)
 │   └── Dockerfile          # Service container
 
 infra/              # Database, migrations, shared infrastructure
+config/             # Local environment configuration (dev/native)
 libs/               # Shared Python libraries
 scripts/            # Automation & deployment scripts
 docs/               # Domain-specific documentation
@@ -185,8 +186,8 @@ tests/              # Integration & end-to-end tests
 
 ### Key Configuration Files
 
-- **`.env.dev`**: Docker-based development environment variables
-- **`.env.native`**: Host-based (localhost) development environment variables
+- **`config/.env.dev`**: Docker-based development environment variables
+- **`config/.env.native`**: Host-based (localhost) development environment variables
 - **`docker-compose.yml`**: Main service orchestration
 - **`Makefile`**: Common development commands (`make dev-up`, `make test`, etc.)
 - **`pyproject.toml`**: Python project metadata & dependencies

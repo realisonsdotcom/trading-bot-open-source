@@ -148,7 +148,7 @@ COPY httpx  # If using libs/entitlements
 
 #### Environment Variables
 
-Review and set in `.env.dev`:
+Review and set in `config/.env.dev`:
 ```bash
 # Core Settings
 ENVIRONMENT=dev
@@ -449,13 +449,13 @@ trading-bot-open-source/
 ├── libs/              # Shared libraries
 ├── infra/             # Infrastructure (migrations, docker)
 ├── scripts/           # Development scripts
-├── schemas/           # Shared data schemas
+├── libs/schemas/      # Shared data schemas
 └── docs/              # Documentation
 ```
 
 ### Key Files
 - `docker-compose.yml` - Service orchestration
-- `.env.dev` - Development environment config
+- `config/.env.dev` - Development environment config
 - `Makefile` - Build & deployment commands
 - `infra/migrations/` - Database schema versions
 

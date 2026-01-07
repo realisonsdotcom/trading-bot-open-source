@@ -4,7 +4,7 @@ from decimal import Decimal
 import pytest
 
 from infra.trading_models import Execution as ExecutionModel, Order as OrderModel
-from schemas.market import (
+from libs.schemas.market import (
     ExecutionFill,
     ExecutionReport,
     ExecutionStatus,
@@ -12,7 +12,7 @@ from schemas.market import (
     OrderSide,
     OrderType,
 )
-from schemas.order_router import ExecutionIntent
+from libs.schemas.order_router import ExecutionIntent
 from libs.portfolio import encode_portfolio_key, encode_position_key
 
 

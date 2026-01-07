@@ -14,7 +14,7 @@ related:
 Ce document décrit le contrat REST utilisé entre un algorithme et le service
 `order-router` afin de déposer un ordre standardisé dans l'environnement
 sandbox. Les structures `ExecutionIntent` (requête) et `ExecutionReport`
-(réponse) sont définies dans `schemas/order_router.py` et servent également de
+(réponse) sont définies dans `libs/schemas/order_router.py` et servent également de
 schémas FastAPI.
 
 ## Transport et chemin
@@ -112,7 +112,7 @@ Payload enrichi combinant l'ordre standardisé et un contexte risque facultatif.
 ## `ExecutionReport`
 
 Accusé d'exécution renvoyé immédiatement après la soumission ; il reprend les
-champs standards partagés avec `schemas/market.py`.
+champs standards partagés avec `libs/schemas/market.py`.
 
 | Champ | Type | Description |
 | --- | --- | --- |

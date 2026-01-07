@@ -35,7 +35,7 @@ Les tâches sont regroupées par criticité et se réfèrent aux services et bib
 ## 🟠 Criticité moyenne
 
 1. **Démo trading sandbox**
-   - Livrer un script CLI (`scripts/dev/demo_trade.py`) orchestrant quote ➜ plan ➜ ordre ➜ rapport via les services existants.【F:providers/limits.py†L1-L120】
+   - Livrer un script CLI (`scripts/dev/demo_trade.py`) orchestrant quote ➜ plan ➜ ordre ➜ rapport via les services existants.【F:libs/providers/limits.py†L1-L120】
    - Documenter le parcours dans `docs/domains/3_operations/mvp-sandbox-flow.md`.
 
 2. **Playbook observabilité**

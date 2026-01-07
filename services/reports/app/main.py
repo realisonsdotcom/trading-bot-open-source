@@ -15,7 +15,7 @@ from sqlalchemy.orm import Session
 from libs.entitlements.auth0_integration import install_auth0_with_entitlements
 from libs.observability.logging import RequestContextMiddleware, configure_logging
 from libs.observability.metrics import setup_metrics
-from schemas.report import DailyRiskReport, PortfolioPerformance, ReportResponse
+from libs.schemas.report import DailyRiskReport, PortfolioPerformance, ReportResponse
 
 from .calculations import DailyRiskCalculator, ReportCalculator, load_report_from_snapshots
 from .config import Settings, get_settings
