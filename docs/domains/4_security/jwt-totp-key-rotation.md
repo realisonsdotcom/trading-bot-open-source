@@ -2,8 +2,13 @@
 domain: 4_security
 title: Guide de rotation des clés JWT et TOTP
 description: Ce guide décrit la procédure opérationnelle pour renouveler régulièrement les secrets utilisés par les services `auth-service` et `user-service` afin de signer les JSON Web Tokens (JWT) et générer les graines TOTP. Les rotations fréquentes réduisent la fenêtre d'exploitation en cas d'exposition accidentelle d'un secret.
-keywords: 4 security, jwt, totp, key, rotation
+keywords: security, jwt, totp, key-rotation, auth-service
 last_updated: 2026-01-06
+status: published
+related:
+  - AUTH0_SETUP.md
+  - broker-credentials-encryption.md
+  - ../2_architecture/platform/auth-service.md
 ---
 
 # Guide de rotation des clés JWT et TOTP

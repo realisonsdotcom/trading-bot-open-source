@@ -6,6 +6,9 @@ keywords: auth0, migration, status, security, archived
 last_updated: 2026-01-06
 status: deprecated
 archived_reason: "Migrated from root after documentation restructuring"
+related:
+  - ../AUTH0_SETUP.md
+  - ../INDEX.md
 ---
 
 # 🚀 Migration Auth0 - État d'Avancement

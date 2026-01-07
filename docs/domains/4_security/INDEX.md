@@ -4,6 +4,12 @@ title: Security Domain Index
 description: Security, authentication, and credential handling guidance.
 keywords: security, auth0, credentials, encryption, rotation, index
 last_updated: 2026-01-06
+status: published
+related:
+  - AUTH0_SETUP.md
+  - broker-credentials-encryption.md
+  - jwt-totp-key-rotation.md
+  - history/AUTH0_MIGRATION_STATUS.md
 ---
 
 # Security Domain Index
