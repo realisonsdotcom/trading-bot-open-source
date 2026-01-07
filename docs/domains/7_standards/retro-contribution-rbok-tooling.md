@@ -204,11 +204,11 @@ The `trading-bot-open-source` project has developed several tooling solutions th
 
 3. **Add to Makefile (Optional)**
    ```makefile
-   docs-validate:
-       python scripts/validate_docs_metadata.py
-   
-   docs-index:
-       python scripts/generate_index.py
+docs-validate:
+    python scripts/validate_docs_metadata.py
+
+docs-index:
+    python scripts/generate_index.py
    ```
 
 ### Phase 4: Validation

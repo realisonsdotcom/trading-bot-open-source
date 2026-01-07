@@ -73,8 +73,18 @@ def _validate_metadata(path: Path, metadata: dict) -> list[str]:
             errors.append(f"Missing required field: {field}")
 
     domain = _get_field(metadata, "domain")
-    if domain is not None and domain not in VALID_DOMAINS:
-        errors.append(f"Invalid domain: {domain}")
+    if domain is not None:
+        if domain not in VALID_DOMAINS:
+            errors.append(f"Invalid domain: {domain}")
+        else:
+            # Check if domain matches directory
+            parts = path.parts
+            if "domains" in parts:
+                idx = parts.index("domains")
+                if len(parts) > idx + 1:
+                    expected_domain = parts[idx + 1]
+                    if domain != expected_domain:
+                        errors.append(f"Domain mismatch: '{domain}' field does not match directory '{expected_domain}'")
 
     status = _get_field(metadata, "status")
     if status is not None and status not in VALID_STATUSES:
